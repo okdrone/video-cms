@@ -19,7 +19,7 @@
 		<ul class="nav nav-tabs">
 			<li><a href="{:U('AdminQuestion/index')}">{:L('PORTAL_ADMINQUESTION_INDEX')}</a></li>
 			<li><a href="{:U('AdminOption/index',array('ques_id'=>empty($ques_id)?'':$ques_id))}">{:L('PORTAL_AdminOption_INDEX')}</a></li>
-			<li class="active"><a href="#">{:L('PORTAL_ADMINQUESTION_EDIT')}</a></li>
+			<li class="active"><a href="#">{:L('PORTAL_ADMINOPTION_EDIT')}</a></li>
 		</ul>
 		<form action="{:U('AdminOption/edit_post')}" method="post" class="form-horizontal js-ajax-forms" enctype="multipart/form-data">
 			<div class="row-fluid">
