@@ -1,0 +1,103 @@
+<admintpl file="header" />
+</head>
+<body>
+	<div class="wrap js-check-wrap">
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="javascript:;">{:L('PORTAL_ADMINQUESTION_INDEX')}</a></li>
+			<li><a href="{:U('AdminQuestion/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">{:L('PORTAL_ADMINQUESTION_ADD')}</a></li>
+		</ul>
+		<form class="well form-search" method="post" action="{:U('AdminQuestion/index')}">
+			时间：
+			<input type="text" name="start_time" class="js-datetime" value="{$formget.start_time|default=''}" style="width: 120px;" autocomplete="off">-
+			<input type="text" class="js-datetime" name="end_time" value="{$formget.end_time|default=''}" style="width: 120px;" autocomplete="off"> &nbsp; &nbsp;
+			关键字： 
+			<input type="text" name="keyword" style="width: 200px;" value="{$formget.keyword|default=''}" placeholder="请输入关键字...">
+			<input type="submit" class="btn btn-primary" value="搜索" />
+			<a class="btn btn-danger" href="{:U('AdminQuestion/index')}">清空</a>
+		</form>
+		<form class="js-ajax-form" action="" method="post">
+			<div class="table-actions">
+				<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:U('AdminQuestion/delete')}" data-subcheck="true" data-msg="您确定删除吗？">{:L('DELETE')}</button>
+			</div>
+			<table class="table table-hover table-bordered table-list">
+				<thead>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<notempty name="term">
+						<th width="50">{:L('SORT')}</th>
+						</notempty>
+						<th width="50">ID</th>
+						<th>{:L('TITLE')}</th>
+						<th width="50">{:L('AUTHOR')}</th>
+						<th width="100">{:L('CREATE_DATE')}</th>
+						<th width="30">{:L('STATUS')}</th>
+						<th width="140">{:L('ACTIONS')}</th>
+					</tr>
+				</thead>
+				<foreach name="posts" item="vo">
+				<tr>
+					<td><input type="checkbox" class="js-check" data-yid="js-check-y" data-xid="js-check-x" name="ids[]" value="{$vo.id}" title="ID:{$vo.id}"></td>
+					<notempty name="term">
+					<td><input name="listorders[{$vo.tid}]" class="input input-order" type="text" size="5" value="{$vo.listorder}"></td>
+					</notempty>
+                    <td><b>{$vo.id}</b></td>
+					<td>
+                        {$vo.title}
+					</td>
+					<td>{$vo.user_nicename|default=$vo.user_login}</td>
+					<td>{:date('Y-m-d H:i',$vo['add_time'])}</td>
+					<td>
+						<notempty name="vo.status">
+							<a data-toggle="tooltip" title="已发布"><i class="fa fa-check"></i></a>
+							<else/>
+							<a data-toggle="tooltip" title="未发布"><i class="fa fa-close"></i></a>
+						</notempty>
+					</td>
+					<td>
+                        <a href="{:U('AdminOption/index',array('ques_id'=>$vo['id']))}">{:L('OPTIONS')}</a> |
+                        <a href="{:U('AdminQuestion/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
+						<a href="{:U('AdminQuestion/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+					</td>
+				</tr>
+				</foreach>
+				<tfoot>
+					<tr>
+						<th width="15"><label><input type="checkbox" class="js-check-all" data-direction="x" data-checklist="js-check-x"></label></th>
+						<notempty name="term">
+						<th width="50">{:L('SORT')}</th>
+						</notempty>
+						<th width="50">ID</th>
+						<th>{:L('TITLE')}</th>
+						<th width="50">{:L('AUTHOR')}</th>
+						<th width="100">{:L('CREATE_DATE')}</th>
+						<th >{:L('STATUS')}</th>
+						<th >{:L('ACTIONS')}</th>
+					</tr>
+				</tfoot>
+			</table>
+			<div class="table-actions">
+				<button class="btn btn-danger btn-small js-ajax-submit" type="submit" data-action="{:U('AdminQuestion/delete')}" data-subcheck="true" data-msg="你确定删除吗？">{:L('DELETE')}</button>
+			</div>
+			<div class="pagination">{$page}</div>
+		</form>
+	</div>
+	<script src="__PUBLIC__/js/common.js"></script>
+	<script>
+		function refersh_window() {
+			var refersh_time = getCookie('refersh_time');
+			if (refersh_time == 1) {
+				window.location = "{:U('AdminQuestion/index',$formget)}";
+			}
+		}
+		setInterval(function() {
+			refersh_window();
+		}, 2000);
+		$(function() {
+			setCookie("refersh_time", 0);
+			Wind.use('ajaxForm', 'artDialog', 'iframeTools', function() {
+
+			});
+		});
+	</script>
+</body>
+</html>
