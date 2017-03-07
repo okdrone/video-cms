@@ -30,8 +30,8 @@
 							<th>类型</th>
 							<td>
 								<select id="opt_type" name="opt[type]">
-									<option value="text" <if condition="$ques.type eq 1">selected</if> >文本</option>
-									<option value="image" <if condition="$ques.type eq 2">selected</if> >图片</option>
+									<option value="1" <if condition="$ques.type eq 1">selected</if> {$ques.type} >文本</option>
+									<option value="2" <if condition="$ques.type eq 2">selected</if> {$ques.type} >图片</option>
 								</select>
 							</td>
 						</tr>
@@ -101,10 +101,10 @@
 			});
             $('#opt_type').change(function () {
                 var _t = $(this).val();
-                if(_t == 'text'){
+                if(_t == '1'){
                     $("#opt_tab").find('tr:eq(1)').show();
                     $("#opt_tab").find('tr:eq(2)').hide();
-                } else if(_t == 'image') {
+                } else if(_t == '2') {
                     $("#opt_tab").find('tr:eq(1)').hide();
                     $("#opt_tab").find('tr:eq(2)').show();
                 }
@@ -113,22 +113,6 @@
 			Wind.use('validate', 'ajaxForm', 'artDialog', function() {
 				//javascript
 
-				//编辑器
-				editorcontent = new baidu.editor.ui.Editor();
-				editorcontent.render('content');
-				try {
-					editorcontent.sync();
-				} catch (err) {
-				}
-				//增加编辑器验证规则
-				jQuery.validator.addMethod('editorcontent', function() {
-					try {
-						editorcontent.sync();
-					} catch (err) {
-					}
-					;
-					return editorcontent.hasContents();
-				});
 				var form = $('form.js-ajax-forms');
 				//ie处理placeholder提交问题
 				if ($.browser && $.browser.msie) {

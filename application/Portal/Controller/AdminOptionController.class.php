@@ -127,6 +127,8 @@ class AdminOptionController extends AdminbaseController {
 	public function edit_post(){
 		if (IS_POST) {
 			$post_id=intval($_POST['opt']['id']);
+
+            $_type=intval($_POST['opt']['type']);
 			
 			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
 				foreach ($_POST['photos_url'] as $key=>$url){
@@ -135,11 +137,19 @@ class AdminOptionController extends AdminbaseController {
 				}
 			}
 			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
-			unset($_POST['ques']['author']);
-			$_POST['opt']['last_modified']=time();
-			$article=I("post.opt");
-			$article['smeta']=json_encode($_POST['smeta']);
-			$result=$this->option_model->save($article);
+
+			if($_type == 1) {
+                $this->option_model->title = $_POST['opt']['title'];
+            } else if($_type == 2) {
+                $this->option_model->smeta = json_encode($_POST['smeta']);;
+            } else {
+			    $this->error("Option type is unsupported！");
+            }
+
+            $this->option_model->last_modified = time();
+            $this->option_model->type = $_type;
+
+			$result=$this->option_model->where(array('id' => $post_id))->save();
 			if ($result!==false) {
 				$this->success("保存成功！");
 			} else {
