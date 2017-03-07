@@ -113,18 +113,20 @@ class AdminOptionController extends AdminbaseController {
 
     // 文章编辑
 	public function edit(){
+        $ques_id=  I("get.ques_id",0,'intval');
 		$id=  I("get.id",0,'intval');
 
 		$ques=$this->option_model->where("id=$id")->find();
 		$this->assign("ques",$ques);
 		$this->assign("smeta",json_decode($ques['smeta'],true));
+        $this->assign("ques_id",$ques_id);
 		$this->display();
 	}
 	
 	// 文章编辑提交
 	public function edit_post(){
 		if (IS_POST) {
-			$post_id=intval($_POST['ques']['id']);
+			$post_id=intval($_POST['opt']['id']);
 			
 			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
 				foreach ($_POST['photos_url'] as $key=>$url){
@@ -134,8 +136,8 @@ class AdminOptionController extends AdminbaseController {
 			}
 			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
 			unset($_POST['ques']['author']);
-			$_POST['ques']['last_modified']=time();
-			$article=I("post.ques");
+			$_POST['opt']['last_modified']=time();
+			$article=I("post.opt");
 			$article['smeta']=json_encode($_POST['smeta']);
 			$result=$this->option_model->save($article);
 			if ($result!==false) {

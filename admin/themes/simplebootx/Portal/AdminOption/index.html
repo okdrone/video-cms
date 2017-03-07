@@ -49,8 +49,8 @@
 					<td>{$vo.user_nicename|default=$vo.user_login}</td>
 					<td>{:date('Y-m-d H:i',$vo['add_time'])}</td>
 					<td>
-						<a href="{:U('AdminOption/edit',array('id'=>$vo['id']))}">{:L('EDIT')}</a> |
-						<a href="{:U('AdminOption/delete',array('id'=>$vo['id']))}" class="js-ajax-delete">{:L('DELETE')}</a>
+						<a href="{:U('AdminOption/edit',array('id'=>$vo['id'], 'ques_id'=>$ques_id))}">{:L('EDIT')}</a> |
+						<a href="{:U('AdminOption/delete',array('id'=>$vo['id'], 'ques_id'=>$ques_id))}" class="js-ajax-delete">{:L('DELETE')}</a>
 					</td>
 				</tr>
 				</foreach>

@@ -18,22 +18,32 @@
 	<div class="wrap js-check-wrap">
 		<ul class="nav nav-tabs">
 			<li><a href="{:U('AdminQuestion/index')}">{:L('PORTAL_ADMINQUESTION_INDEX')}</a></li>
-			<li><a href="{:U('AdminOption/index',array('ques_id'=>empty($ques_id)?'':$ques_id))}">{:L('PORTAL_AdminOption_INDEX')}</a></li>
+			<li><a href="{:U('AdminOption/index',array('ques_id'=>empty($ques_id)?'':$ques_id))}">{:L('PORTAL_ADMINOPTION_INDEX')}</a></li>
 			<li class="active"><a href="#">{:L('PORTAL_ADMINOPTION_EDIT')}</a></li>
 		</ul>
 		<form action="{:U('AdminOption/edit_post')}" method="post" class="form-horizontal js-ajax-forms" enctype="multipart/form-data">
 			<div class="row-fluid">
 				<div class="span9">
-					<table class="table table-bordered">
+                    <input type="hidden" name="opt[ques_id]" value="{$ques_id}" />
+                    <table id="opt_tab" class="table table-bordered">
 						<tr>
+							<th>类型</th>
+							<td>
+								<select id="opt_type" name="opt[type]">
+									<option value="text" <if condition="$ques.type eq 1">selected</if> >文本</option>
+									<option value="image" <if condition="$ques.type eq 2">selected</if> >图片</option>
+								</select>
+							</td>
+						</tr>
+						<tr style="<if condition="$ques.type neq 1">display: none</if>" >
 							<th>标题</th>
 							<td>
-								<input type="hidden" name="ques[id]" value="{$ques.id}">
-								<input type="text" style="width: 400px;" name="ques[title]" required value="{$ques.title}" placeholder="请输入标题"/>
+								<input type="hidden" name="opt[id]" value="{$ques.id}">
+								<input type="text" style="width: 400px;" name="opt[title]" required value="{$ques.title}" placeholder="请输入标题"/>
 								<span class="form-required">*</span>
 							</td>
 						</tr>
-						<tr>
+						<tr style="<if condition="$ques.type neq 2">display: none</if>" >
 							<th>配图</th>
 							<td>
 								<div>
@@ -55,7 +65,7 @@
 			</div>
 			<div class="form-actions">
 				<button class="btn btn-primary js-ajax-submit" type="submit">提交</button>
-				<a class="btn" href="{:U('AdminOption/index')}">返回</a>
+				<a class="btn" href="{:U('AdminOption/index',array('ques_id'=>empty($ques_id)?'':$ques_id))}">返回</a>
 			</div>
 		</form>
 	</div>
@@ -89,6 +99,16 @@
 					});
 				});
 			});
+            $('#opt_type').change(function () {
+                var _t = $(this).val();
+                if(_t == 'text'){
+                    $("#opt_tab").find('tr:eq(1)').show();
+                    $("#opt_tab").find('tr:eq(2)').hide();
+                } else if(_t == 'image') {
+                    $("#opt_tab").find('tr:eq(1)').hide();
+                    $("#opt_tab").find('tr:eq(2)').show();
+                }
+            });
 			/////---------------------
 			Wind.use('validate', 'ajaxForm', 'artDialog', function() {
 				//javascript
