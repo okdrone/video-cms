@@ -1,7 +1,7 @@
 <?php
 return array(
-    "TITLE" => '标题',
-    "CATEGORY" => '分类',
+    "DISEASE" => '疾病',
+    "DEPARTMENTS" => '科室',
     "OPTIONS" => '选项管理',
     "KEYWORDS" => '关键字',
     "COMMENT_COUNT" => '评论量',
