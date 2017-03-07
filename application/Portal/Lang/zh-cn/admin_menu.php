@@ -42,4 +42,9 @@ return array (
     'PORTAL_ADMINOPTION_ADD' => '添加选项',
     'PORTAL_ADMINOPTION_DELETE' => '删除选项',
     'PORTAL_ADMINOPTION_EDIT' => '编辑选项',
+
+    'PORTAL_ADMINDISEASE_INDEX' => '疾病管理',
+    'PORTAL_ADMINDISEASE_ADD' => '添加疾病',
+    'PORTAL_ADMINDISEASE_DELETE' => '删除疾病',
+    'PORTAL_ADMINDISEASE_EDIT' => '编辑疾病',
 );
