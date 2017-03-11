@@ -50,29 +50,20 @@ class AdminDiseaseController extends AdminbaseController {
 	public function edit(){
 		$id=  I("get.id",0,'intval');
 
-		$ques=$this->disease_model->where("id=$id")->find();
-		$this->assign("ques",$ques);
-		$this->assign("smeta",json_decode($ques['smeta'],true));
+        $dise=$this->disease_model->where("id=$id")->find();
+		$this->assign("dise",$dise);
 		$this->display();
 	}
 	
 	// 文章编辑提交
 	public function edit_post(){
 		if (IS_POST) {
-			$post_id=intval($_POST['ques']['id']);
-			
-			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
-				foreach ($_POST['photos_url'] as $key=>$url){
-					$photourl=sp_asset_relative_url($url);
-					$_POST['smeta']['photo'][]=array("url"=>$photourl,"alt"=>$_POST['photos_alt'][$key]);
-				}
-			}
-			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
-			unset($_POST['ques']['author']);
-			$_POST['ques']['last_modified']=time();
-			$article=I("post.ques");
-			$article['smeta']=json_encode($_POST['smeta']);
-			$result=$this->disease_model->save($article);
+			$post_id=intval($_POST['dise']['id']);
+
+            $this->disease_model->departments = $_POST['dise']['departments'];
+            $this->disease_model->disease = $_POST['dise']['disease'];
+			$result=$this->disease_model->where(array('id' => $post_id))->save();
+
 			if ($result!==false) {
 				$this->success("保存成功！");
 			} else {
@@ -126,7 +117,7 @@ class AdminDiseaseController extends AdminbaseController {
 	public function delete(){
 		if(isset($_GET['id'])){
 			$id = I("get.id",0,'intval');
-			if ($this->disease_model->where(array('id'=>$id))->save(array('status'=>3)) !==false) {
+			if ($this->disease_model->where(array('id'=>$id))->delete() !==false) {
 				$this->success("删除成功！");
 			} else {
 				$this->error("删除失败！");
@@ -136,7 +127,7 @@ class AdminDiseaseController extends AdminbaseController {
 		if(isset($_POST['ids'])){
 			$ids = I('post.ids/a');
 			
-			if ($this->disease_model->where(array('id'=>array('in',$ids)))->save(array('status'=>3))!==false) {
+			if ($this->disease_model->where(array('id'=>array('in',$ids)))->delete()!==false) {
 				$this->success("删除成功！");
 			} else {
 				$this->error("删除失败！");
