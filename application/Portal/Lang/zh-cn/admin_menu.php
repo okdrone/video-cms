@@ -47,4 +47,9 @@ return array (
     'PORTAL_ADMINDISEASE_ADD' => '添加疾病',
     'PORTAL_ADMINDISEASE_DELETE' => '删除疾病',
     'PORTAL_ADMINDISEASE_EDIT' => '编辑疾病',
+
+    'PORTAL_ADMINDOCTOR_INDEX' => '医生管理',
+    'PORTAL_ADMINDOCTOR_ADD' => '添加医生',
+    'PORTAL_ADMINDOCTOR_DELETE' => '删除医生',
+    'PORTAL_ADMINDOCTOR_EDIT' => '编辑医生',
 );
