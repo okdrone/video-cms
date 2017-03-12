@@ -52,4 +52,9 @@ return array (
     'PORTAL_ADMINDOCTOR_ADD' => '添加医生',
     'PORTAL_ADMINDOCTOR_DELETE' => '删除医生',
     'PORTAL_ADMINDOCTOR_EDIT' => '编辑医生',
+
+    'PORTAL_ADMINVIDEO_INDEX' => '视频管理',
+    'PORTAL_ADMINVIDEO_ADD' => '添加视频',
+    'PORTAL_ADMINVIDEO_DELETE' => '删除视频',
+    'PORTAL_ADMINVIDEO_EDIT' => '编辑视频',
 );
