@@ -12,11 +12,11 @@ use Common\Controller\AdminbaseController;
 
 class AdminDoctorController extends AdminbaseController {
     
-	protected $question_model;
+	protected $doctor_model;
 	
 	function _initialize() {
 		parent::_initialize();
-		$this->question_model = D("Portal/Doctor");
+		$this->doctor_model = D("Portal/Doctor");
 	}
 	
 	// 后台文章管理列表
@@ -31,25 +31,34 @@ class AdminDoctorController extends AdminbaseController {
 	}
 	
 	// 文章添加提交
-	public function add_question(){
+	public function add_doctor(){
 		if (IS_POST) {
-			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
-				foreach ($_POST['photos_url'] as $key=>$url){
-					$photourl=sp_asset_relative_url($url);
-					$_POST['smeta']['photo'][]=array("url"=>$photourl,"alt"=>$_POST['photos_alt'][$key]);
-				}
-			}
-			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
 
-            $_POST['ques']['add_time']=time();
-            $_POST['ques']['last_modified']=time();
-			$_POST['ques']['author']=get_current_admin_id();
-			$article=I("post.ques");
-            $article['smeta']=json_encode($_POST['smeta']);
+		    if(!empty($_POST['doct']['doctor'])){
+		        $_POST['doct']['name'] = $_POST['doct']['doctor'];
+		        unset($_POST['doct']['doctor']);
+            } else {
+                $this->erorr("The Doctor field does not be empty!");
+            }
 
-			//dump($article);
+		    if(!empty($_POST['doct']['city'])){
+		        $arr = explode('-', $_POST['doct']['city']);
+		        if(count($arr) > 1) {
+                    $_POST['doct']['province'] = $arr[0];
+                    $_POST['doct']['city'] = $arr[1];
+                } else {
+                    $this->erorr("The City field is wrong!");
+                }
+            } else {
+		        $this->erorr("The City field does not be empty!");
+            }
 
-			$result=$this->question_model->add($article);
+            $_POST['doct']['add_time']=time();
+            $_POST['doct']['last_modified']=time();
+			$_POST['doct']['author']=get_current_admin_id();
+			$article=I("post.doct");
+
+			$result=$this->doctor_model->add($article);
 			if ($result) {
 				$this->success("添加成功！");
 			} else {
@@ -63,9 +72,9 @@ class AdminDoctorController extends AdminbaseController {
 	public function edit(){
 		$id=  I("get.id",0,'intval');
 
-		$ques=$this->question_model->where("id=$id")->find();
-		$this->assign("ques",$ques);
-		$this->assign("smeta",json_decode($ques['smeta'],true));
+		$doct=$this->doctor_model->where("id=$id")->find();
+		$doct['city'] = $doct['province'] . '-' . $doct['city'];
+		$this->assign("doct",$doct);
 		$this->display();
 	}
 	
@@ -73,19 +82,31 @@ class AdminDoctorController extends AdminbaseController {
 	public function edit_post(){
 		if (IS_POST) {
 			$post_id=intval($_POST['ques']['id']);
-			
-			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
-				foreach ($_POST['photos_url'] as $key=>$url){
-					$photourl=sp_asset_relative_url($url);
-					$_POST['smeta']['photo'][]=array("url"=>$photourl,"alt"=>$_POST['photos_alt'][$key]);
-				}
-			}
-			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
-			unset($_POST['ques']['author']);
-			$_POST['ques']['last_modified']=time();
-			$article=I("post.ques");
-			$article['smeta']=json_encode($_POST['smeta']);
-			$result=$this->question_model->save($article);
+
+            if(!empty($_POST['doct']['doctor'])){
+                $_POST['doct']['name'] = $_POST['doct']['doctor'];
+                unset($_POST['doct']['doctor']);
+            } else {
+                $this->erorr("The Doctor field does not be empty!");
+            }
+
+            if(!empty($_POST['doct']['city'])){
+                $arr = explode('-', $_POST['doct']['city']);
+                if(count($arr) > 1) {
+                    $_POST['doct']['province'] = $arr[0];
+                    $_POST['doct']['city'] = $arr[1];
+                } else {
+                    $this->erorr("The City field is wrong!");
+                }
+            } else {
+                $this->erorr("The City field does not be empty!");
+            }
+
+			unset($_POST['doct']['author']);
+			$_POST['doct']['last_modified']=time();
+			$article=I("post.doct");
+
+			$result=$this->doctor_model->save($article);
 			if ($result!==false) {
 				$this->success("保存成功！");
 			} else {
@@ -120,28 +141,28 @@ class AdminDoctorController extends AdminbaseController {
 		    $where['title']=array('like',"%$keyword%");
 		}
 			
-		$this->question_model
+		$this->doctor_model
 		->alias("a")
 		->where($where);
 
 		
-		$count=$this->question_model->count();
+		$count=$this->doctor_model->count();
 			
 		$page = $this->page($count, 20);
 			
-		$this->question_model
+		$this->doctor_model
 		->alias("a")
 		->join("__USERS__ c ON a.author = c.id")
 		->where($where)
 		->limit($page->firstRow , $page->listRows)
 		->order("a.add_time DESC");
 		if(empty($term_id)){
-		    $this->question_model->field('a.*,c.user_login,c.user_nicename');
+		    $this->doctor_model->field('a.*,c.user_login,c.user_nicename');
 		}else{
-		    $this->question_model->field('a.*,c.user_login,c.user_nicename,b.listorder,b.tid');
-		    $this->question_model->join("__TERM_RELATIONSHIPS__ b ON a.id = b.object_id");
+		    $this->doctor_model->field('a.*,c.user_login,c.user_nicename,b.listorder,b.tid');
+		    $this->doctor_model->join("__TERM_RELATIONSHIPS__ b ON a.id = b.object_id");
 		}
-		$posts=$this->question_model->select();
+		$posts=$this->doctor_model->select();
 		
 		$this->assign("page", $page->show('Admin'));
 		$this->assign("formget",array_merge($_GET,$_POST));
@@ -152,7 +173,7 @@ class AdminDoctorController extends AdminbaseController {
 	public function delete(){
 		if(isset($_GET['id'])){
 			$id = I("get.id",0,'intval');
-			if ($this->question_model->where(array('id'=>$id))->save(array('status'=>3)) !==false) {
+			if ($this->doctor_model->where(array('id'=>$id))->save(array('status'=>3)) !==false) {
 				$this->success("删除成功！");
 			} else {
 				$this->error("删除失败！");
@@ -162,7 +183,7 @@ class AdminDoctorController extends AdminbaseController {
 		if(isset($_POST['ids'])){
 			$ids = I('post.ids/a');
 			
-			if ($this->question_model->where(array('id'=>array('in',$ids)))->save(array('status'=>3))!==false) {
+			if ($this->doctor_model->where(array('id'=>array('in',$ids)))->save(array('status'=>3))!==false) {
 				$this->success("删除成功！");
 			} else {
 				$this->error("删除失败！");
@@ -181,7 +202,7 @@ class AdminDoctorController extends AdminbaseController {
 		if(isset($_POST['ids'])){
 			$ids = I('post.ids/a');
 			$ids = array_map('intval', $ids);
-			$status=$this->question_model->where(array("id"=>array('in',$ids),'status'=>3))->delete();
+			$status=$this->doctor_model->where(array("id"=>array('in',$ids),'status'=>3))->delete();
 			
 			if ($status!==false) {
 				$this->success("删除成功！");
@@ -191,7 +212,7 @@ class AdminDoctorController extends AdminbaseController {
 		}else{
 			if(isset($_GET['id'])){
 				$id = I("get.id",0,'intval');
-				$status=$this->question_model->where(array("id"=>$id,'status'=>3))->delete();
+				$status=$this->doctor_model->where(array("id"=>$id,'status'=>3))->delete();
 				
 				if ($status!==false) {
 					$this->success("删除成功！");
@@ -206,7 +227,7 @@ class AdminDoctorController extends AdminbaseController {
 	public function restore(){
 		if(isset($_GET['id'])){
 			$id = I("get.id",0,'intval');
-			if ($this->question_model->where(array("id"=>$id,'post_status'=>3))->save(array("post_status"=>"1"))) {
+			if ($this->doctor_model->where(array("id"=>$id,'post_status'=>3))->save(array("post_status"=>"1"))) {
 				$this->success("还原成功！");
 			} else {
 				$this->error("还原失败！");
