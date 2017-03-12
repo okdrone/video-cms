@@ -2,9 +2,11 @@
 return array(
     "TITLE" => '标题',
     "CATEGORY" => '分类',
-    "OPTIONS" => '选项管理',
+    "DOCTOR" => '医生',
+    "DISEASE" => '疾病',
     "KEYWORDS" => '关键字',
-    "COMMENT_COUNT" => '评论量',
+    "VIEW_COUNT" => '点击量',
+    "PLAY_COUNT" => '播放量',
     "SOURCE" => '来源',
     "ABSTRACT" => '摘要',
     "THUMBNAIL" => "缩略图",
