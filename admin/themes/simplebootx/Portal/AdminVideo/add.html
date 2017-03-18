@@ -21,7 +21,7 @@
 			<li><a href="{:U('AdminVideo/index')}">{:L('PORTAL_ADMINVIDEO_INDEX')}</a></li>
 			<li class="active"><a href="{:U('AdminVideo/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">{:L('PORTAL_ADMINVIDEO_ADD')}</a></li>
 		</ul>
-		<form action="{:U('AdminVideo/add_question')}" method="post" class="form-horizontal js-ajax-forms" enctype="multipart/form-data">
+		<form action="{:U('AdminVideo/add_video')}" method="post" class="form-horizontal js-ajax-forms" enctype="multipart/form-data">
 			<div class="row-fluid">
 				<div class="span9">
 					<table class="table table-bordered">
@@ -78,7 +78,7 @@
                         <tr>
                             <th>时长</th>
                             <td>
-                                <input type="text" style="width:400px;" name="video[time]" id="time" required value="" placeholder="请输入时长"/>
+                                <input type="text" style="width:400px;" name="video[time]" id="time" required value="" placeholder="请输入时长" maxlength="10"/>
                                 <span class="form-required">*</span>
                             </td>
                         </tr>
@@ -125,7 +125,7 @@
                             <th><b>发布时间</b></th>
                         </tr>
                         <tr>
-                            <td><input type="text" name="video[post_date]" value="{:date('Y-m-d H:i:s',time())}" class="js-datetime" style="width: 160px;"></td>
+                            <td><input type="text" name="video[pub_time]" value="{:date('Y-m-d H:i:s',time())}" class="js-datetime" style="width: 160px;"></td>
                         </tr>
                         <tr>
                             <th><b>状态</b></th>
@@ -259,7 +259,7 @@
                         $(this).find('input[type="checkbox"]:checked').each(function (index, obj) {
                             var title = $(obj).attr('data');
                             var id = $(obj).val();
-                            $('#video_questions').append('<li><input type="hidden" name="video[questions]" value="' + id + '" />' + title + '</li>');
+                            $('#video_questions').append('<li><input type="hidden" name="questions[]" value="' + id + '" />' + title + '</li>');
                         })
 
                         $(this).dialog('close');
@@ -289,7 +289,7 @@
                         $(this).find('input[type="checkbox"]:checked').each(function (index, obj) {
                             var title = $(obj).attr('data');
                             var id = $(obj).val();
-                            $('#video_recommend').append('<li><input type="hidden" name="video[recommend]" value="' + id + '" />' + title + '</li>');
+                            $('#video_recommend').append('<li><input type="hidden" name="recommend[]" value="' + id + '" />' + title + '</li>');
                         })
 
                         $(this).dialog('close');
@@ -356,18 +356,24 @@
 						'video[title]' : {
 							required : 1
 						},
-						'post[post_content]' : {
-							editorcontent : true
-						}
+						'video[time]' : {
+							required : 1
+						},
+                        'video[link]' : {
+                            required : 1
+                        }
 					},
 					//验证未通过提示消息
 					messages : {
 						'video[title]' : {
 							required : '请输入标题'
 						},
-						'post[post_content]' : {
-							editorcontent : '内容不能为空'
-						}
+						'video[time]' : {
+                            required : '请输入时长'
+						},
+                        'video[link]' : {
+                            required : '请输入视频地址'
+                        }
 					},
 					//给未通过验证的元素加效果,闪烁等
 					highlight : false,

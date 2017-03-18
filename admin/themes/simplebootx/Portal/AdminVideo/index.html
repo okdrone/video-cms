@@ -28,8 +28,8 @@
 						</notempty>
 						<th width="50">ID</th>
 						<th>{:L('TITLE')}</th>
-						<th width="50">{:L('DOCTOR')}</th>
-                        <th width="50">{:L('DISEASE')}</th>
+						<th width="180">{:L('DOCTOR')}</th>
+                        <th width="80">{:L('DISEASE')}</th>
                         <th width="50">{:L('VIEW_COUNT')}</th>
                         <th width="50">{:L('PLAY_COUNT')}</th>
 						<th width="50">{:L('AUTHOR')}</th>
@@ -48,6 +48,18 @@
 					<td>
                         {$vo.title}
 					</td>
+					<td>
+						{$vo.doctor_name} ({$vo.province}{$vo.city} - {$vo.hospital})
+					</td>
+                    <td>
+                        <eq name="vo.disease_name" value="">全部<else/>{$vo.disease_name}</eq>
+                    </td>
+                    <td>
+                        {$vo.view_count}
+                    </td>
+                    <td>
+                        {$vo.play_count}
+                    </td>
 					<td>{$vo.user_nicename|default=$vo.user_login}</td>
 					<td>{:date('Y-m-d H:i',$vo['add_time'])}</td>
 					<td>
@@ -71,8 +83,8 @@
 						</notempty>
 						<th width="50">ID</th>
 						<th>{:L('TITLE')}</th>
-                        <th width="50">{:L('DOCTOR')}</th>
-                        <th width="50">{:L('DISEASE')}</th>
+                        <th>{:L('DOCTOR')}</th>
+                        <th>{:L('DISEASE')}</th>
                         <th width="50">{:L('VIEW_COUNT')}</th>
                         <th width="50">{:L('PLAY_COUNT')}</th>
                         <th width="50">{:L('AUTHOR')}</th>

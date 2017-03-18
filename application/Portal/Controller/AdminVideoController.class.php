@@ -27,7 +27,7 @@ class AdminVideoController extends AdminbaseController {
 	
 	// 后台文章管理列表
 	public function index(){
-		$this->_lists(array("status"=>array('neq',3)));
+		$this->_lists(array("v.status"=>array('neq',3)));
 		//$this->_getTree();
 		$this->display();
 	}
@@ -46,11 +46,30 @@ class AdminVideoController extends AdminbaseController {
 	}
 	
 	// 文章添加提交
-	public function add_post(){
+	public function add_video(){
 		if (IS_POST) {
-			if(empty($_POST['term'])){
-				$this->error("请至少选择一个分类！");
-			}
+
+		    $video = array();
+
+		    $video['doctor'] = $_POST['video']['doctor'];
+            $video['disease'] = $_POST['video']['disease'];
+
+            if(empty($_POST['video']['title'])) {
+                $this->error("请输入标题！");
+            }
+
+            $video['title'] = $_POST['video']['title'];
+            $video['keywords'] = $_POST['video']['keywords'];
+            $video['abstract'] = htmlspecialchars_decode($_POST['video']['desc']);
+
+            $video['video_time'] = $_POST['video']['time'];
+
+            if(empty($_POST['video']['link'])){
+                $this->error("请输入视频地址！");
+            }
+
+            $video['video_link'] = $_POST['video']['link'];
+
 			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
 				foreach ($_POST['photos_url'] as $key=>$url){
 					$photourl=sp_asset_relative_url($url);
@@ -58,18 +77,25 @@ class AdminVideoController extends AdminbaseController {
 				}
 			}
 			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
-			 
-			$_POST['post']['post_modified']=date("Y-m-d H:i:s",time());
-			$_POST['post']['post_author']=get_current_admin_id();
-			$article=I("post.post");
-			$article['smeta']=json_encode($_POST['smeta']);
-			$article['post_content']=htmlspecialchars_decode($article['post_content']);
-			$result=$this->video_model->add($article);
+
+            $video['smeta'] = json_encode($_POST['smeta']);
+
+            if(isset($_POST['questions']) && is_array($_POST['questions'])){
+                $video['questions'] = implode(',', array_filter($_POST['questions'], function($item) { $item = trim($item); return is_numeric($item); }));
+            }
+
+            if(isset($_POST['recommend']) && is_array($_POST['recommend'])){
+                $video['recommend'] = implode(',', array_filter($_POST['recommend'], function($item) { $item = trim($item); return is_numeric($item); }));
+            }
+
+            $video['status'] = $_POST['video']['status'];
+			$video['add_time'] = time();
+            $video['last_modified'] = time();
+            $video['pub_time'] = strtotime($_POST['video']['pub_time']);
+            $video['author'] = get_current_admin_id();
+
+			$result=$this->video_model->add($video);
 			if ($result) {
-				foreach ($_POST['term'] as $mterm_id){
-					$this->doctor_model->add(array("term_id"=>intval($mterm_id),"object_id"=>$result));
-				}
-				
 				$this->success("添加成功！");
 			} else {
 				$this->error("添加失败！");
@@ -151,12 +177,6 @@ class AdminVideoController extends AdminbaseController {
 		
 		//$where['post_type']=array(array('eq',1),array('exp','IS NULL'),'OR');
 		
-		if(!empty($term_id)){
-		    $where['b.term_id']=$term_id;
-			$term=$this->disease_model->where(array('term_id'=>$term_id))->find();
-			$this->assign("term",$term);
-		}
-		
 		$start_time=I('request.start_time');
 		if(!empty($start_time)){
 		    $where['post_date']=array(
@@ -178,30 +198,26 @@ class AdminVideoController extends AdminbaseController {
 		}
 			
 		$this->video_model
-		->alias("a")
+		->alias("v")
 		->where($where);
 		
-		if(!empty($term_id)){
-		    $this->video_model->join("__TERM_RELATIONSHIPS__ b ON a.id = b.object_id");
-		}
-		
 		$count=$this->video_model->count();
-			
+
 		$page = $this->page($count, 20);
 			
 		$this->video_model
-		->alias("a")
-		->join("__USERS__ c ON a.author = c.id")
+		->alias("v")
+		->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+        ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+        ->join("__USERS__ c ON v.author = c.id")
 		->where($where)
 		->limit($page->firstRow , $page->listRows)
-		->order("a.last_modified DESC");
-		if(empty($term_id)){
-		    $this->video_model->field('a.*,c.user_login,c.user_nicename');
-		}else{
-		    $this->video_model->field('a.*,c.user_login,c.user_nicename,b.listorder,b.tid');
-		    $this->video_model->join("__TERM_RELATIONSHIPS__ b ON a.id = b.object_id");
-		}
+		->order("v.last_modified DESC");
+
+        $this->video_model->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name,c.user_login,c.user_nicename');
 		$posts=$this->video_model->select();
+
+		//dump($this->video_model->getLastSql());
 		
 		$this->assign("page", $page->show('Admin'));
 		$this->assign("formget",array_merge($_GET,$_POST));
