@@ -107,49 +107,105 @@ class AdminVideoController extends AdminbaseController {
 	// 文章编辑
 	public function edit(){
 		$id=  I("get.id",0,'intval');
-		
-		$term_relationship = M('TermRelationships')->where(array("object_id"=>$id,"status"=>1))->getField("term_id",true);
-		$this->_getTermTree($term_relationship);
-		$terms=$this->disease_model->select();
-		$post=$this->video_model->where("id=$id")->find();
-		$this->assign("post",$post);
-		$this->assign("smeta",json_decode($post['smeta'],true));
-		$this->assign("terms",$terms);
-		$this->assign("term",$term_relationship);
-		$this->display();
+
+        $city = $this->_getCity();
+        $departments=$this->_getDepartments();
+        $questions=$this->_getQuestions();
+        $videos=$this->_getVideos();
+
+        $video=$this->video_model->where("id=$id")->find();
+
+        $tempQues = array();
+        if(!empty($video['questions'])){
+            foreach(explode(',', $video['questions']) as $item){
+                foreach($questions as &$ques){
+                    if($ques['id'] == $item){
+                        $tempQues[] = $ques;
+                        $ques['checked'] = 'checked';
+                    }
+                }
+            }
+        }
+
+        $video['questions'] = $tempQues;
+
+        $tempRecommend = array();
+        if(!empty($video['recommend'])){
+            foreach(explode(',', $video['recommend']) as $item){
+                foreach($videos as &$vid){
+                    if($vid['id'] == $item){
+                        $tempRecommend[] = $vid;
+                        $vid['checked'] = 'checked';
+                    }
+                }
+            }
+        }
+
+        $video['recommend'] = $tempRecommend;
+
+        $this->assign("video",$video);
+        $this->assign("smeta",json_decode($video['smeta'],true));
+
+        $this->assign("city",$city);
+        $this->assign("departments",$departments);
+        $this->assign("questions",$questions);
+        $this->assign("videos",$videos);
+        $this->display();
 	}
 	
 	// 文章编辑提交
 	public function edit_post(){
 		if (IS_POST) {
-			if(empty($_POST['term'])){
-				$this->error("请至少选择一个分类！");
-			}
-			$post_id=intval($_POST['post']['id']);
-			
-			$this->doctor_model->where(array("object_id"=>$post_id,"term_id"=>array("not in",implode(",", $_POST['term']))))->delete();
-			foreach ($_POST['term'] as $mterm_id){
-				$find_term_relationship=$this->doctor_model->where(array("object_id"=>$post_id,"term_id"=>$mterm_id))->count();
-				if(empty($find_term_relationship)){
-					$this->doctor_model->add(array("term_id"=>intval($mterm_id),"object_id"=>$post_id));
-				}else{
-					$this->doctor_model->where(array("object_id"=>$post_id,"term_id"=>$mterm_id))->save(array("status"=>1));
-				}
-			}
-			
-			if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
-				foreach ($_POST['photos_url'] as $key=>$url){
-					$photourl=sp_asset_relative_url($url);
-					$_POST['smeta']['photo'][]=array("url"=>$photourl,"alt"=>$_POST['photos_alt'][$key]);
-				}
-			}
-			$_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
-			unset($_POST['post']['post_author']);
-			$_POST['post']['post_modified']=date("Y-m-d H:i:s",time());
-			$article=I("post.post");
-			$article['smeta']=json_encode($_POST['smeta']);
-			$article['post_content']=htmlspecialchars_decode($article['post_content']);
-			$result=$this->video_model->save($article);
+            $video_id=intval($_POST['video']['id']);
+
+            if(empty($video_id)){
+                $this->error("要编辑的内容不存在！");
+            }
+
+            $video = array();
+
+            $video['doctor'] = $_POST['video']['doctor'];
+            $video['disease'] = $_POST['video']['disease'];
+
+            if(empty($_POST['video']['title'])) {
+                $this->error("请输入标题！");
+            }
+
+            $video['title'] = $_POST['video']['title'];
+            $video['keywords'] = $_POST['video']['keywords'];
+            $video['abstract'] = htmlspecialchars_decode($_POST['video']['desc']);
+
+            $video['video_time'] = $_POST['video']['time'];
+
+            if(empty($_POST['video']['link'])){
+                $this->error("请输入视频地址！");
+            }
+
+            $video['video_link'] = $_POST['video']['link'];
+
+            if(!empty($_POST['photos_alt']) && !empty($_POST['photos_url'])){
+                foreach ($_POST['photos_url'] as $key=>$url){
+                    $photourl=sp_asset_relative_url($url);
+                    $_POST['smeta']['photo'][]=array("url"=>$photourl,"alt"=>$_POST['photos_alt'][$key]);
+                }
+            }
+            $_POST['smeta']['thumb'] = sp_asset_relative_url($_POST['smeta']['thumb']);
+
+            $video['smeta'] = json_encode($_POST['smeta']);
+
+            if(isset($_POST['questions']) && is_array($_POST['questions'])){
+                $video['questions'] = implode(',', array_filter($_POST['questions'], function($item) { $item = trim($item); return is_numeric($item); }));
+            }
+
+            if(isset($_POST['recommend']) && is_array($_POST['recommend'])){
+                $video['recommend'] = implode(',', array_filter($_POST['recommend'], function($item) { $item = trim($item); return is_numeric($item); }));
+            }
+
+            $video['status'] = $_POST['video']['status'];
+            $video['last_modified'] = time();
+            $video['pub_time'] = strtotime($_POST['video']['pub_time']);
+
+			$result=$this->video_model->where('id='.$video_id)->save($video);
 			if ($result!==false) {
 				$this->success("保存成功！");
 			} else {

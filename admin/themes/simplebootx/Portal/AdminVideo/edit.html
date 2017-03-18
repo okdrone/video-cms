@@ -113,20 +113,45 @@
                                 <a id="add_video" href="javascript:void(0);" role="button">添加/修改</a>
                             </td>
                         </tr>
-						<tr>
-							<th>状态</th>
-							<td>
-								<php>
-									$status_yes=$video['status']==1?"checked":"";
-									$status_no=$video['status']==0?"checked":"";
-								</php>
-								<label class="radio"><input type="radio" name="ques[status]" value="1" {$status_yes}>已发布</label>
-								<label class="radio"><input type="radio" name="ques[status]" value="0" {$status_no}>未发布</label>
-							</td>
-						</tr>
 					</table>
 				</div>
-
+                <div class="span3">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th><b>缩略图</b></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div style="text-align: center;">
+                                    <input type="hidden" name="smeta[thumb]" id="thumb" value="">
+                                    <a href="javascript:upload_one_image('图片上传','#thumb');">
+                                        <img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb-preview" width="135" style="cursor: hand" />
+                                    </a>
+                                    <input type="button" class="btn btn-small" onclick="$('#thumb-preview').attr('src','__TMPL__Public/assets/images/default-thumbnail.png');$('#thumb').val('');return false;" value="取消图片">
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th><b>发布时间</b></th>
+                        </tr>
+                        <tr>
+                            <td><input type="text" name="video[pub_time]" value="{:date('Y-m-d H:i:s',time())}" class="js-datetime" style="width: 160px;"></td>
+                        </tr>
+                        <tr>
+                            <th><b>状态</b></th>
+                        </tr>
+                        <tr>
+                            <td>
+                                <php>
+                                    $status_yes=$video['status']==1?"checked":"";
+                                    $status_no=$video['status']==0?"checked":"";
+                                </php>
+                                <label class="radio"><input type="radio" name="video[status]" value="1" {$status_yes}>审核通过</label>
+                                <label class="radio"><input type="radio" name="video[status]" value="0" {$status_no}>待审核</label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 			</div>
 			<div class="form-actions">
 				<button class="btn btn-primary js-ajax-submit" type="submit">提交</button>
