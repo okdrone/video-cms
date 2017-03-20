@@ -32,14 +32,16 @@
                                 <select id="city" name="video[city]">
                                     <option value="">全部&nbsp;&nbsp;省市</option>
                                     <foreach name="city" item="vo">
-                                        <option value="{$vo.province}-{$vo.city}">{$vo.province}-{$vo.city}</option>
+                                        <option value="{$vo.province}-{$vo.city}" >{$vo.province}-{$vo.city}</option>
                                     </foreach>
                                 </select>
                                 <select id="hospital" name="video[hospital]">
                                     <option value="0">全部&nbsp;&nbsp;医院</option>
+                                    <option value="{$video.hospital}" selected="selected">{$video.hospital}</option>
                                 </select>
                                 <select id="doctor" name="video[doctor]">
                                     <option value="0">全部&nbsp;&nbsp;医生</option>
+                                    <option value="{$video.doctor}" selected="selected">{$video.doctor_name}</option>
                                 </select>
                                 <span class="form-required">*</span>
                             </td>
@@ -55,6 +57,7 @@
                                 </select>
                                 <select id="disease" name="video[disease]">
                                     <option value="0">全部&nbsp;&nbsp;疾病</option>
+                                    <option value="{$video.disease}" selected="selected">{$video.disease_name}</option>
                                 </select>
                                 <span class="form-required">*</span>
                             </td>
@@ -135,7 +138,7 @@
                             <th><b>发布时间</b></th>
                         </tr>
                         <tr>
-                            <td><input type="text" name="video[pub_time]" value="{:date('Y-m-d H:i:s',time())}" class="js-datetime" style="width: 160px;"></td>
+                            <td><input type="text" name="video[pub_time]" value="{$video.pub_time|date='Y-m-d H:i:s',###}" class="js-datetime" style="width: 160px;"></td>
                         </tr>
                         <tr>
                             <th><b>状态</b></th>
@@ -226,10 +229,14 @@
 					});
 				});
 			});
+
             $("#city").change(function () {
                 var term = $(this).val();
                 $.getJSON('/index.php?m=AdminVideo&a=api_get_hospital&c=' + encodeURIComponent(term), function (data) {
                     $("#hospital option").each(function (i) {
+                        if(i > 0) $(this).remove();
+                    });
+                    $("#doctor option").each(function (i) {
                         if(i > 0) $(this).remove();
                     });
                     $.each(data.data, function (i,d) {

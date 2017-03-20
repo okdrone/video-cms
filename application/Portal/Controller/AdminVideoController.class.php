@@ -113,7 +113,12 @@ class AdminVideoController extends AdminbaseController {
         $questions=$this->_getQuestions();
         $videos=$this->_getVideos();
 
-        $video=$this->video_model->where("id=$id")->find();
+        $video=$this->video_model
+            ->alias("v")
+            ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+            ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+            ->where("v.id=$id")
+            ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')->find();
 
         $tempQues = array();
         if(!empty($video['questions'])){
