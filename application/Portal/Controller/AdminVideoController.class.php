@@ -240,17 +240,17 @@ class AdminVideoController extends AdminbaseController {
 		
 		$start_time=I('request.start_time');
 		if(!empty($start_time)){
-		    $where['post_date']=array(
-		        array('EGT',$start_time)
+		    $where['v.add_time']=array(
+		        array('EGT', strtotime($start_time))
 		    );
 		}
 		
 		$end_time=I('request.end_time');
 		if(!empty($end_time)){
-		    if(empty($where['post_date'])){
-		        $where['post_date']=array();
+		    if(empty($where['v.add_time'])){
+		        $where['v.add_time']=array();
 		    }
-		    array_push($where['post_date'], array('ELT',$end_time));
+		    array_push($where['v.add_time'], array('ELT',strtotime($end_time)));
 		}
 		
 		$keyword=I('request.keyword');
