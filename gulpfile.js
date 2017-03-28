@@ -1,8 +1,8 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    rename = require('gulp-rename'),
-    sourcemaps = require('gulp-sourcemaps');
+    rename = require('gulp-rename');
+    //sourcemaps = require('gulp-sourcemaps');
     //sass = require('gulp-sass');
 
 gulp.task('default', function() {
@@ -13,10 +13,33 @@ gulp.task('default', function() {
         .pipe(gulp.dest('public/js'))
 });
 
-gulp.task('sass', function() {
-    return gulp.src('node/sass/*.sass')
-        .pipe(sourcemaps.init())
-        //.pipe(sass().on('error', sass.logError()))
-        .pipe(sourcemaps.write())
-        .pipe(gulp.dest('public/simpleboot/css'));
+gulp.task('js', function () {
+    return gulp.src('./src/js/*.js')
+        .pipe(concat('main.js'))
+        .pipe(uglify())
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest('./js'));
+});
+
+gulp.task('flexible', function () {
+    return gulp.src('./src/js/flexible/*.js')
+        .pipe(concat('flexible.js'))
+        .pipe(uglify())
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest('./js'));
+});
+
+gulp.task('sass', function () {
+    return gulp.src('./src/sass/*.scss')
+        .pipe(sass({
+            //outputStyle: 'compressed'
+        }).on('error', sass.logError))
+        .pipe(rename({
+            suffix: '.min'
+        }))
+        .pipe(gulp.dest('./css'));
 });
