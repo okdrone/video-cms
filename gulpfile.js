@@ -1,9 +1,8 @@
 var gulp = require('gulp'),
     uglify = require('gulp-uglify'),
     concat = require('gulp-concat'),
-    rename = require('gulp-rename');
-    //sourcemaps = require('gulp-sourcemaps');
-    //sass = require('gulp-sass');
+    rename = require('gulp-rename'),
+    sass = require('gulp-sass');
 
 gulp.task('default', function() {
     return gulp.src('node/js/*.js')
@@ -20,7 +19,7 @@ gulp.task('js', function () {
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest('./js'));
+        .pipe(gulp.dest('./public/js'));
 });
 
 gulp.task('flexible', function () {
@@ -41,5 +40,5 @@ gulp.task('sass', function () {
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest('./css'));
+        .pipe(gulp.dest('./public/assets/css'));
 });
