@@ -1,0 +1,255 @@
+@import 'common';
+
+body {
+    background-color: #f9f9f9;
+}
+
+nav {
+    @include height(88);
+    background-color: #393a3e;
+}
+
+nav .left {
+    float: left;
+    @include width(50);
+    height: 100%;
+    background-color: transparent;
+    background-image: url('../images/top_left_btn.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    @include background-size(20, 36);
+    border: 0;
+}
+
+nav .title{
+    @include width(550);
+    @include height(88);
+    @include line-height(88);
+    float: left;
+    text-align: center;
+    font-size: 32px;
+    color: white;
+}
+
+nav .right {
+    float: right;
+    @include width(38);
+    height: 100%;
+    background-color: transparent;
+    background-image: url('../images/top_right_btn.png');
+    background-repeat: no-repeat;
+    background-position: left center;
+    @include background-size(8, 36);
+    border: 0;
+}
+
+.video {
+    width: 100%;
+}
+
+.video img {
+    width: 100%;
+}
+
+.container{
+    background-color: #fff;
+    @include padding(0, 30);
+}
+.content{
+    width: 100%;
+    margin: 0 auto;
+}
+.content .title{
+    @include height(84);
+    @include line-height(84);
+    font-size: 32px;
+}
+
+.content .desc{
+    @include height(84);
+    @include line-height(64);
+    font-size: 32px;
+    color: #666;
+    display: none;
+}
+
+.content .title .btn{
+    @include width(26);
+    @include height(12);
+    background-color: transparent;
+    background-image: url('../images/slide_down_btn.png');
+    background-repeat: no-repeat;
+    float: right;
+    border: 0;
+    @include margin-top(36);
+}
+.content .title .btn.up{
+    @include background-position(0, -14);
+}
+.content .title .btn.down{
+    @include background-position(0, 0);
+}
+
+.content.filter {
+    @include height(105);
+    @include padding(20, 0);
+    font-size: 24px;
+}
+
+.content.filter .search_btn {
+    float: right;
+    @include width(65);
+    @include height(45);
+    background-image: url('../images/search_btn.png');
+    background-color: #f9f9f9;
+    background-repeat: no-repeat;
+    @include background-position(20, 10);
+}
+
+.content .dropdown {
+    font-size: 24px;
+    float: left;
+}
+
+.content .dropdown .btn {
+    @include width(240);
+    @include height(45);
+    font-size: 24px;
+    background-color: #f9f9f9;
+}
+
+.content .dropdown .dropdown-menu {
+    @include width(240);
+    font-size: 24px;
+    background-color: #f9f9f9;
+}
+
+.content .disease{
+    @include margin-left(20);
+}
+
+.test_btn{
+    width: 100%;
+    border-top: #e8e8e8 solid 0.015625rem;
+}
+.test_btn img{
+    width: 100%;
+    @include margin(30, 0);
+}
+
+.recommend{
+    @include margin-top(20);
+}
+
+.slide-box{
+    display: -webkit-box;
+    overflow-x: scroll;
+}
+
+.slide-item{
+    @include width(210);
+    @include height(210);
+    @include margin-right(60);
+}
+.slide-item .title{
+    font-size: 24px;
+    @include line-height(32);
+    @include margin-top(5);
+}
+.slide-item .title a{
+    color: black;
+}
+.slide-item .img{
+    @include width(210);
+    @include height(118);
+}
+.slide-item .img .tag{
+    @include width(60);
+    @include height(28);
+    @include line-height(20);
+    @include margin-top(-28);
+    position: relative;
+    background-image: url('../images/title_bg.png');
+    color: #f9f9f9;
+    @include padding(5, 3);
+    text-align: center;
+    font-size: 18px;
+}
+.slide-item.active .tag{
+    background-image: none;
+    background-color: #43aae4;
+}
+.slide-item.active .title a{
+    color: #43aae4;
+}
+.slide-item img{
+    @include width(210);
+}
+
+.list-box{
+    width: 100%;
+}
+
+.list-box .line{
+    width: 100%;
+    @include height(20);
+    border-top-style: solid;
+    border-top-width: 0.015625rem;
+    border-top-color: #e8e8e8;
+}
+
+.list-item{
+    width: 100%;
+    @include height(140);
+    @include margin-right(60);
+}
+.list-item .title{
+    font-size: 24px;
+    @include width(350);
+    @include height(80);
+    @include line-height(32);
+    @include margin-left(20);
+    float: left;
+}
+.list-item .title a{
+    color: #333;
+}
+.list-item .img{
+    @include width(210);
+    @include height(118);
+    float: left;
+}
+.list-item .img img{
+    @include width(210);
+}
+.list-item .img .tag{
+    @include width(60);
+    @include height(28);
+    @include line-height(20);
+    @include margin-top(-28);
+    position: relative;
+    background-image: url('../images/title_bg.png');
+    color: #f9f9f9;
+    @include padding(5, 3);
+    text-align: center;
+    font-size: 18px;
+}
+.list-item.active .tag{
+    background-image: none;
+    background-color: #43aae4;
+}
+.list-item.active .title a{
+    color: #43aae4;
+}
+.list-item img{
+    @include width(210);
+}
+
+.list-item .info{
+    @include width(350);
+    @include height(30);
+    @include line-height(30);
+    @include margin-left(20);
+    color: #666;
+    float: left;
+}

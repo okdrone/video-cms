@@ -1,0 +1,46 @@
+
+$baseline: 64;// 640 / 10
+
+@mixin width($px) {
+    width: ($px / $baseline) + rem;
+}
+
+@mixin height($px) {
+    height: ($px / $baseline) + rem;
+}
+
+@mixin line-height($px) {
+    line-height: ($px / $baseline) + rem;
+}
+
+@mixin margin($xpx, $ypx) {
+    margin: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
+}
+
+@mixin margin-top($px) {
+    margin-top: ($px / $baseline) + rem;
+}
+
+@mixin margin-left($px) {
+    margin-left: ($px / $baseline) + rem;
+}
+
+@mixin margin-right($px) {
+    margin-right: ($px / $baseline) + rem;
+}
+
+@mixin margin-bottom($px) {
+    margin-bottom: ($px / $baseline) + rem;
+}
+
+@mixin padding($xpx, $ypx) {
+    padding: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
+}
+
+@mixin background-position($xpx, $ypx) {
+    background-position: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
+}
+
+@mixin background-size($xpx, $ypx) {
+    background-size: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
+}
