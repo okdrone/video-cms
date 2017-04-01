@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass');
 
-gulp.task('default', function() {
+gulp.task('default', function () {
     return gulp.src('node/js/*.js')
         .pipe(uglify())
         .pipe(concat('city.js'))
@@ -29,7 +29,7 @@ gulp.task('flexible', function () {
         .pipe(rename({
             suffix: '.min'
         }))
-        .pipe(gulp.dest('./js'));
+        .pipe(gulp.dest('./public/js/flexible'));
 });
 
 gulp.task('sass', function () {
