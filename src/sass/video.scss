@@ -53,11 +53,13 @@ nav .right {
 
 .container{
     background-color: #fff;
-    @include padding(0, 30);
+    margin: 0;
+    padding: 0;
 }
 .content{
     width: 100%;
     margin: 0 auto;
+    @include padding(0, 30);
 }
 .content .title{
     @include height(84);
