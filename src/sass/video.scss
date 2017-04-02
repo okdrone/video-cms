@@ -27,7 +27,7 @@ nav .title{
     @include line-height(88);
     float: left;
     text-align: center;
-    font-size: 32px;
+    @include font-size(32);
     color: white;
 }
 
@@ -52,6 +52,7 @@ nav .right {
 }
 
 .container{
+    width: 100%;
     background-color: #fff;
     margin: 0;
     padding: 0;
@@ -64,13 +65,14 @@ nav .right {
 .content .title{
     @include height(84);
     @include line-height(84);
-    font-size: 32px;
+
+    @include font-size(32);
 }
 
 .content .desc{
     @include height(84);
     @include line-height(64);
-    font-size: 32px;
+    @include font-size(32);
     color: #666;
     display: none;
 }
@@ -81,9 +83,11 @@ nav .right {
     background-color: transparent;
     background-image: url('../images/slide_down_btn.png');
     background-repeat: no-repeat;
+    @include background-size(26, 25);
     float: right;
     border: 0;
     @include margin-top(36);
+    padding: 0;
 }
 .content .title .btn.up{
     @include background-position(0, -14);
@@ -95,7 +99,7 @@ nav .right {
 .content.filter {
     @include height(105);
     @include padding(20, 0);
-    font-size: 24px;
+    @include font-size(24);
 }
 
 .content.filter .search_btn {
@@ -109,20 +113,20 @@ nav .right {
 }
 
 .content .dropdown {
-    font-size: 24px;
+    @include font-size(24);
     float: left;
 }
 
 .content .dropdown .btn {
     @include width(240);
     @include height(45);
-    font-size: 24px;
+    @include font-size(24);
     background-color: #f9f9f9;
 }
 
 .content .dropdown .dropdown-menu {
     @include width(240);
-    font-size: 24px;
+    @include font-size(24);
     background-color: #f9f9f9;
 }
 
@@ -154,7 +158,7 @@ nav .right {
     @include margin-right(60);
 }
 .slide-item .title{
-    font-size: 24px;
+    @include font-size(24);
     @include line-height(32);
     @include margin-top(5);
 }
@@ -175,7 +179,7 @@ nav .right {
     color: #f9f9f9;
     @include padding(5, 3);
     text-align: center;
-    font-size: 18px;
+    @include font-size(18);
 }
 .slide-item.active .tag{
     background-image: none;
@@ -206,7 +210,7 @@ nav .right {
     @include margin-right(60);
 }
 .list-item .title{
-    font-size: 24px;
+    @include font-size(24);
     @include width(350);
     @include height(80);
     @include line-height(32);
@@ -234,7 +238,7 @@ nav .right {
     color: #f9f9f9;
     @include padding(5, 3);
     text-align: center;
-    font-size: 18px;
+    @include font-size(18);
 }
 .list-item.active .tag{
     background-image: none;

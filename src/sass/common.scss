@@ -13,6 +13,10 @@ $baseline: 64;// 640 / 10
     line-height: ($px / $baseline) + rem;
 }
 
+@mixin font-size($px) {
+    font-size: ($px / $baseline) + rem;
+}
+
 @mixin margin($xpx, $ypx) {
     margin: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
 }
