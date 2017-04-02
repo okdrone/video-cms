@@ -80,30 +80,37 @@ class IndexController extends WechatController {
 
     public function video_list(){
 
-        $video_list = $this->video_model->where(' `status` <> 3')->select();
+        $video_list = $this->video_model
+            ->alias("v")
+            ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+            ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+            ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
+            ->where(' v.`status` <> 3')->select();
 
         if(!is_array($video_list)){
             $this->error("Video not found!");
         }
 
-        dump($video_list);
+        //dump($video_list);
 
-        $smeta = json_decode($video_list['smeta'], true);
-
-        $recommend = array();
-
-        if(!empty($video_list['recommend'])){
-            $recommend = $this->video_model->where('id in (' . $video_list['recommend'] . ')')->select();
+        foreach ($video_list as &$v){
+            $v['smeta'] = json_decode($v['smeta'], true);
         }
 
-        //dump($recommend);
+        //dump($video_list);
 
-        $this->assign('smeta',  $smeta);
         $this->assign('video_list',  $video_list);
-        $this->assign('recommend',  $recommend);
         $this->display();
     }
 
+    public function api_get_disease(){
+        $ret = array('code' => -1, 'data' => array());
+        if(isset($_GET['d'])){
+            $departments = trim($_GET['d']);
+            $ret['data'] = $this->disease_model->field('id, disease')->where(array('departments' => $departments))->group('disease')->select();
+        }
+        echo json_encode($ret);
+    }
 }
 
 

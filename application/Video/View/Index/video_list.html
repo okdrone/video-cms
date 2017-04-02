@@ -12,8 +12,6 @@
     <meta name="description" content="{$site_seo_description}">
     <include file="Public:head" />
     <link href="__PUBLIC__/assets/css/video.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="//g.alicdn.com/de/prismplayer/1.5.7/skins/default/index.css" />
-    <script type="text/javascript" src="//g.alicdn.com/de/prismplayer/1.5.7/prism-min.js"></script>
 </head>
 
 <body>
@@ -27,33 +25,33 @@
     <div class="container">
         <div class="content filter">
             <div class="dropdown doctor">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="true">
                     按医生
-                    <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
             </div>
             &nbsp;&nbsp;
             <div class="dropdown disease">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true"
-                    aria-expanded="true">
+                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="true">
                     按疾病
-                    <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a href="#">Separated link</a></li>
-                    </ul>
+                </button>
+                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                    <li><a href="#">Action</a></li>
+                    <li><a href="#">Another action</a></li>
+                    <li><a href="#">Something else here</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href="#">Separated link</a></li>
+                </ul>
             </div>
 
             <button class="btn search_btn"></button>
@@ -63,71 +61,26 @@
     <div class="container">
         <div class="content">
             <div class="list-box">
-                <div class="list-item">
-                    <div class="img">
-                        <img src="./images/list_video_1.png" />
-                        <div class="tag">播放中</div>
+                <foreach name="video_list" item="vo">
+                    <div class="list-item">
+                        <div class="img">
+                            <eq name="vo.smeta.thumb" value="">
+                                <img src="/public/images/no-image-box.png" />
+                            <else />
+                                <img src="/data/upload/{$vo.smeta.thumb}" />
+                            </eq>
+
+                            <div class="tag">{$vo.video_time}</div>
+                        </div>
+                        <div class="title"><a href="#">{$vo.title}</a></div>
+                        <div class="info">{$vo.hospital}，{$vo.doctor_name}，{$vo.disease_name}</div>
                     </div>
-                    <div class="title"><a href="#">国际肿瘤专家,详谈肿瘤护理尝试.详谈肿瘤护理尝试,详谈肿瘤.</a></div>
-                    <div class="info">301医院，张主任，肿瘤科</div>
-                </div>
-                <div class="line"></div>
-                <div class="list-item">
-                    <div class="img">
-                        <img src="./images/list_video_2.png" />
-                        <div class="tag">10:33</div>
-                    </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                    <div class="info">301医院，张主任，肿瘤科</div>
-                </div>
-                <div class="list-item">
-                    <div class="img">
-                        <img src="./images/list_video_2.png" />
-                        <div class="tag">30:33</div>
-                    </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                    <div class="info">301医院，张主任，肿瘤科</div>
-                </div>
-                <div class="list-item">
-                    <div class="img">
-                        <img src="./images/list_video_2.png" />
-                        <div class="tag">20:33</div>
-                    </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                    <div class="info">301医院，张主任，肿瘤科</div>
-                </div>
+                </foreach>
             </div>
         </div>
     </div>
 
     <include file="Public:scripts" />
-
-    <script>
-        var dpr = $('html').attr('data-dpr');
-        var v_height = '350px';
-
-        if(dpr !== undefined && dpr > 2){
-            v_height = '525px';
-        }
-
-        // 初始化播放器
-        var player = new prismplayer({
-            id: "J_prismPlayer", // 容器id
-            source: "{$video.video_link}",// 视频地址
-            cover: "/data/upload/{$smeta.thumb}",// 视频地址
-            autoplay: false,    //自动播放：否
-            width: "100%",       // 播放器宽度
-            height: v_height      // 播放器高度
-        });
-        var clickDom = document.getElementById("J_clickToPlay");
-        // 监听播放器的pause事件
-        player.on("play", function () {
-            console.log('play');
-        });
-        player.on("pause", function () {
-            console.log('pause');
-        });
-    </script>
 
 <script>
     $('#title_btn').on('click', function () {

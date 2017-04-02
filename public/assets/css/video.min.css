@@ -85,7 +85,7 @@ nav .right {
 
 .content.filter {
   height: 1.64062rem;
-  padding: 0.3125rem 0rem;
+  padding: 0.3125rem 0.46875rem;
   font-size: 0.375rem; }
 
 .content.filter .search_btn {
@@ -95,7 +95,8 @@ nav .right {
   background-image: url("../images/search_btn.png");
   background-color: #f9f9f9;
   background-repeat: no-repeat;
-  background-position: 0.3125rem 0.15625rem; }
+  background-position: 0.3125rem 0.15625rem;
+  background-size: 0.375rem 0.375rem; }
 
 .content .dropdown {
   font-size: 0.375rem;
@@ -105,7 +106,8 @@ nav .right {
   width: 3.75rem;
   height: 0.70312rem;
   font-size: 0.375rem;
-  background-color: #f9f9f9; }
+  background-color: #f9f9f9;
+  padding: 0; }
 
 .content .dropdown .dropdown-menu {
   width: 3.75rem;
