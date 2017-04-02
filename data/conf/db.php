@@ -7,7 +7,7 @@ return array(
     'DB_HOST' => 'localhost',
     'DB_NAME' => 'yuntehu_db',
     'DB_USER' => 'root',
-    'DB_PWD' => '1234567890',
+    'DB_PWD' => 'P@ssw0rd',
     'DB_PORT' => '3306',
     'DB_PREFIX' => 'yth_',
     //密钥
