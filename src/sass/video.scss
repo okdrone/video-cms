@@ -98,7 +98,7 @@ nav .right {
 
 .content.filter {
     @include height(105);
-    @include padding(20, 20);
+    @include padding(20, 30);
     @include font-size(24);
 }
 
@@ -123,6 +123,7 @@ nav .right {
     @include height(45);
     @include font-size(24);
     background-color: #f9f9f9;
+    padding: 0;
 }
 
 .content .dropdown .dropdown-menu {
