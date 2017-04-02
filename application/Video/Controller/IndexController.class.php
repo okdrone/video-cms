@@ -62,6 +62,8 @@ class IndexController extends WechatController {
 
         //dump($video);
 
+        $smeta = json_decode($video['smeta'], true);
+
         $recommend = array();
 
         if(!empty($video['recommend'])){
@@ -70,7 +72,34 @@ class IndexController extends WechatController {
 
         //dump($recommend);
 
+        $this->assign('smeta',  $smeta);
         $this->assign('video',  $video);
+        $this->assign('recommend',  $recommend);
+        $this->display();
+    }
+
+    public function video_list(){
+
+        $video_list = $this->video_model->where(' `status` <> 3')->select();
+
+        if(!is_array($video_list)){
+            $this->error("Video not found!");
+        }
+
+        dump($video_list);
+
+        $smeta = json_decode($video_list['smeta'], true);
+
+        $recommend = array();
+
+        if(!empty($video_list['recommend'])){
+            $recommend = $this->video_model->where('id in (' . $video_list['recommend'] . ')')->select();
+        }
+
+        //dump($recommend);
+
+        $this->assign('smeta',  $smeta);
+        $this->assign('video_list',  $video_list);
         $this->assign('recommend',  $recommend);
         $this->display();
     }
