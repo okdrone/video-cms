@@ -48,3 +48,23 @@ $baseline: 64;// 640 / 10
 @mixin background-size($xpx, $ypx) {
     background-size: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
 }
+
+@mixin border-radius($px) {
+    border-radius: ($px / $baseline) + rem;
+}
+
+@mixin border-width($px) {
+    border-width: ($px / $baseline) + rem;
+}
+
+@mixin border-top($px, $style,  $color) {
+    border-top: ($px / $baseline) + rem $style $color;
+}
+
+@mixin border-bottom($px, $style,  $color) {
+    border-bottom: ($px / $baseline) + rem $style $color;
+}
+
+@mixin top($px) {
+    top: ($px / $baseline) + rem;
+}
