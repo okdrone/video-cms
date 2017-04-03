@@ -23,42 +23,31 @@
         </nav>
     </div>
     <div class="container">
-        <div class="content filter">
-            <div class="dropdown doctor">
-                <select>
-                    <foreach name="doctorList" item="vo">
-                        <option>{$vo.doctor_name}</option>
-                    </foreach>
-                </select>
-                <!--
-                <button class="btn btn-default dropdown-toggle" type="button" id="doctor_filter" data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="true">
-                    按医生
-                </button>
-                <ul id="ddm1" class="dropdown-menu" aria-labelledby="doctor_filter">
-                    <foreach name="doctorList" item="vo">
-                        <li><a href="#">{$vo.doctor_name}</a></li>
-                    </foreach>
+        <div class="content">
+            <div id='filter-box' class="filter-box">
+                <ul>
+                    <li class="btn"  toggle-menu="ddm1">按医生</li>
+                    <li class="line"></li>
+                    <li class="btn"  toggle-menu="ddm2">按疾病</li>
                 </ul>
-                -->
+                <button class="btn search_btn"></button>
             </div>
-            &nbsp;&nbsp;
-            <div class="dropdown disease">
-                <button class="btn btn-default dropdown-toggle" type="button" id="disease_filter" data-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="true">
-                    按疾病
-                </button>
-                <ul id="ddm2" class="dropdown-menu" aria-labelledby="disease_filter">
-                    <foreach name="diseaseList" item="vo">
-                        <li><a href="#">{$vo.disease}</a></li>
-                    </foreach>
-                </ul>
-            </div>
-
-            <button class="btn search_btn"></button>
         </div>
+    </div>
+    <div id="ddm1" class="drop-menu">
+        <ul >
+            <foreach name="doctorList" item="vo">
+                <li><span>{$vo.doctor_name}</span></li>
+            </foreach>
+        </ul>
+    </div>
+    
+    <div id="ddm2" class="drop-menu">
+        <ul >
+            <foreach name="diseaseList" item="vo">
+                <li><span>{$vo.disease}</span></li>
+            </foreach>
+        </ul>
     </div>
 
     <div class="container">
@@ -97,13 +86,34 @@
             $('#title_desc').hide('slow');
         }
     });
-    $('#ddm1').find('li a').click(function () {
-        var doctor_val = $(this).html();
-        $('#doctor_filter').html(doctor_val);
+    function clean_drop_menu(){
+        $('#filter-box').find('li').each(function(){
+            $(this).removeClass('on');
+            $('#' + $(this).attr('toggle-menu')).hide();
+        });
+    }
+    $('#filter-box').find('li').click(function(){
+        if($(this).hasClass('on')){
+            clean_drop_menu();
+        } else {
+            clean_drop_menu();
+            $(this).addClass('on');
+            var menu = $(this).attr('toggle-menu');
+            $('#' + menu).show();
+        }
     });
-    $('#ddm2').find('li a').click(function () {
-        var disease_val = $(this).html();
-        $('#disease_filter').html(disease_val);
+    $('.drop-menu').click(clean_drop_menu);
+    $('#ddm1').find('li').click(function(){
+        var val = $(this).find('span:eq(0)').html();
+        console.log(val);
+        $('#filter-box').find('li[toggle-menu="ddm1"]').html(val);
+        clean_drop_menu();
+    });
+    $('#ddm2').find('li').click(function(){
+        var val = $(this).find('span:eq(0)').html();
+        console.log(val);
+        $('#filter-box').find('li[toggle-menu="ddm2"]').html(val);
+        clean_drop_menu();
     });
 </script>
 </body>
