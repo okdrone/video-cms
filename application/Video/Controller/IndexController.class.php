@@ -31,10 +31,14 @@ use Common\Controller\WechatController;
 class IndexController extends WechatController {
 
     protected $video_model;
+    protected $doctor_model;
+    protected $disease_model;
 
     function _initialize() {
         parent::_initialize();
         $this->video_model = D("Portal/Video");
+        $this->doctor_model = D("Portal/Doctor");
+        $this->disease_model = D("Portal/Disease");
     }
 
     //首页
@@ -99,17 +103,26 @@ class IndexController extends WechatController {
 
         //dump($video_list);
 
+        $diseaseData = $this->getAllDisease();
+
+        //dump($diseaseData);
+
+        $doctorData = $this->getAllDoctor();
+
+        //dump($doctorData);
+
         $this->assign('video_list',  $video_list);
+        $this->assign('doctorList', $doctorData);
+        $this->assign('diseaseList', $diseaseData);
         $this->display();
     }
 
-    public function api_get_disease(){
-        $ret = array('code' => -1, 'data' => array());
-        if(isset($_GET['d'])){
-            $departments = trim($_GET['d']);
-            $ret['data'] = $this->disease_model->field('id, disease')->where(array('departments' => $departments))->group('disease')->select();
-        }
-        echo json_encode($ret);
+    public function getAllDoctor(){
+        return $this->doctor_model->field('distinct `name` doctor_name')->select();
+    }
+
+    public function getAllDisease(){
+        return $this->disease_model->field('distinct disease')->select();
     }
 }
 

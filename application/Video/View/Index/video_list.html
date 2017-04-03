@@ -25,32 +25,35 @@
     <div class="container">
         <div class="content filter">
             <div class="dropdown doctor">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown"
+                <select>
+                    <foreach name="doctorList" item="vo">
+                        <option>{$vo.doctor_name}</option>
+                    </foreach>
+                </select>
+                <!--
+                <button class="btn btn-default dropdown-toggle" type="button" id="doctor_filter" data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="true">
                     按医生
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                <ul id="ddm1" class="dropdown-menu" aria-labelledby="doctor_filter">
+                    <foreach name="doctorList" item="vo">
+                        <li><a href="#">{$vo.doctor_name}</a></li>
+                    </foreach>
                 </ul>
+                -->
             </div>
             &nbsp;&nbsp;
             <div class="dropdown disease">
-                <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+                <button class="btn btn-default dropdown-toggle" type="button" id="disease_filter" data-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="true">
                     按疾病
                 </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenu2">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
-                    <li role="separator" class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                <ul id="ddm2" class="dropdown-menu" aria-labelledby="disease_filter">
+                    <foreach name="diseaseList" item="vo">
+                        <li><a href="#">{$vo.disease}</a></li>
+                    </foreach>
                 </ul>
             </div>
 
@@ -93,7 +96,15 @@
             $(this).addClass('up');
             $('#title_desc').hide('slow');
         }
-    })
+    });
+    $('#ddm1').find('li a').click(function () {
+        var doctor_val = $(this).html();
+        $('#doctor_filter').html(doctor_val);
+    });
+    $('#ddm2').find('li a').click(function () {
+        var disease_val = $(this).html();
+        $('#disease_filter').html(disease_val);
+    });
 </script>
 </body>
 
