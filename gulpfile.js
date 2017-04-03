@@ -4,17 +4,13 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass');
 
-gulp.task('default', function () {
-    return gulp.src('node/js/*.js')
-        .pipe(uglify())
-        .pipe(concat('city.js'))
-        .pipe(rename({suffix: '.min', extname: '.js'}))
-        .pipe(gulp.dest('public/js'))
+gulp.task('default', ['video'], function () {
+    return true;
 });
 
-gulp.task('js', function () {
-    return gulp.src('./src/js/*.js')
-        .pipe(concat('main.js'))
+gulp.task('video', function () {
+    return gulp.src('./src/js/video.js')
+        .pipe(concat('video.js'))
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min'
