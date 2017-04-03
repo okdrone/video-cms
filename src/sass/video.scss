@@ -102,7 +102,52 @@ nav .right {
     @include font-size(24);
 }
 
-.content.filter .search_btn {
+
+.content .filter-box{
+    @include height(105);
+    @include padding(20, 0);
+    font-size: 24px;
+}
+
+.content .filter-box ul{
+    margin: 0;
+    padding: 0;
+    @include width(485);
+    @include height(45);
+    @include line-height(45);
+    background-color: #f9f9f9;
+    border-color: #e8e8e8;
+    border-style: solid;
+    @include border-radius(5);
+    @include border-width(1);
+    text-align: center;
+    text-align-last: center;
+    font-size: 24px;
+    float: left;
+}
+
+.content .filter-box ul li{
+    float: left;
+    font-size: 24px;
+}
+
+.content .filter-box ul li.btn{
+    @include width(240);
+    @include height(45);
+}
+.content .filter-box ul li.on{
+    color: #43aae4;
+}
+.content .filter-box ul li.line{
+    @include width(1);
+    @include height(30);
+    @include margin-top(9);
+    border-color: #e8e8e8;
+    border-style: solid;
+    @include border-width(1);
+}
+
+.content .filter-box .search_btn{
     float: right;
     @include width(65);
     @include height(45);
@@ -110,30 +155,30 @@ nav .right {
     background-color: #f9f9f9;
     background-repeat: no-repeat;
     @include background-position(20, 10);
-    @include background-size(24, 24);
+    border-color: #e8e8e8;
 }
 
-.content .dropdown {
-    @include font-size(24);
-    float: left;
+.drop-menu {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    @include top(180);
+    font-size: 24px;
+    background-color: #fff;
+    z-index: 100;
+    @include border-top(1, solid, #e8e8e8);
+    display: none;
 }
 
-.content .dropdown .btn {
-    @include width(240);
-    @include height(45);
-    @include font-size(24);
-    background-color: #f9f9f9;
-    padding: 0;
+.drop-menu li{
+    @include height(88);
+    @include line-height(88);
+    font-size: 24px;
+    @include border-bottom(1, solid, #e8e8e8);
 }
 
-.content .dropdown .dropdown-menu {
-    @include width(240);
-    @include font-size(24);
-    background-color: #f9f9f9;
-}
-
-.content .disease{
-    @include margin-left(20);
+.drop-menu li span{
+    @include margin-left(30);
 }
 
 .test_btn{
