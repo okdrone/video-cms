@@ -19,7 +19,7 @@
 <body>
     <div class="container">
         <nav>
-            <button class="left"></button>
+            <button class="left" onclick="history.back()"></button>
             <div class="title">视频</div>
             <button class="right"></button>
         </nav>
@@ -30,12 +30,12 @@
     <div class="container">
         <div class="content">
             <div class="title">{$video.title}<button id="title_btn" class="btn up"></button></div>
-            <div id="title_desc" class="desc">301医院，张主任，肿瘤科</div>
+            <div id="title_desc" class="desc">{$video.hospital}，{$video.doctor_name}，{$video.disease_name}</div>
         </div>
     </div>
     <div class="container">
         <div class="content">
-            <div class="test_btn"><img src="__PUBLIC__/assets/images/test_btn.png" /></div>
+            <div id="test_btn" class="test_btn"><img src="__PUBLIC__/assets/images/test_btn.png" /></div>
         </div>
     </div>
 
@@ -45,80 +45,29 @@
                 推荐列表
             </div>
             <div class="slide-box">
-                <div class="slide-item active">
-                    <div class="img">
-                        <img src="./images/list_video_1.png" />
-                        <div class="tag">播放中</div>
+                <foreach name="recommend" item="vo">
+                    <div class="slide-item <eq name='video.id' value='vo.id'>active</eq>">
+                        <div class="img">
+                            <a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">
+                                <eq name="vo.smeta.thumb" value="">
+                                    <img src="/public/images/no-image-box.png" />
+                                    <else />
+                                    <img src="/data/upload/{$vo.smeta.thumb}" />
+                                </eq>
+                            </a>
+                            <eq name='video.id' value='vo.id'>播放中<else /><div class="tag">{$vo.video_time}</div></eq>
+                        </div>
+                        <div class="title"><a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">{$vo.title}</a></div>
                     </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                </div>
-                <div class="slide-item">
-                    <div class="img">
-                        <img src="./images/list_video_2.png" />
-                        <div class="tag">10:33</div>
-                    </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                </div>
-                <div class="slide-item">
-                    <div class="img">
-                        <img src="./images/list_video_2.png" />
-                        <div class="tag">30:33</div>
-                    </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                </div>
-                <div class="slide-item">
-                    <div class="img">
-                        <img src="./images/list_video_2.png" />
-                        <div class="tag">20:33</div>
-                    </div>
-                    <div class="title"><a href="#">国际肿瘤专家详谈肿瘤护理尝试</a></div>
-                </div>
+                </foreach>
             </div>
         </div>
     </div>
+    <div id="question-confirm" style="display: none">视频看完了，让医生了解一下您知识掌握的程度吧!</div>
 
     <include file="Public:scripts" />
 
-    <script>
-        var dpr = $('html').attr('data-dpr');
-        var v_height = '350px';
-
-        if(dpr !== undefined && dpr > 2){
-            v_height = '525px';
-        }
-
-        // 初始化播放器
-        var player = new prismplayer({
-            id: "J_prismPlayer", // 容器id
-            source: "{$video.video_link}",// 视频地址
-            cover: "/data/upload/{$smeta.thumb}",// 视频地址
-            autoplay: false,    //自动播放：否
-            width: "100%",       // 播放器宽度
-            height: v_height      // 播放器高度
-        });
-        var clickDom = document.getElementById("J_clickToPlay");
-        // 监听播放器的pause事件
-        player.on("play", function () {
-            console.log('play');
-        });
-        player.on("pause", function () {
-            console.log('pause');
-        });
-    </script>
-
-<script>
-    $('#title_btn').on('click', function () {
-        if($(this).hasClass('up')){
-            $(this).removeClass('up');
-            $(this).addClass('down');
-            $('#title_desc').show('slow');
-        } else if ($(this).hasClass('down')) {
-            $(this).removeClass('down');
-            $(this).addClass('up');
-            $('#title_desc').hide('slow');
-        }
-    })
-</script>
+    <script src="__PUBLIC__/js/video.min.js"></script>
 </body>
 
 </html>

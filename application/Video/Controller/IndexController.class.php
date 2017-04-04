@@ -58,7 +58,12 @@ class IndexController extends WechatController {
             $this->error("Video not found!");
         }
 
-        $video = $this->video_model->where('id=' . $id . ' and `status` <> 3')->find();
+        $video = $this->video_model
+            ->alias("v")
+            ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+            ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+            ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
+            ->where('v.id=' . $id . ' and v.`status` <> 3')->find();
 
         if(!is_array($video)){
             $this->error("Video not found!");
@@ -72,6 +77,12 @@ class IndexController extends WechatController {
 
         if(!empty($video['recommend'])){
             $recommend = $this->video_model->where('id in (' . $video['recommend'] . ')')->select();
+        }
+
+        //dump($recommend);
+
+        foreach ($recommend as &$v){
+            $v['smeta'] = json_decode($v['smeta'], true);
         }
 
         //dump($recommend);

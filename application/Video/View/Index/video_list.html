@@ -17,7 +17,7 @@
 <body>
     <div class="container">
         <nav>
-            <button class="left"></button>
+            <button class="left" onclick="history.back()"></button>
             <div class="title">视频</div>
             <button class="right"></button>
         </nav>
@@ -56,15 +56,16 @@
                 <foreach name="video_list" item="vo">
                     <div class="list-item">
                         <div class="img">
-                            <eq name="vo.smeta.thumb" value="">
-                                <img src="/public/images/no-image-box.png" />
-                            <else />
-                                <img src="/data/upload/{$vo.smeta.thumb}" />
-                            </eq>
-
+                            <a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">
+                                <eq name="vo.smeta.thumb" value="">
+                                    <img src="/public/images/no-image-box.png" />
+                                <else />
+                                    <img src="/data/upload/{$vo.smeta.thumb}" />
+                                </eq>
+                            </a>
                             <div class="tag">{$vo.video_time}</div>
                         </div>
-                        <div class="title"><a href="#">{$vo.title}</a></div>
+                        <div class="title"><a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">{$vo.title}</a></div>
                         <div class="info">{$vo.hospital}，{$vo.doctor_name}，{$vo.disease_name}</div>
                     </div>
                 </foreach>
