@@ -1,6 +1,5 @@
 // ### Video display
 var videoDom = document.getElementById("J_prismPlayer");
-console.log(videoDom);
 if(videoDom) {
 
     var dpr = $('html').attr('data-dpr');
@@ -13,8 +12,8 @@ if(videoDom) {
     // 初始化播放器
     var player = new prismplayer({
         id: "J_prismPlayer", // 容器id
-        source: "{$video.video_link}",// 视频地址
-        cover: "/data/upload/{$smeta.thumb}",// 视频地址
+        source: $('#video_link').val(),// 视频地址
+        cover: $('#video_thumb').val(),// 视频地址
         autoplay: false,    //自动播放：否
         trackLog: false,
         width: "100%",       // 播放器宽度
@@ -28,11 +27,19 @@ if(videoDom) {
     player.on("pause", function () {
         console.log('pause');
     });
-    player.on('ended', question_dialog);
+    player.on('ended', function () {
+        question_dialog();
+        var testBtn = $('#test_btn');
+        var disableBtn = $(testBtn).find('.disable');
+        $(disableBtn).hide();
+        var enableBtn = $(testBtn).find('.enable');
+        $(enableBtn).show();
+        $(enableBtn).bind('click', question_dialog);
+    });
 }
 
 function question_dialog() {
-    $("#question-confirm").dialog({
+    $('#question-confirm').dialog({
         resizable: false,
         height: "auto",
         width: 400,
@@ -48,7 +55,7 @@ function question_dialog() {
     });
 }
 
-$('#test_btn').click(question_dialog);
+//$('#test_btn').click(question_dialog);
 
 // ### Control title slide down
 $('#title_btn').on('click', function () {
@@ -61,4 +68,4 @@ $('#title_btn').on('click', function () {
         $(this).addClass('up');
         $('#title_desc').hide('slow');
     }
-})
+});
