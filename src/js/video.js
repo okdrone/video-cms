@@ -42,20 +42,26 @@ function question_dialog() {
     $('#question-confirm').dialog({
         resizable: false,
         height: "auto",
-        width: 400,
+        width: 580,
         modal: true,
-        buttons: {
-            "Delete all items": function () {
-                $(this).dialog("close");
-            },
-            Cancel: function () {
+        buttons: [{
+            text: "马上开始",
+            class: 'open',
+            click: function () {
                 $(this).dialog("close");
             }
-        }
+        }, {
+            text: "稍后再说",
+            class: 'close',
+            click: function () {
+                $(this).dialog("close");
+            }
+        }]
     });
 }
 
-//$('#test_btn').click(question_dialog);
+// Just for test
+$('#test_btn').click(question_dialog);
 
 // ### Control title slide down
 $('#title_btn').on('click', function () {

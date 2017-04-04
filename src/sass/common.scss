@@ -68,3 +68,9 @@ $baseline: 64;// 640 / 10
 @mixin top($px) {
     top: ($px / $baseline) + rem;
 }
+@mixin left($px) {
+    left: ($px / $baseline) + rem;
+}
+@mixin right($px) {
+    right: ($px / $baseline) + rem;
+}
