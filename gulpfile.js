@@ -4,7 +4,7 @@ var gulp = require('gulp'),
     rename = require('gulp-rename'),
     sass = require('gulp-sass');
 
-gulp.task('default', ['video'], function () {
+gulp.task('default', ['video', 'sass'], function () {
     return true;
 });
 
