@@ -26,6 +26,8 @@
     </div>
     <div class="container">
         <div id="J_prismPlayer" class="prism-player"></div>
+        <input id="video_link" type="hidden" value="{$video.video_link}" />
+        <input id="video_thumb" type="hidden" value="/data/upload/{$smeta.thumb}" />
     </div>
     <div class="container">
         <div class="content">
@@ -35,7 +37,10 @@
     </div>
     <div class="container">
         <div class="content">
-            <div id="test_btn" class="test_btn"><img src="__PUBLIC__/assets/images/test_btn.png" /></div>
+            <div id="test_btn" class="test_btn">
+                <button class="disable"><img src="__PUBLIC__/assets/images/test_btn_disable.png" /></button>
+                <button class="enable" style="display: none"><img src="__PUBLIC__/assets/images/test_btn.png" /></button>
+            </div>
         </div>
     </div>
 
