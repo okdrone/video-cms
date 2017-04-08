@@ -128,6 +128,36 @@ class IndexController extends WechatController {
         $this->display();
     }
 
+    public function search(){
+        $keyword = I("get.keyword", '', 'htmlspecialchars');
+
+        $where = '';
+        if(!empty($keyword)){
+            $where = 'and ( v.title like \'%' . $keyword . '%\' or do.`name` like \'%' . $keyword . '%\' or di.disease like \'%' . $keyword . '%\' )';
+        }
+
+        $video_list = $this->video_model
+            ->alias("v")
+            ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+            ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+            ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
+            ->where(' v.`status` <> 3 ' . $where)->select();
+
+        if(!is_array($video_list)){
+            $this->error("Video not found!");
+        }
+
+        //dump($video_list);
+
+        foreach ($video_list as &$v){
+            $v['smeta'] = json_decode($v['smeta'], true);
+        }
+
+        $this->assign('video_list',  $video_list);
+        $this->assign('keyword', $keyword);
+        $this->display();
+    }
+
     public function getAllDoctor(){
         return $this->doctor_model->field('distinct `name` doctor_name')->select();
     }
