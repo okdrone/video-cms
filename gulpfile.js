@@ -9,8 +9,7 @@ gulp.task('default', ['video', 'sass'], function () {
 });
 
 gulp.task('video', function () {
-    return gulp.src('./src/js/video.js')
-        .pipe(concat('video.js'))
+    return gulp.src('./src/js/*.js')
         .pipe(uglify())
         .pipe(rename({
             suffix: '.min'
