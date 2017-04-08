@@ -317,6 +317,104 @@ nav .right {
     float: left;
 }
 
+/* Search box */
+.search_box{
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute;
+    @include top(88);
+    @include padding(20, 0);
+    z-index: 100;
+}
+
+.search_box .clear{
+    width: 100%;
+    height: 2px;
+    clear: both;
+}
+
+.search_box .title{
+    @include font-size(26);
+    @include height(60);
+    @include line-height(60);
+    border-bottom: solid #e8e8e8;
+    @include border-width(1);
+}
+
+.search_box .search_word{
+    @include margin-top(10);
+}
+
+.search_box .search_word li{
+    @include height(56);
+    @include line-height(56);
+    text-align: center;
+    float: left;
+    border: solid #e5e5e5;
+    @include border-width(1);
+    @include border-radius(6);
+    @include padding(0, 15);
+    @include margin-top(30);
+    @include margin-right(30);
+}
+
+.search_box .search_word li a{
+    display: block;
+    color: #333;
+}
+
+.search_input{
+    @include height(45);
+    @include line-height(45);
+    @include font-size(24);
+}
+
+.search_input .input{
+    @include width(505);
+    @include height(45);
+    @include border-radius(5);
+    @include border-width(1);
+    border: solid #e8e8e8;
+    float: left;
+    background-image: url('../images/search_icon.png');
+    @include background-position(20, 10);
+    @include background-size(24, 24);
+    background-repeat: no-repeat;
+}
+
+.search_input .full_input{
+    width: 100%;
+    @include height(45);
+    @include border-radius(5);
+    @include border-width(1);
+    border: solid #e8e8e8;
+    float: left;
+    background-image: url('../images/search_icon.png');
+    @include background-position(20, 10);
+    @include background-size(24, 24);
+    background-repeat: no-repeat;
+}
+
+.search_input input{
+    @include width(445);
+    @include height(44);
+    @include line-height(44);
+    @include font-size(24);
+    @include margin-left(55);
+    background-color: transparent;
+    border: none;
+    clear: left;
+}
+
+.search_input button{
+    @include font-size(24);
+    float: right;
+    background-color: transparent;
+    color: #43aae4;
+    text-align: right;
+    padding-right: 0;
+}
 
 /* JQuery UI */
 .ui-widget-header{
