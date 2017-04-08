@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script type="text/javascript" src="__PUBLIC__/js/flexible/flexible.min.js"></script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{$site_seo_title} {$site_name}</title>
+    <meta name="keywords" content="{$site_seo_keywords}" />
+    <meta name="description" content="{$site_seo_description}">
+    <include file="Public:head" />
+    <link href="__PUBLIC__/assets/css/video.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <nav>
+            <button class="left" onclick="history.back()"></button>
+            <div class="title">视频</div>
+            <button class="right"></button>
+        </nav>
+    </div>
+    <div class="container">
+        <div class="content">
+            <form id="search_form" action="/index.php?" method="get" target="_self">
+                <input type="hidden" name="g" value="Video" />
+                <input type="hidden" name="m" value="Index" />
+                <input type="hidden" name="a" value="search" />
+                <div id='filter-box' class="filter-box">
+                    <div class="search_input">
+                        <div class="full_input"><input type="search" class="" name="keyword" placeholder="{$keyword}" /></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="ddm1" class="drop-menu">
+        <ul >
+            <foreach name="doctorList" item="vo">
+                <li><span>{$vo.doctor_name}</span></li>
+            </foreach>
+        </ul>
+    </div>
+    
+    <div id="ddm2" class="drop-menu">
+        <ul >
+            <foreach name="diseaseList" item="vo">
+                <li><span>{$vo.disease}</span></li>
+            </foreach>
+        </ul>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <div class="list-box">
+                <foreach name="video_list" item="vo">
+                    <div class="list-item">
+                        <div class="img">
+                            <a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">
+                                <eq name="vo.smeta.thumb" value="">
+                                    <img src="/public/images/no-image-box.png" />
+                                <else />
+                                    <img src="/data/upload/{$vo.smeta.thumb}" />
+                                </eq>
+                            </a>
+                            <div class="tag">{$vo.video_time}</div>
+                        </div>
+                        <div class="title"><a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">{$vo.title}</a></div>
+                        <div class="info">{$vo.hospital}，{$vo.doctor_name}，{$vo.disease_name}</div>
+                    </div>
+                </foreach>
+            </div>
+        </div>
+    </div>
+
+    <include file="Public:search" />
+
+    <include file="Public:scripts" />
+
+    <script src="__PUBLIC__/js/video_list.min.js"></script>
+</body>
+
+</html>
