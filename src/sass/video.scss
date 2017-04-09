@@ -416,6 +416,68 @@ nav .right {
     padding-right: 0;
 }
 
+/* Question page */
+
+.question-item h2{
+    @include height(65);
+    @include line-height(65);
+}
+
+.question-item .list-group-item{
+    @include height(63);
+    background-image: url("../images/select_style_icon.png");
+    @include background-size(32, 84);
+    @include background-position(16, 16);
+    background-repeat: no-repeat;
+}
+.question-item .list-group-item.selected{
+    @include background-position(16, -38);
+}
+.question-item .list-group-item .option{
+    @include height(41);
+    @include line-height(41);
+    @include margin-left(50);
+}
+.question-item .list-group-item.selected .option{
+    color: #43aae4;
+}
+
+.question-status .text{
+    float: left;
+    @include width(200);
+}
+
+.question-status .btn{
+    float: right;
+    @include width(220);
+}
+
+.question-status button{
+    @include width(220);
+    @include height(68);
+    background-image: url("../images/question_btn.png");
+}
+
+.question-status .x{
+    @include font-size(28);
+    color: #43aae4;
+    @include padding(3, 3);
+}
+
+.question-status .y{
+    @include font-size(22);
+    @include padding(3, 3);
+}
+
+.status_bar{
+    @include height(87);
+    @include line-height(87);
+    border-top: solid #d9d9d9;
+    @include border-width(1);
+    position: absolute;
+    bottom: 0;
+}
+
 /* JQuery UI */
 .ui-widget-header{
     border-width: 0;
@@ -455,3 +517,6 @@ nav .right {
 .ui-dialog .ui-dialog-buttonpane button.close{
     background-color: #cacaca;
 }
+
+
+/* Bootstrap UI */
