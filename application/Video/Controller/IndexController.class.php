@@ -126,6 +126,7 @@ class IndexController extends WechatController {
         //dump($questions);
 
         $this->assign('questions', $questions);
+        $this->assign('video_id', $id);
         $this->display();
     }
 
@@ -139,6 +140,18 @@ class IndexController extends WechatController {
         }
 
         return $opts;
+    }
+
+    public function answer() {
+        $id=  I("get.id",0,'intval');
+
+        if($id < 1){
+            $this->ajaxReturn(array('status' => 1, 'data' => array()), 'JSON');
+        }
+
+
+
+        $this->ajaxReturn(array('status' => 0, 'data' => array()), 'JSON');
     }
 
     public function video_list(){

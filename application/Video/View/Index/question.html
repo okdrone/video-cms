@@ -26,12 +26,13 @@
     </div>
     <div class="container">
         <div class="content">
+            <input type="hidden" id="video_id" value="{$video_id}" />
             <foreach name="questions" item="vo">
-            <div class="question-item">
+            <div class="question-item" data="{$vo.id}">
                 <h2>{$vo.title}</h2>
                 <ul class="list-group">
                     <foreach name="vo.options" item="io">
-                    <li class="list-group-item"><div class="option" data="{io.id}">{$io.title}</div></li>
+                    <li class="list-group-item"><div class="option" data="{$io.id}">{$io.title}</div></li>
                     </foreach>
                 </ul>
             </div>
