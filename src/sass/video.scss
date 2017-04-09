@@ -13,10 +13,7 @@ nav .left {
     float: left;
     @include width(50);
     height: 100%;
-    background-color: transparent;
-    background-image: url('../images/top_left_btn.png');
-    background-repeat: no-repeat;
-    background-position: right center;
+    background: transparent url('../images/top_left_btn.png') no-repeat right center;
     @include background-size(20, 36);
     border: 0;
 }
@@ -35,10 +32,7 @@ nav .right {
     float: right;
     @include width(38);
     height: 100%;
-    background-color: transparent;
-    background-image: url('../images/top_right_btn.png');
-    background-repeat: no-repeat;
-    background-position: left center;
+    background: transparent url('../images/top_right_btn.png') no-repeat left center;
     @include background-size(8, 36);
     border: 0;
 }
@@ -80,9 +74,7 @@ nav .right {
 .content .title .btn{
     @include width(26);
     @include height(12);
-    background-color: transparent;
-    background-image: url('../images/slide_down_btn.png');
-    background-repeat: no-repeat;
+    background: transparent url('../images/slide_down_btn.png') no-repeat;
     @include background-size(26, 25);
     float: right;
     border: 0;
@@ -116,8 +108,7 @@ nav .right {
     @include height(45);
     @include line-height(45);
     background-color: #f9f9f9;
-    border-color: #e8e8e8;
-    border-style: solid;
+    border: solid #e8e8e8;
     @include border-radius(5);
     @include border-width(1);
     text-align: center;
@@ -144,8 +135,7 @@ nav .right {
     @include width(1);
     @include height(30);
     @include margin-top(9);
-    border-color: #e8e8e8;
-    border-style: solid;
+    border: solid #e8e8e8;
     @include border-width(1);
 }
 
@@ -153,9 +143,7 @@ nav .right {
     float: right;
     @include width(65);
     @include height(45);
-    background-image: url('../images/search_btn.png');
-    background-color: #f9f9f9;
-    background-repeat: no-repeat;
+    background: #f9f9f9 url('../images/search_btn.png') no-repeat;
     @include background-position(20, 10);
     @include background-size(24, 24);
     border-color: #e8e8e8;
@@ -236,8 +224,7 @@ nav .right {
     @include font-size(18);
 }
 .slide-item.active .tag{
-    background-image: none;
-    background-color: #43aae4;
+    background: #43aae4 none;
 }
 .slide-item.active .title a{
     color: #43aae4;
@@ -253,9 +240,7 @@ nav .right {
 .list-box .line{
     width: 100%;
     @include height(20);
-    border-top-style: solid;
-    border-top-width: 0.015625rem;
-    border-top-color: #e8e8e8;
+    border-top: 0.015625rem solid #e8e8e8;
 }
 
 .list-item{
@@ -298,8 +283,7 @@ nav .right {
     @include font-size(18);
 }
 .list-item.active .tag{
-    background-image: none;
-    background-color: #43aae4;
+    background: #43aae4 none;
 }
 .list-item.active .title a{
     color: #43aae4;
@@ -377,10 +361,9 @@ nav .right {
     @include border-width(1);
     border: solid #e8e8e8;
     float: left;
-    background-image: url('../images/search_icon.png');
     @include background-position(20, 10);
     @include background-size(24, 24);
-    background-repeat: no-repeat;
+    background: url('../images/search_icon.png') no-repeat;
 }
 
 .search_input .full_input{
@@ -390,10 +373,9 @@ nav .right {
     @include border-width(1);
     border: solid #e8e8e8;
     float: left;
-    background-image: url('../images/search_icon.png');
     @include background-position(20, 10);
     @include background-size(24, 24);
-    background-repeat: no-repeat;
+    background: url('../images/search_icon.png') no-repeat;
 }
 
 .search_input input{
@@ -425,10 +407,9 @@ nav .right {
 
 .question-item .list-group-item{
     @include height(63);
-    background-image: url("../images/select_style_icon.png");
     @include background-size(32, 84);
     @include background-position(16, 16);
-    background-repeat: no-repeat;
+    background: url("../images/select_style_icon.png") no-repeat;
 }
 .question-item .list-group-item.selected{
     @include background-position(16, -38);
@@ -442,6 +423,10 @@ nav .right {
     color: #43aae4;
 }
 
+.question-line{
+    @include height(20);
+}
+
 .question-status .text{
     float: left;
     @include width(200);
@@ -450,12 +435,20 @@ nav .right {
 .question-status .btn{
     float: right;
     @include width(220);
+    @include margin-top(9);
+    padding: 0;
 }
 
 .question-status button{
     @include width(220);
     @include height(68);
-    background-image: url("../images/question_btn.png");
+    @include background-size(220, 138);
+    background: transparent url("../images/question_btn.png");
+    @include background-position(0, 0);
+    border: 0 none;
+}
+.question-status button[disabled]{
+    @include background-position(0, -70);
 }
 
 .question-status .x{
@@ -488,11 +481,9 @@ nav .right {
     @include width(24);
     @include height(24);
     @include right(20);
-    background-image: url('../images/dialog_close_btn.png');
     @include background-size(24, 24);
-    background-repeat: no-repeat;
-    border-width: 0;
-    border: none;
+    background: url('../images/dialog_close_btn.png') no-repeat;
+    border: 0 none;
 }
 
 .ui-dialog .ui-dialog-content{
