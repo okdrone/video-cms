@@ -34,6 +34,8 @@ class IndexController extends WechatController {
     protected $doctor_model;
     protected $disease_model;
 
+    protected $question_model;
+
     function _initialize() {
         parent::_initialize();
         $this->video_model = D("Portal/Video");
@@ -94,7 +96,49 @@ class IndexController extends WechatController {
     }
 
     public function question(){
+        $this->question_model = D("Portal/Question");
+
+        $id=  I("get.id",0,'intval');
+
+        if($id < 1){
+            $this->error("Video not found!");
+        }
+
+        $quesRet = $this->video_model->field('questions')->where('id = ' . $id)->find();
+
+        $questionIDs = array();
+        if(count($quesRet) > 0){
+            $questionIDs = array_filter(explode(',', $quesRet['questions']));
+        }
+
+        if(count($questionIDs) < 1){
+            $this->error("Question not found!");
+        }
+
+        $questions = $this->question_model->where('id in ('. implode(',', $questionIDs) . ') ')->select();
+
+        //dump($questions);
+
+        foreach($questions as &$ques){
+            $ques['options'] = $this->optionByQues($ques['id']);
+        }
+
+        //dump($questions);
+
+        $this->assign('questions', $questions);
         $this->display();
+    }
+
+    protected function optionByQues($ques_id){
+        $opts = array();
+
+        if(!empty($ques_id)){
+            $opt_model = D('Portal/Option');
+            //$opts = $opt_model->where(array('ques_id' => $ques_id, 'status' => '1'))->select();
+            $opts = $opt_model->where(array('ques_id' => $ques_id))->select();
+        }
+
+        return $opts;
     }
 
     public function video_list(){
