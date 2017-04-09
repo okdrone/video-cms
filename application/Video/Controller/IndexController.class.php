@@ -93,6 +93,10 @@ class IndexController extends WechatController {
         $this->display();
     }
 
+    public function question(){
+        $this->display();
+    }
+
     public function video_list(){
 
         $video_list = $this->video_model
