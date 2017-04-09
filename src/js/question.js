@@ -34,14 +34,23 @@ $(questionItem).find('li').click(function () {
 });
 
 $('#question_submit').click(function () {
-    console.log('ok');
+
+    var answers = [];
 
     $(questionItem).each(function (i, e) {
+        var ques_id = $(e).attr('data');
         $(e).find('li').each(function (ii, ee) {
             if($(ee).hasClass('selected')){
-                var data = $(ee).find('.option').attr('data');
-                console.log(data);
+                answers['\'' + ques_id + '\''] = $(ee).find('.option').attr('data');
             }
         });
+
     });
+
+    console.log(answers);
+
+    var video_id = $('#video_id').val();
+    $.post('/index.php?g=Video&m=Index&a=answer&id=' + video_id, JSON.stringify(answers), function (a, b, c) {
+        console.log(a,b,c);
+    })
 });

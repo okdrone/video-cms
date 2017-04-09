@@ -361,9 +361,9 @@ nav .right {
     @include border-width(1);
     border: solid #e8e8e8;
     float: left;
+    background: url('../images/search_icon.png') no-repeat;
     @include background-position(20, 10);
     @include background-size(24, 24);
-    background: url('../images/search_icon.png') no-repeat;
 }
 
 .search_input .full_input{
@@ -373,9 +373,9 @@ nav .right {
     @include border-width(1);
     border: solid #e8e8e8;
     float: left;
+    background: url('../images/search_icon.png') no-repeat;
     @include background-position(20, 10);
     @include background-size(24, 24);
-    background: url('../images/search_icon.png') no-repeat;
 }
 
 .search_input input{
@@ -407,9 +407,9 @@ nav .right {
 
 .question-item .list-group-item{
     @include height(63);
+    background: transparent url("../images/select_style_icon.png") no-repeat;
     @include background-size(32, 84);
     @include background-position(16, 16);
-    background: url("../images/select_style_icon.png") no-repeat;
 }
 .question-item .list-group-item.selected{
     @include background-position(16, -38);
