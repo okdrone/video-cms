@@ -26,14 +26,24 @@
     </div>
     <div class="container">
         <div class="content">
+            <foreach name="questions" item="vo">
             <div class="question-item">
-                <h2>lksdjfalksdfjlkasd?</h2>
+                <h2>{$vo.title}</h2>
                 <ul class="list-group">
-                    <li class="list-group-item"><div class="option">skdfjklsdklfj</div></li>
-                    <li class="list-group-item">lkdsfjlksd</li>
-                    <li class="list-group-item">lkdsfjlksd</li>
+                    <foreach name="vo.options" item="io">
+                    <li class="list-group-item"><div class="option" data="{io.id}">{$io.title}</div></li>
+                    </foreach>
                 </ul>
             </div>
+            <div class="question-line"></div>
+            </foreach>
+        </div>
+    </div>
+
+    <div class="container status_bar question-status">
+        <div class="content">
+            <div class="text">答题进度: <span class="x">0</span>/<span class="y">1</span></div>
+            <div class="btn"><button id="question_submit" disabled="disabled"></button></div>
         </div>
     </div>
 
