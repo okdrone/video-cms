@@ -15,7 +15,7 @@ class WechatController extends Controller {
         //$redirect = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/receiveCode');
         $redirect = 'http://' . $_SERVER['HTTP_HOST'];
 
-        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_base&state=code#wechat_redirect';
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_userinfo&state=code#wechat_redirect';
 
         header('Location: '. $url);
     }
