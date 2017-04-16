@@ -53,6 +53,17 @@ class IndexController extends WechatController {
     	$this->display();
     }
 
+    public function test(){
+
+        $wechat = A('Common/Wechat');
+
+        dump($wechat->getCode());
+    }
+
+    public function receiveCode(){
+        dump($_REQUEST);
+    }
+
     public function video(){
         $id=  I("get.id",0,'intval');
 
