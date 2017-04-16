@@ -82,6 +82,8 @@ class IndexController extends WechatController {
 
     public function test(){
 
+        dump(function_exists('sha1'));exit;
+
         $wechat = A('Common/Wechat');
 
         dump($wechat->getCode());
