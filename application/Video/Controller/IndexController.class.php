@@ -82,7 +82,7 @@ class IndexController extends WechatController {
 
     public function test(){
 
-        $openId = cooke('openid');
+        $openId = cookie('openid');
 
         if(empty($openId)){
             $wechat = A('Common/Wechat');
