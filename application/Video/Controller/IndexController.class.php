@@ -82,9 +82,15 @@ class IndexController extends WechatController {
 
     public function test(){
 
-        $wechat = A('Common/Wechat');
+        $openId = cooke('openid');
 
-        $wechat->getWebCode();
+        if(empty($openId)){
+            $wechat = A('Common/Wechat');
+
+            $wechat->getWebCode();
+        }
+
+        echo 'This is a video page';
     }
 
     public function receiveCode(){
@@ -93,7 +99,11 @@ class IndexController extends WechatController {
         if(!empty($code)){
             $wechat = A('Common/Wechat');
 
-            $wechat->getWebAccessToken($code);
+            $token = $wechat->getWebAccessToken($code);
+
+            if(!empty($token)){
+                $wechat->getWebUserInfo();
+            }
         }
     }
 
