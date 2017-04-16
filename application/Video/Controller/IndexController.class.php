@@ -44,6 +44,9 @@ class IndexController extends WechatController {
     }
 
     public function api(){
+
+        error_log('hehe', 3, 'out.log');
+
         if($this->checkSignature())
 			echo $_GET['echostr'];
 		else 
