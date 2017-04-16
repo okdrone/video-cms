@@ -44,8 +44,31 @@ class IndexController extends WechatController {
     }
 
     public function token(){
-        echo $_REQUEST['token'];
+        if($this->checkSignature())
+			echo $_GET['echostr'];
+		else 
+			echo 'error';
     }
+
+    private function checkSignature() {
+		$signature = $_GET['signature'];
+		$timestamp = $_GET['timestamp'];
+		$nonce = $_GET['nonce'];
+		
+		if($timestamp == '' || $nonce == '')
+			return false;
+		
+		$token = $this->toooken;
+		$tmpArr = array($token, $timestamp, $nonce);
+		sort($tmpArr, SORT_STRING);
+		$tmpStr = implode($tmpArr);
+		$tmpStr = sha1($tmpStr);
+		
+		if($tmpStr == $signature) 
+			return true;
+		else
+			return false;
+	}
 
     //首页
 	public function index() {
