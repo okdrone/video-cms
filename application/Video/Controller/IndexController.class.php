@@ -44,7 +44,7 @@ class IndexController extends WechatController {
     }
 
     public function token(){
-        echo 'quandao8800';
+        echo $_REQUEST['token'];
     }
 
     //首页
