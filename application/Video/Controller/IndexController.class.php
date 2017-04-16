@@ -58,7 +58,7 @@ class IndexController extends WechatController {
 		if($timestamp == '' || $nonce == '')
 			return false;
 		
-		$token = $this->toooken;
+		$token = 'quandao8800';
 		$tmpArr = array($token, $timestamp, $nonce);
 		sort($tmpArr, SORT_STRING);
 		$tmpStr = implode($tmpArr);
