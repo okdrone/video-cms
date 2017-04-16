@@ -84,11 +84,17 @@ class IndexController extends WechatController {
 
         $wechat = A('Common/Wechat');
 
-        dump($wechat->getCode());
+        $wechat->getWebCode();
     }
 
     public function receiveCode(){
-        dump($_REQUEST);
+        $code=  I("get.code", '');
+
+        if(!empty($code)){
+            $wechat = A('Common/Wechat');
+
+            $wechat->getWebAccessToken($code);
+        }
     }
 
     public function video(){
