@@ -43,7 +43,7 @@ class IndexController extends WechatController {
         $this->disease_model = D("Portal/Disease");
     }
 
-    public function token(){
+    public function api(){
         if($this->checkSignature())
 			echo $_GET['echostr'];
 		else 
