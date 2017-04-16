@@ -44,8 +44,15 @@ class WechatController extends Controller {
     }
 
     function getWebUserInfo(){
+        $userInfo = array();
+
         $token = S('web_access_token');
         $openId = $_COOKIE['openid'];
+
+        echo 'Get token open';
+
+        var_dump($token);
+        var_dump($openId);
 
         if(!empty($token) && !empty($openId)){
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$token.'&openid='.$openId.'&lang=zh_CN';
@@ -64,7 +71,7 @@ class WechatController extends Controller {
             }
         }
 
-        return $token;
+        return $userInfo;
     }
 
     /**
