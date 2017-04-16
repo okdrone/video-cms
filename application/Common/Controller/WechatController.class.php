@@ -29,7 +29,7 @@ class WechatController extends Controller {
 
             var_dump($response);
 
-            if(!$response){
+            if(!$response){echo 'llll';
                 $arr = json_decode($response, true);
                 $token = $arr['access_token'];
                 S('web_access_token', $token, $arr['expires_in'] - 10);
