@@ -29,7 +29,7 @@ class WechatController extends Controller {
 
             var_dump($response);
 
-            if($response !== false && !empty($response)){echo 'llll';
+            if($response !== false && !empty($response)){
                 $arr = json_decode($response, true);
                 $token = $arr['access_token'];
                 S('web_access_token', $token, $arr['expires_in'] - 10);
@@ -45,7 +45,7 @@ class WechatController extends Controller {
 
     function getWebUserInfo(){
         $token = S('web_access_token');
-        $openId = cookie('openid');
+        $openId = $_COOKIE['openid'];
 
         if(!empty($token) && !empty($openId)){
             $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$token.'&openid='.$openId.'&lang=zh_CN';

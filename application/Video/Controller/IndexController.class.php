@@ -102,7 +102,8 @@ class IndexController extends WechatController {
             $token = $wechat->getWebAccessToken($code);
 
             if(!empty($token)){
-                $wechat->getWebUserInfo();
+                $userinfo = $wechat->getWebUserInfo();
+                var_dump($userinfo);
             } else {
                 exit('error: 10003');
             }
