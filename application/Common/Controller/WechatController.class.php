@@ -27,12 +27,35 @@ class WechatController extends Controller {
 
             $response = $this->getAPI($url);
 
+            if(!$response){
+                $arr = json_decode($response, true);
+                $token = $arr['access_token'];
+                S('web_access_token', $token, $arr['expires_in'] - 10);
+                cookie('openid', $arr['openid'], $arr['expires_in'] - 10);
+            } else {
+                $token = '';
+            }
+        }
+
+        return $token;
+    }
+
+    function getWebUserInfo(){
+        $token = S('web_access_token');
+        $openId = cookie('openid');
+
+        if(!empty($token) && !empty($openId)){
+            $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$token.'&openid='.$openId.'&lang=zh_CN';
+
+            $response = $this->getAPI($url);
+
             var_dump($response);exit;
 
             if(!$response){
                 $arr = json_decode($response, true);
                 $token = $arr['access_token'];
-                S('access_token', $token, $arr['expires_in'] - 10);
+                S('web_access_token', $token, $arr['expires_in'] - 10);
+                cookie('openid', $arr['openid'], $arr['expires_in'] - 10);
             } else {
                 $token = '';
             }
