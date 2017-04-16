@@ -43,6 +43,10 @@ class IndexController extends WechatController {
         $this->disease_model = D("Portal/Disease");
     }
 
+    public function token(){
+        echo 'quandao8800';
+    }
+
     //首页
 	public function index() {
 
