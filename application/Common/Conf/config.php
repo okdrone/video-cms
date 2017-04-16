@@ -16,6 +16,12 @@ if (file_exists("data/conf/route.php")) {
     $routes = array();
 }
 
+if (file_exists("data/conf/wechat.php")) {
+    $wechat = include 'data/conf/wechat.php';
+} else {
+    $wechat = array();
+}
+
 $configs= array(
         "LOAD_EXT_FILE"=>"extend",
         'UPLOADPATH' => 'data/upload/',
@@ -96,4 +102,4 @@ $configs= array(
         )
 );
 
-return  array_merge($configs,$db,$runtime_config);
+return  array_merge($configs,$db,$runtime_config, $wechat);
