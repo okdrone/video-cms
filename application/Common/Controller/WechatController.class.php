@@ -11,12 +11,34 @@ class WechatController extends Controller {
     /**
      * Get code for web WeChat api.
      */
-    function getCode(){
+    function getWebCode(){
         $redirect = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/receiveCode');
 
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_userinfo&state=code#wechat_redirect';
 
         header('Location: '. $url);
+    }
+
+    function getWebAccessToken($code){
+        $token = S('web_access_token');
+
+        if(!$token){
+            $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.C('WE_APPID').'&secret='.C('WE_SECRET') . '&code=' .$code. '&grant_type=authorization_code';
+
+            $response = $this->getAPI($url);
+
+            var_dump($response);exit;
+
+            if(!$response){
+                $arr = json_decode($response, true);
+                $token = $arr['access_token'];
+                S('access_token', $token, $arr['expires_in'] - 10);
+            } else {
+                $token = '';
+            }
+        }
+
+        return $token;
     }
 
     /**
