@@ -12,8 +12,7 @@ class WechatController extends Controller {
      * Get code for web WeChat api.
      */
     function getCode(){
-        //$redirect = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/receiveCode');
-        $redirect = 'http://www.guorenwushu.com';
+        $redirect = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/receiveCode');
 
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_userinfo&state=code#wechat_redirect';
 
