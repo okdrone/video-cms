@@ -44,9 +44,6 @@ class IndexController extends WechatController {
     }
 
     public function api(){
-
-        //error_log(json_encode($_GET) . chr(13), 3, 'out.log');
-
         if($this->checkSignature())
 			exit($_GET['echostr']);
 		else 
@@ -84,8 +81,6 @@ class IndexController extends WechatController {
     }
 
     public function test(){
-
-        dump(sha1('asdf'));exit;
 
         $wechat = A('Common/Wechat');
 
