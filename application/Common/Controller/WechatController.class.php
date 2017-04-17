@@ -20,31 +20,21 @@ class WechatController extends Controller {
     }
 
     function getWebAccessToken($code){
-        //S('web_access_token', null);
-        $token = S('web_access_token');
 
-        echo 'secret:';
-        var_dump(C('WE_SECRET') );
+        $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.C('WE_APPID').'&secret='.C('WE_SECRET') . '&code=' .$code. '&grant_type=authorization_code';
 
-        if(!$token){
-            $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.C('WE_APPID').'&secret='.C('WE_SECRET') . '&code=' .$code. '&grant_type=authorization_code';
+        $response = $this->getAPI($url);
 
-            $response = $this->getAPI($url);
+        var_dump($response);
 
-            var_dump($response);
-
-            if($response !== false && !empty($response)){
-                $arr = json_decode($response, true);
-                $token = $arr['access_token'];
-                S('web_access_token', $token, $arr['expires_in'] - 10);
-                setcookie('openid', $arr['openid'], $arr['expires_in'] - 10);
-                $token .= '#' . $arr['openid'];
-            } else {
-                $token = '';
-            }
-            echo 'From api!!!';
+        if($response !== false && !empty($response)){
+            $arr = json_decode($response, true);
+            $token = $arr['access_token'];
+            S('web_access_token', $token, $arr['expires_in'] - 10);
+            setcookie('openid', $arr['openid'], $arr['expires_in'] - 10);
+            $token .= '#' . $arr['openid'];
         } else {
-            echo 'From cache!!!';
+            $token = '';
         }
 
         return $token;
