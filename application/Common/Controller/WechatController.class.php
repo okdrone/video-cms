@@ -14,7 +14,7 @@ class WechatController extends Controller {
     function getWebCode(){
         $redirect = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/receiveCode');
 
-        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_base&state=code#wechat_redirect';
+        $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_userinfo&state=code#wechat_redirect';
 
         header('Location: '. $url);
     }
@@ -30,8 +30,6 @@ class WechatController extends Controller {
         if($response !== false && !empty($response)){
             $arr = json_decode($response, true);
             $token = $arr['access_token'];
-            S('web_access_token', $token, $arr['expires_in'] - 10);
-            setcookie('openid', $arr['openid'], $arr['expires_in'] - 10);
             $token .= '#' . $arr['openid'];
         } else {
             $token = '';
@@ -51,7 +49,7 @@ class WechatController extends Controller {
         var_dump($openId);
 
         if(!empty($token) && !empty($openId)){
-            $url = 'https://api.weixin.qq.com/cgi-bin/user/info?access_token='.$token.'&openid='.$openId.'&lang=zh_CN';
+            $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$token.'&openid='.$openId.'&lang=zh_CN';
 
             $response = $this->getAPI($url);
 
