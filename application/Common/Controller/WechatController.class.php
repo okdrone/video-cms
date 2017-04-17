@@ -47,10 +47,8 @@ class WechatController extends Controller {
         return $token;
     }
 
-    function getWebUserInfo($openId){
+    function getWebUserInfo($token, $openId){
         $userInfo = array();
-
-        $token = S('web_access_token');
 
         echo 'Get token open';
 
