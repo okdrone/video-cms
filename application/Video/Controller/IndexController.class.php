@@ -113,6 +113,14 @@ class IndexController extends WechatController {
         }
     }
 
+    protected function wechat_user_exists($openId){
+        $wechatUser = D('Video/WechatUser');
+
+        $ret = $wechatUser->where(array('openid' => $openId))->find();
+
+        var_dump($ret);
+    }
+
     public function video(){
         $id=  I("get.id",0,'intval');
 
