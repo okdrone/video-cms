@@ -107,6 +107,11 @@ class IndexController extends WechatController {
                 $openId = $tokenArr[1];
                 $userinfo = $wechat->getWebUserInfo($token, $openId);
                 var_dump($userinfo);
+
+                $exists = $this->wechat_user_exists($openId);
+
+                var_dump($exists);
+
             } else {
                 exit('error: 10003');
             }
