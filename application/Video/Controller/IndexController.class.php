@@ -99,10 +99,13 @@ class IndexController extends WechatController {
         if(!empty($code)){
             $wechat = A('Common/Wechat');
 
-            $token = $wechat->getWebAccessToken($code);
+            $tokenData = $wechat->getWebAccessToken($code);
+            $tokenArr = explode('#', $tokenData);
 
-            if(!empty($token)){
-                $userinfo = $wechat->getWebUserInfo();
+            if(!empty($tokenArr) && count($tokenArr) > 1){
+                $token = $tokenArr[0];
+                $openId = $tokenArr[1];
+                $userinfo = $wechat->getWebUserInfo($openId);
                 var_dump($userinfo);
             } else {
                 exit('error: 10003');

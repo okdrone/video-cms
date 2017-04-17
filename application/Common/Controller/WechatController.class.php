@@ -34,8 +34,8 @@ class WechatController extends Controller {
                 $arr = json_decode($response, true);
                 $token = $arr['access_token'];
                 S('web_access_token', $token, $arr['expires_in'] - 10);
-                $_COOKIE['openid'] = $arr['openid'];
                 setcookie('openid', $arr['openid'], $arr['expires_in'] - 10);
+                $token .= '#' . $arr['openid'];
             } else {
                 $token = '';
             }
@@ -44,11 +44,10 @@ class WechatController extends Controller {
         return $token;
     }
 
-    function getWebUserInfo(){
+    function getWebUserInfo($openId){
         $userInfo = array();
 
         $token = S('web_access_token');
-        $openId = $_COOKIE['openid'];
 
         echo 'Get token open';
 
