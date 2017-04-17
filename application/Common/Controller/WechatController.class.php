@@ -39,6 +39,9 @@ class WechatController extends Controller {
             } else {
                 $token = '';
             }
+            echo 'From api!!!';
+        } else {
+            echo 'From cache!!!';
         }
 
         return $token;
