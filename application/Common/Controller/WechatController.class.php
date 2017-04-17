@@ -20,7 +20,7 @@ class WechatController extends Controller {
     }
 
     function getWebAccessToken($code){
-        //S('web_access_token', null);
+        S('web_access_token', null);
         $token = S('web_access_token');
 
         if(!$token){
