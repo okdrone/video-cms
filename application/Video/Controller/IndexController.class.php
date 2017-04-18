@@ -134,7 +134,7 @@ class IndexController extends WechatController {
                     }
                 }
 
-                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/test?id='.$video_id);
+                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id);
                 header('Location: '. $url);
             } else {
                 exit('error: 10003');
