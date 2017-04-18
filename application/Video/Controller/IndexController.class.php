@@ -86,19 +86,21 @@ class IndexController extends WechatController {
 
     public function test(){
 
+        $id=  I("get.id",0,'intval');
+
         $wechat = A('Common/Wechat');
 
         if(empty($this->_openid)){
-            $wechat->getWebCode();
+            $wechat->getWebCode($id);
         } else {
             $exists = $this->wechat_user_exists($this->_openid);
             var_dump($exists);
             if(!$exists){
-                $wechat->getWebCode();
+                $wechat->getWebCode($id);
             }
         }
 
-        echo 'This is a video page';
+        echo 'This is a video page'. $id;
     }
 
     public function del(){
@@ -111,6 +113,8 @@ class IndexController extends WechatController {
         if(!empty($code)){
             $wechat = A('Common/Wechat');
 
+            $video_id = I("get.state", '');
+
             $tokenData = $wechat->getWebAccessToken($code);
             $tokenArr = explode('#', $tokenData);
 
@@ -121,21 +125,17 @@ class IndexController extends WechatController {
 
                 $exists = $this->wechat_user_exists($openId);
 
-                echo 'exists-----:';
-                var_dump($exists);
-
                 if(!$exists){
 
                     $userinfo = $wechat->getWebUserInfo($token, $openId);
-                    var_dump($userinfo);
 
                     if(count($userinfo) > 0){
                         $this->wechat_user_add($userinfo);
                     }
                 }
 
-
-
+                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/test?id='.$video_id);
+                header('Location: '. $url);
             } else {
                 exit('error: 10003');
             }
