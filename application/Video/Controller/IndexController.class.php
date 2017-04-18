@@ -139,11 +139,16 @@ class IndexController extends WechatController {
     }
 
     protected function wechat_user_exists($openId){
+        $exists = false;
+
         $wechatUser = D('Video/WechatUser');
 
-        $ret = $wechatUser->where(array('openid' => $openId))->find();
+        $data = $wechatUser->where(array('openid' => $openId))->find();
 
-        var_dump($ret);
+        if($data !== null && count($data) > 0)
+            $exists = true;
+
+        return $exists;
     }
 
     protected function wechat_user_add($userInfo){
