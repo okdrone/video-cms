@@ -117,6 +117,7 @@ class IndexController extends WechatController {
 
                 $exists = $this->wechat_user_exists($openId);
 
+                echo 'exists-----:';
                 var_dump($exists);
 
                 if(!$exists){
