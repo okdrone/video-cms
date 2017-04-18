@@ -113,8 +113,12 @@ class IndexController extends WechatController {
 
                 var_dump($exists);
 
-                $userinfo = $wechat->getWebUserInfo($token, $openId);
-                var_dump($userinfo);
+                if(!$exists){
+
+                    $userinfo = $wechat->getWebUserInfo($token, $openId);
+                    var_dump($userinfo);
+
+                }
 
 
 

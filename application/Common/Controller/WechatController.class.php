@@ -41,17 +41,12 @@ class WechatController extends Controller {
     function getWebUserInfo($token, $openId){
         $userInfo = array();
 
-//        echo 'Get token open';
-//
-//        echo 'Token:';
-//        var_dump($token);
-//        echo 'OpenId:';
-//        var_dump($openId);
-
         if(!empty($token) && !empty($openId)){
             $url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$token.'&openid='.$openId.'&lang=zh_CN';
 
             $response = $this->getAPI($url);
+
+            var_dump($response);
 
             if(!$response){
                 $userInfo = json_decode($response, true);
