@@ -92,6 +92,7 @@ class IndexController extends WechatController {
             $wechat->getWebCode();
         } else {
             $exists = $this->wechat_user_exists($this->_openid);
+            var_dump($exists);
             if(!$exists){
                 $wechat->getWebCode();
             }
@@ -156,9 +157,9 @@ class IndexController extends WechatController {
         $userData['country'] = $userInfo['country'];
         $userData['create_time'] = date('Y-m-d H:i:s');
 
-        $ret = $wechatUser->add($userData);
+        $num = $wechatUser->add($userData);
 
-        var_dump($ret);
+        return $num;
     }
 
     public function video(){
