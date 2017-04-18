@@ -124,7 +124,7 @@ class IndexController extends WechatController {
                     var_dump($userinfo);
 
                     if(count($userinfo) > 0){
-
+                        $this->wechat_user_add($userinfo);
                     }
                 }
 
