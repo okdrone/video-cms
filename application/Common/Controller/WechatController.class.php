@@ -48,7 +48,7 @@ class WechatController extends Controller {
 
             var_dump($response);
 
-            if(!$response){
+            if($response !== false){
                 $userInfo = json_decode($response, true);
             }
         }
