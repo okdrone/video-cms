@@ -86,10 +86,15 @@ class IndexController extends WechatController {
 
     public function test(){
 
-        if(empty($this->_openid)){
-            $wechat = A('Common/Wechat');
+        $wechat = A('Common/Wechat');
 
+        if(empty($this->_openid)){
             $wechat->getWebCode();
+        } else {
+            $exists = $this->wechat_user_exists($this->_openid);
+            if(!$exists){
+                $wechat->getWebCode();
+            }
         }
 
         echo 'This is a video page';
