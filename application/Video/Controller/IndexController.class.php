@@ -101,6 +101,10 @@ class IndexController extends WechatController {
         echo 'This is a video page';
     }
 
+    public function del(){
+        cookie('openid', null);
+    }
+
     public function receiveCode(){
         $code=  I("get.code", '');
 
