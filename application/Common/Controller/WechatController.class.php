@@ -25,7 +25,7 @@ class WechatController extends Controller {
 
         $response = $this->getAPI($url);
 
-        var_dump($response);
+        //var_dump($response);
 
         if($response !== false && !empty($response)){
             $arr = json_decode($response, true);
@@ -46,7 +46,7 @@ class WechatController extends Controller {
 
             $response = $this->getAPI($url);
 
-            var_dump($response);
+            //var_dump($response);
 
             if($response !== false){
                 $userInfo = json_decode($response, true);

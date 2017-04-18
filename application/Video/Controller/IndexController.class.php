@@ -123,6 +123,9 @@ class IndexController extends WechatController {
                     $userinfo = $wechat->getWebUserInfo($token, $openId);
                     var_dump($userinfo);
 
+                    if(count($userinfo) > 0){
+
+                    }
                 }
 
 
@@ -137,6 +140,23 @@ class IndexController extends WechatController {
         $wechatUser = D('Video/WechatUser');
 
         $ret = $wechatUser->where(array('openid' => $openId))->find();
+
+        var_dump($ret);
+    }
+
+    protected function wechat_user_add($userInfo){
+        $wechatUser = D('Video/WechatUser');
+
+        $userData = array();
+        $userData['openid'] = $userInfo['openid'];
+        $userData['nickname'] = $userInfo['nickname'];
+        $userData['sex'] = $userInfo['sex'];
+        $userData['province'] = $userInfo['province'];
+        $userData['city'] = $userInfo['city'];
+        $userData['country'] = $userInfo['country'];
+        $userData['create_time'] = date('Y-m-d H:i:s');
+
+        $ret = $wechatUser->save($userData);
 
         var_dump($ret);
     }
