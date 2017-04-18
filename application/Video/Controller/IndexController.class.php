@@ -36,11 +36,15 @@ class IndexController extends WechatController {
 
     protected $question_model;
 
+    protected $_openid = '';
+
     function _initialize() {
         parent::_initialize();
         $this->video_model = D("Portal/Video");
         $this->doctor_model = D("Portal/Doctor");
         $this->disease_model = D("Portal/Disease");
+
+        $this->_openid = cookie('openid');
     }
 
     public function api(){
@@ -82,9 +86,7 @@ class IndexController extends WechatController {
 
     public function test(){
 
-        $openId = cookie('openid');
-
-        if(empty($openId)){
+        if(empty($this->_openid)){
             $wechat = A('Common/Wechat');
 
             $wechat->getWebCode();
@@ -105,12 +107,16 @@ class IndexController extends WechatController {
             if(!empty($tokenArr) && count($tokenArr) > 1){
                 $token = $tokenArr[0];
                 $openId = $tokenArr[1];
-                $userinfo = $wechat->getWebUserInfo($token, $openId);
-                var_dump($userinfo);
+                cookie('openid', $openId, 3600);
 
                 $exists = $this->wechat_user_exists($openId);
 
                 var_dump($exists);
+
+                $userinfo = $wechat->getWebUserInfo($token, $openId);
+                var_dump($userinfo);
+
+
 
             } else {
                 exit('error: 10003');
