@@ -156,7 +156,7 @@ class IndexController extends WechatController {
         $userData['country'] = $userInfo['country'];
         $userData['create_time'] = date('Y-m-d H:i:s');
 
-        $ret = $wechatUser->save($userData);
+        $ret = $wechatUser->add($userData);
 
         var_dump($ret);
     }
