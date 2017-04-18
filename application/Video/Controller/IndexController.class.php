@@ -175,6 +175,17 @@ class IndexController extends WechatController {
     public function video(){
         $id=  I("get.id",0,'intval');
 
+        $wechat = A('Common/Wechat');
+
+        if(empty($this->_openid)){
+            $wechat->getWebCode($id);
+        } else {
+            $exists = $this->wechat_user_exists($this->_openid);
+            if(!$exists){
+                $wechat->getWebCode($id);
+            }
+        }
+
         if($id < 1){
             $this->error("Video not found!");
         }
