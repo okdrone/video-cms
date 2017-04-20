@@ -126,7 +126,7 @@ class IndexController extends WechatController {
                 $source = cookie('source');
 
                 echo 'source:';
-                var_dump($source);
+                var_dump($source);exit;
 
                 $exists = $this->wechat_user_exists($openId);
 
