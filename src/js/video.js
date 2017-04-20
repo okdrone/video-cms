@@ -78,6 +78,6 @@ $('#title_btn').on('click', function () {
 
 
 // ### Complete user info
-if($('#cu').val() === 1){
+if($('#cu').val() === '1'){
     alert('You need to complete your info!');
 }
