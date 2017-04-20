@@ -123,6 +123,11 @@ class IndexController extends WechatController {
                 $openId = $tokenArr[1];
                 cookie('openid', $openId, 3600);
 
+                $source = cookie('source');
+
+                echo 'source:';
+                var_dump($source);
+
                 $exists = $this->wechat_user_exists($openId);
 
                 if(!$exists){
@@ -173,7 +178,11 @@ class IndexController extends WechatController {
     }
 
     public function video(){
-        $id=  I("get.id",0,'intval');
+        $id = I("get.id",0,'intval');
+
+        $source = I("get.source", '');
+
+        cookie('source', $source, 3600);
 
         $wechat = A('Common/Wechat');
 
