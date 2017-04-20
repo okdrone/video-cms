@@ -167,7 +167,7 @@ class IndexController extends WechatController {
 
         $wechatUser = D('Video/WechatUser');
 
-        $data = $wechatUser->field('count(openid) num')->where('openid=' . $openId . ' and source != \'\' and real_name != \'\'')->find();
+        $data = $wechatUser->field('count(openid) num')->where('openid=\'' . $openId . '\' and source != \'\' and real_name != \'\'')->find();
 
 
         var_dump($data['num']);exit;
