@@ -129,6 +129,8 @@ class IndexController extends WechatController {
 
                     $userinfo = $wechat->getWebUserInfo($token, $openId);
 
+                    var_dump($userinfo);exit;
+
                     if(count($userinfo) > 0){
                         $this->wechat_user_add($userinfo);
                     }
