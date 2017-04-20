@@ -210,6 +210,11 @@ class IndexController extends WechatController {
             if(!$exists){
                 $wechat->getWebCode($id);
             }
+
+            $isCU = $this->isChannelUser($this->_openid);
+
+            if($isCU)
+                $cu = 1;
         }
 
         if($id < 1){
