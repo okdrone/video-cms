@@ -138,6 +138,9 @@ class IndexController extends WechatController {
                     }
                 }
 
+                // Is agent user or not
+                $this->isAgentUser($openId);
+
                 $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id);
                 header('Location: '. $url);
             } else {
@@ -153,6 +156,21 @@ class IndexController extends WechatController {
 
         $data = $wechatUser->where(array('openid' => $openId))->find();
 
+        if($data !== null && count($data) > 0)
+            $exists = true;
+
+        return $exists;
+    }
+
+    protected function isAgentUser($openId){
+        $exists = false;
+
+        $wechatUser = D('Video/WechatUser');
+
+        $data = $wechatUser->field('count(openid) num')->where('openid=' . $openId . ' and source != \'\' and real_name != \'\'')->find();
+
+
+        var_dump($data['num']);exit;
         if($data !== null && count($data) > 0)
             $exists = true;
 
