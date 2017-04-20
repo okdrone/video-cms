@@ -139,9 +139,9 @@ class IndexController extends WechatController {
                 }
 
                 // Is agent user or not
-                $this->isAgentUser($openId);
+                $cu = $this->isChannelUser($openId);
 
-                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id);
+                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id.'&source='.$source.'&cu='.($cu === true ? 1 : 0));
                 header('Location: '. $url);
             } else {
                 exit('error: 10003');
@@ -162,16 +162,14 @@ class IndexController extends WechatController {
         return $exists;
     }
 
-    protected function isAgentUser($openId){
+    protected function isChannelUser($openId){
         $exists = false;
 
         $wechatUser = D('Video/WechatUser');
 
         $data = $wechatUser->field('count(openid) num')->where('openid=\'' . $openId . '\' and source != \'\' and real_name != \'\'')->find();
 
-
-        var_dump($data['num']);exit;
-        if($data !== null && count($data) > 0)
+        if(is_array($data) && key_exists('num', $data) && $data['num'] === '0' )
             $exists = true;
 
         return $exists;
@@ -199,6 +197,7 @@ class IndexController extends WechatController {
         $id = I("get.id",0,'intval');
 
         $source = I("get.source", '');
+        $cu = I("get.cu", '');
 
         cookie('source', $source, 3600);
 
@@ -249,6 +248,7 @@ class IndexController extends WechatController {
         $this->assign('smeta',  $smeta);
         $this->assign('video',  $video);
         $this->assign('recommend',  $recommend);
+        $this->assign('cu',  $cu);
         $this->display();
     }
 
