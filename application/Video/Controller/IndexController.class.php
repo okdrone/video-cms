@@ -126,17 +126,15 @@ class IndexController extends WechatController {
 
                 $source = cookie('source');
 
-                echo 'source:';
-                var_dump($source);exit;
-
                 $exists = $this->wechat_user_exists($openId);
 
                 if(!$exists){
 
-                    $userinfo = $wechat->getWebUserInfo($token, $openId);
+                    $user_info = $wechat->getWebUserInfo($token, $openId);
 
-                    if(count($userinfo) > 0){
-                        $this->wechat_user_add($userinfo);
+                    if(count($user_info) > 0){
+                        $user_info['source'] = $source;
+                        $this->wechat_user_add($user_info);
                     }
                 }
 
@@ -171,6 +169,7 @@ class IndexController extends WechatController {
         $userData['province'] = $userInfo['province'];
         $userData['city'] = $userInfo['city'];
         $userData['country'] = $userInfo['country'];
+        $userData['source'] = $userInfo['source'];
         $userData['create_time'] = date('Y-m-d H:i:s');
 
         $num = $wechatUser->add($userData);
