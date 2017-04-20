@@ -105,6 +105,7 @@ class IndexController extends WechatController {
 
     public function del(){
         cookie('openid', null);
+        cookie('source', null);
     }
 
     public function receiveCode(){
