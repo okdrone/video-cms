@@ -75,3 +75,9 @@ $('#title_btn').on('click', function () {
         $('#title_desc').hide('slow');
     }
 });
+
+
+// ### Complete user info
+if($('#cu').val() === 1){
+    alert('You need to complete your info!');
+}
