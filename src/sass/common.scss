@@ -41,6 +41,14 @@ $baseline: 64;// 640 / 10
     padding: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
 }
 
+@mixin padding-left($px) {
+    padding-left: ($px / $baseline) + rem;
+}
+
+@mixin padding-right($px) {
+    padding-right: ($px / $baseline) + rem;
+}
+
 @mixin background-position($xpx, $ypx) {
     background-position: ($xpx / $baseline) + rem ($ypx / $baseline) + rem;
 }
