@@ -472,6 +472,38 @@ nav .right {
     bottom: 0;
 }
 
+#complete_info{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+#complete_info .title {
+    @include height(60);
+    @include line-height(30);
+    @include font-size(20);
+    color: #1a99e2;
+}
+
+#complete_info li input{
+    border: none;
+    background-color: transparent;
+    @include margin-left(20);
+}
+
+#complete_info li{
+    @include height(50);
+    @include line-height(48);
+    @include border-bottom(1, solid, #ccc);
+    @include padding-left(40);
+}
+
+#complete_info label a{
+    color: #1a99e2;
+}
+
+#agreement{
+    @include margin(5, 14);
+}
+
 /* JQuery UI */
 .ui-widget-header{
     border-width: 0;
@@ -493,20 +525,31 @@ nav .right {
 
 .ui-dialog .ui-dialog-buttonpane{
     border-width: 0;
+    @include padding-right(10);
+}
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset{
+    width: 100%;
 }
 .ui-dialog .ui-dialog-buttonpane button{
-    @include width(245);
-    @include height(68);
     border-width: 0;
     @include border-radius(5);
     color: #fff;
     background-color: transparent;
     @include font-size(36);
 }
+.ui-dialog .ui-dialog-buttonpane button.ok{
+    width: 100%;
+    @include height(68);
+    background-color: #43aae4;
+}
 .ui-dialog .ui-dialog-buttonpane button.open{
+    @include width(245);
+    @include height(68);
     background-color: #43aae4;
 }
 .ui-dialog .ui-dialog-buttonpane button.close{
+    @include width(245);
+    @include height(68);
     background-color: #cacaca;
 }
 
