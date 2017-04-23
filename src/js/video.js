@@ -42,7 +42,7 @@ function question_dialog() {
     $('#question-confirm').dialog({
         resizable: false,
         height: "auto",
-        width: 580,
+        width: "9.0625rem",
         modal: true,
         buttons: [{
             text: "马上开始",
