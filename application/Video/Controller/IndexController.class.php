@@ -203,19 +203,19 @@ class IndexController extends WechatController {
 
         $wechat = A('Common/Wechat');
 
-        if(empty($this->_openid)){
-            $wechat->getWebCode($id);
-        } else {
-            $exists = $this->wechat_user_exists($this->_openid);
-            if(!$exists){
-                $wechat->getWebCode($id);
-            }
-
-            $isCU = $this->isChannelUser($this->_openid);
-
-            if($isCU)
-                $cu = 1;
-        }
+//        if(empty($this->_openid)){
+//            $wechat->getWebCode($id);
+//        } else {
+//            $exists = $this->wechat_user_exists($this->_openid);
+//            if(!$exists){
+//                $wechat->getWebCode($id);
+//            }
+//
+//            $isCU = $this->isChannelUser($this->_openid);
+//
+//            if($isCU)
+//                $cu = 1;
+//        }
 
         if($id < 1){
             $this->error("Video not found!");
