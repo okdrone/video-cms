@@ -354,12 +354,24 @@ class IndexController extends WechatController {
         $id=  I("get.id",0,'intval');
 
         if($id < 1){
-            $this->ajaxReturn(array('status' => 1, 'data' => array()), 'JSON');
+            $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
         }
 
+        $jsonString = trim(file_get_contents('php://input'));
 
+        if($jsonString != ''){
+            $data = json_decode($jsonString, true);
+            if(is_array($data) && count($data) > 0){
+                foreach($data as $key => $item){
 
-        $this->ajaxReturn(array('status' => 0, 'data' => array()), 'JSON');
+                }
+                $this->ajaxReturn(array('code' => 0, 'data' => array('score' => 70)), 'JSON');
+            } else {
+                $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
+            }
+        } else {
+            $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
+        }
     }
 
     public function video_list(){
