@@ -433,6 +433,11 @@ nav .right {
     @include width(200);
 }
 
+.question-status .result{
+    width: 100%;
+    text-align: center;
+}
+
 .question-status .btn{
     float: right;
     @include width(220);
