@@ -25,6 +25,8 @@
 // +----------------------------------------------------------------------
 namespace Video\Controller;
 use Common\Controller\WechatController;
+use Think\Exception;
+
 /**
  * 首页
  */
@@ -45,6 +47,9 @@ class IndexController extends WechatController {
         $this->disease_model = D("Portal/Disease");
 
         $this->_openid = cookie('openid');
+
+        // Just for test
+        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
     }
 
     public function api(){
@@ -175,6 +180,12 @@ class IndexController extends WechatController {
         return $exists;
     }
 
+    protected function updateUserLoginTime($openId){
+        $wechatUser = D('Video/WechatUser');
+        $wechatUser->last_login_time = date('Y-m-d H:i:s');
+        $wechatUser->where(array('openid' => $openId))->save();
+    }
+
     protected function wechat_user_add($userInfo){
         $wechatUser = D('Video/WechatUser');
 
@@ -193,6 +204,39 @@ class IndexController extends WechatController {
         return $num;
     }
 
+    public function complete_info(){
+        $retData = array('code' => '-1');
+
+        try {
+
+            $real_name = I('get.real_name', '');
+            $sex = I('get.sex', '');
+            $age = I('get.age', 0, 'intval');
+            $phone = I('get.phone', 0, 'intval');
+
+            if(empty($real_name) || empty($sex) || empty($age) || empty($phone) || $phone == 0){
+                throw new Exception("error");
+            }
+
+            $wechatUser = D('Video/WechatUser');
+            $wechatUser->real_name = $real_name;
+            $wechatUser->sex = $sex;
+            $wechatUser->age = $age;
+            $wechatUser->phone = $phone;
+
+            $num = $wechatUser->where(array('openid' => $this->_openid))->save();
+
+            if($num > 0){
+                $retData['code'] = 0;
+            }
+
+        } catch (Exception $e){
+            $retData['msg'] = $e->getMessage();
+        }
+
+        echo json_encode($retData);
+    }
+
     public function video(){
         $id = I("get.id",0,'intval');
 
@@ -203,19 +247,21 @@ class IndexController extends WechatController {
 
         $wechat = A('Common/Wechat');
 
-//        if(empty($this->_openid)){
-//            $wechat->getWebCode($id);
-//        } else {
-//            $exists = $this->wechat_user_exists($this->_openid);
-//            if(!$exists){
-//                $wechat->getWebCode($id);
-//            }
-//
-//            $isCU = $this->isChannelUser($this->_openid);
-//
-//            if($isCU)
-//                $cu = 1;
-//        }
+        if(empty($this->_openid)){
+            $wechat->getWebCode($id);
+        } else {
+            $exists = $this->wechat_user_exists($this->_openid);
+            if(!$exists){
+                $wechat->getWebCode($id);
+            }
+
+            $isCU = $this->isChannelUser($this->_openid);
+
+            if($isCU)
+                $cu = 1;
+        }
+
+        $this->updateUserLoginTime($this->_openid);
 
         if($id < 1){
             $this->error("Video not found!");
@@ -387,6 +433,10 @@ class IndexController extends WechatController {
 
     public function getAllDisease(){
         return $this->disease_model->field('distinct disease')->select();
+    }
+
+    public function agreement(){
+        $this->display();
     }
 }
 
