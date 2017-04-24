@@ -23,6 +23,13 @@ if(videoDom) {
     // 监听播放器的pause事件
     player.on("play", function () {
         console.log('play');
+
+        if($('#cu').val() === '1'){
+            player.pause();
+            complete_info();
+        }
+
+
     });
     player.on("pause", function () {
         console.log('pause');
@@ -48,6 +55,11 @@ function question_dialog() {
             text: "马上开始",
             class: 'open',
             click: function () {
+
+                var video_id = $('#video_id').val();
+                console.log(video_id);
+
+                window.location = '/index.php?g=Video&m=Index&a=question&id=' + video_id;
                 $(this).dialog("close");
             }
         }, {
@@ -78,6 +90,49 @@ $('#title_btn').on('click', function () {
 
 
 // ### Complete user info
-if($('#cu').val() === '1'){
-    alert('You need to complete your info!');
+//if($('#cu').val() === '1'){
+function complete_info() {
+    $('#complete_info').dialog({
+        resizable: false,
+        height: "auto",
+        width: "9.0625rem",
+        modal: true,
+        buttons: [{
+            text: "确定",
+            class: 'ok',
+            click: function () {
+                if(!$('#agreement').is(':checked')){
+                    alert('请先阅读并同意我们的服务协议');
+                    return false;
+                }
+                var real_name = $('#real_name').val();
+                var sex = $('#sex').val();
+                var age = $('#age').val();
+                var phone = $('#phone').val();
+                if(real_name === ''){
+                    alert('请输入真实姓名');
+                    return false;
+                }
+                if(sex === ''){
+                    alert('请输入性别');
+                    return false;
+                }
+                if(age === ''){
+                    alert('请输入年龄');
+                    return false;
+                }
+                if(phone === ''){
+                    alert('请输入手机号码');
+                    return false;
+                }
+
+                $.getJSON('/index.php?g=Video&m=Index&a=complete_info&' + $('#complete-form').serialize(),function (data, status) {
+                    if(data !== undefined && data.code === 0){
+                        $('#cu').val('');
+                    }
+                });
+                $(this).dialog("close");
+            }
+        }]
+    });
 }
