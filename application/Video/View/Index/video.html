@@ -26,6 +26,7 @@
     </div>
     <div class="container">
         <div id="J_prismPlayer" class="prism-player"></div>
+        <input id="video_id" type="hidden" value="{$video.id}" />
         <input id="video_link" type="hidden" value="{$video.video_link}" />
         <input id="video_thumb" type="hidden" value="/data/upload/{$smeta.thumb}" />
     </div>
@@ -73,6 +74,18 @@
     <include file="Public:scripts" />
 
     <input id="cu" type="hidden" value="{$cu}" />
+    <div id="complete_info" style="display: none">
+        <div class="title">视频为{$video.doctor_name}医生享有著作权，请完善资料才能进行观看</div>
+        <form id="complete-form">
+            <ul>
+                <li><label for="real_name">姓名</label><input id="real_name" name="real_name" type="text" maxlength="30" /></li>
+                <li><label for="sex">性别</label><input id="sex" name="sex" type="text" /></li>
+                <li><label for="age">年龄</label><input id="age" name="age" type="number" /></li>
+                <li><label for="phone">手机</label><input id="phone" name="phone" type="tel" /></li>
+            </ul>
+            <input type="checkbox" id="agreement" name="agreement" /><label for="agreement">我同意《<a href="/index.php?g=Video&m=Index&a=agreement">此款服务协议</a>》</label>
+        </form>
+    </div>
     <script src="__PUBLIC__/js/video.min.js"></script>
 </body>
 
