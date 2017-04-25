@@ -27,12 +27,28 @@ if(videoDom) {
         if($('#cu').val() === '1'){
             player.pause();
             complete_info();
+        } else {
+
+            // Collect play action
+            var collectData = {};
+            collectData.id = $('#video_id').val().trim();
+            collectData.action = 'play';
+            collectData.time = player.getCurrentTime();
+            collect(collectData);
         }
 
 
     });
     player.on("pause", function () {
         console.log('pause');
+        var currentTime = player.getCurrentTime();
+
+        // Collect pause action
+        var collectData = {};
+        collectData.id = $('#video_id').val().trim();
+        collectData.action = 'pause';
+        collectData.time = currentTime;
+        collect(collectData);
     });
     player.on('ended', function () {
         question_dialog();
@@ -42,6 +58,13 @@ if(videoDom) {
         var enableBtn = $(testBtn).find('.enable');
         $(enableBtn).show();
         $(enableBtn).bind('click', question_dialog);
+
+        // Collect ended action
+        var collectData = {};
+        collectData.id = $('#video_id').val().trim();
+        collectData.action = 'end';
+        collectData.time = player.getCurrentTime();
+        collect(collectData);
     });
 }
 
@@ -135,4 +158,10 @@ function complete_info() {
             }
         }]
     });
+}
+
+function collect(data){
+    $.get('/index.php?g=Video&m=Collect&a=video&' + $.param(data), function (data) {
+        console.log(data);
+    })
 }
