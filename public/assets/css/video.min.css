@@ -386,6 +386,10 @@ nav .right {
   float: left;
   width: 3.125rem; }
 
+.question-status .result {
+  width: 100%;
+  text-align: center; }
+
 .question-status .btn {
   float: right;
   width: 3.4375rem;
@@ -420,6 +424,33 @@ nav .right {
   position: absolute;
   bottom: 0; }
 
+#complete_info {
+  padding-top: 0;
+  padding-bottom: 0; }
+
+#complete_info .title {
+  height: 0.9375rem;
+  line-height: 0.46875rem;
+  font-size: 0.3125rem;
+  color: #1a99e2; }
+
+#complete_info li input {
+  border: none;
+  background-color: transparent;
+  margin-left: 0.3125rem; }
+
+#complete_info li {
+  height: 0.78125rem;
+  line-height: 0.75rem;
+  border-bottom: 0.01562rem solid #ccc;
+  padding-left: 0.625rem; }
+
+#complete_info label a {
+  color: #1a99e2; }
+
+#agreement {
+  margin: 0.07812rem 0.21875rem; }
+
 /* JQuery UI */
 .ui-widget-header {
   border-width: 0;
@@ -437,21 +468,32 @@ nav .right {
   font-size: 0.40625rem; }
 
 .ui-dialog .ui-dialog-buttonpane {
-  border-width: 0; }
+  border-width: 0;
+  padding-right: 0.15625rem; }
+
+.ui-dialog .ui-dialog-buttonpane .ui-dialog-buttonset {
+  width: 100%; }
 
 .ui-dialog .ui-dialog-buttonpane button {
-  width: 3.82812rem;
-  height: 1.0625rem;
   border-width: 0;
   border-radius: 0.07812rem;
   color: #fff;
   background-color: transparent;
   font-size: 0.5625rem; }
 
+.ui-dialog .ui-dialog-buttonpane button.ok {
+  width: 100%;
+  height: 1.0625rem;
+  background-color: #43aae4; }
+
 .ui-dialog .ui-dialog-buttonpane button.open {
+  width: 3.82812rem;
+  height: 1.0625rem;
   background-color: #43aae4; }
 
 .ui-dialog .ui-dialog-buttonpane button.close {
+  width: 3.82812rem;
+  height: 1.0625rem;
   background-color: #cacaca; }
 
 /* Bootstrap UI */
