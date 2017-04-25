@@ -362,16 +362,78 @@ class IndexController extends WechatController {
         if($jsonString != ''){
             $data = json_decode($jsonString, true);
             if(is_array($data) && count($data) > 0){
-                foreach($data as $key => $item){
 
+                $answers = $this->getAnswers($id);
+
+                $result_score = 0;
+                $ques_num = count($data);
+                $right_num = 0;
+
+                if($ques_num > 0) {
+                    foreach ($data as $key => $item) {
+                        if (array_key_exists($key, $answers) && $item == $answers[$key]) {
+                            $right_num++;
+                        }
+                    }
+
+                    $result_score = $right_num / $ques_num * 100;
                 }
-                $this->ajaxReturn(array('code' => 0, 'data' => array('score' => 70)), 'JSON');
+
+                if(strlen($result_score) > 5){
+                    $result_score = sprintf("%.2f",$result_score);
+                }
+
+                $recordRet = $this->recordUserAnswers($id, $result_score);
+
+                if($recordRet) {
+                    $this->ajaxReturn(array('code' => 0, 'data' => array('score' => $result_score)), 'JSON');
+                } else {
+                    $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
+                }
             } else {
                 $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
             }
         } else {
             $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
         }
+    }
+
+    protected function recordUserAnswers($id, $score = 0){
+        $ret = false;
+
+        $userQuesModel = D('Video/UserQuestions');
+
+        if(!empty($id) && $id > 0) {
+            $userQuesModel->openid = $this->_openid;
+            $userQuesModel->video_id = $id;
+            $userQuesModel->score = $score;
+            $userQuesModel->create_time = date('Y-m-d H:i:s');
+            $num = $userQuesModel->add('', array(), true);
+
+            if($num != false && $num > 0){
+                $ret = true;
+            }
+        }
+
+        return $ret;
+    }
+
+    protected function getAnswers($id){
+        $answers = array();
+
+        if(!empty($id) && $id > 0) {
+            $quesIds = $this->video_model->field('questions')->where(array('id' => $id))->buildSql();
+            $optionModel = D('Portal/Option');
+            $data = $optionModel->field('ques_id, id opt_id')-> where(array('answer' => 1, 'find_in_set(ques_id,' . $quesIds . ')'))->select();
+
+            if(count($data) > 0){
+                foreach($data as $val){
+                    $answers[$val['ques_id']] = $val['opt_id'];
+                }
+            }
+        }
+
+        return $answers;
     }
 
     public function video_list(){
