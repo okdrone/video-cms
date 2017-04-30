@@ -213,8 +213,10 @@ class IndexController extends WechatController {
             $sex = I('get.sex', '');
             $age = I('get.age', 0, 'intval');
             $phone = I('get.phone', 0, 'intval');
+            $identity = I('get.identity', 0, 'intval');
+            $isAgree = I('get.agreement', 0, 'intval');
 
-            if(empty($real_name) || empty($sex) || empty($age) || empty($phone) || $phone == 0){
+            if(empty($real_name) || empty($age) || empty($phone) || $phone == 0){
                 throw new Exception("error");
             }
 
@@ -223,6 +225,9 @@ class IndexController extends WechatController {
             $wechatUser->sex = $sex;
             $wechatUser->age = $age;
             $wechatUser->phone = $phone;
+            $wechatUser->role_type = $identity;
+            if($isAgree === 1)
+                $wechatUser->is_agree = 1;
 
             $num = $wechatUser->where(array('openid' => $this->_openid))->save();
 
