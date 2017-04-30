@@ -498,7 +498,77 @@ nav .right {
     @include height(50);
     @include line-height(48);
     @include border-bottom(1, solid, #ccc);
-    @include padding-left(40);
+    @include margin-top(25);
+}
+
+#complete_info li .left{
+    @include width(110);
+    text-align: right;
+    float: left;
+}
+#complete_info li .left.icon{
+    background: transparent url("../images/form_icons.png") no-repeat;
+    @include background-size(40, 400);
+}
+#complete_info li .left.name{
+    @include background-position(10, 10);
+}
+#complete_info li .left.sex{
+    @include background-position(10, -34);
+}
+#complete_info li .left.age{
+    @include background-position(10, -74);
+}
+#complete_info li .left.phone{
+    @include background-position(14, -120);
+}
+#complete_info li .left.identity{
+    @include background-position(14, -167);
+}
+
+#complete_info li .right{
+    @include width(350);
+    float: left;
+}
+
+#complete_info li .right-radio{
+    @include width(380);
+    text-align: right;
+    float: right;
+}
+
+#complete_info li .right-radio span{
+    @include line-height(36);
+    @include padding(0, 9);
+    float: right;
+}
+
+#complete_info li .regular-radio{
+    display: none;
+}
+
+#complete_info li .regular-radio + label{
+    @include width(38);
+    @include height(38);
+    background: transparent url("../images/form_icons.png");
+    @include background-size(40, 400);
+    @include background-position(0, -218);
+    border: none;
+    display: inline-block;
+    position: relative;
+    float: right;
+}
+
+#complete_info li .regular-radio:checked + label:after{
+    content: ' ';
+    @include width(38);
+    @include height(38);
+    background: transparent url("../images/form_icons.png");
+    @include background-size(40, 400);
+    @include background-position(0, -264);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 #complete_info label a{
@@ -506,7 +576,29 @@ nav .right {
 }
 
 #agreement{
-    @include margin(5, 14);
+    display: none;
+}
+
+#agreement + label{
+    @include width(38);
+    @include height(38);
+    background: transparent url("../images/form_icons.png");
+    @include background-size(40, 400);
+    @include background-position(0, -309);
+    display: inline-block;
+    position: relative;
+    float: left;
+}
+#agreement:checked + label:after{
+    content: ' ';
+    @include width(38);
+    @include height(38);
+    background: transparent url("../images/form_icons.png");
+    @include background-size(40, 400);
+    @include background-position(0, -351);
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 /* JQuery UI */
