@@ -78,12 +78,41 @@
         <div class="title">视频为{$video.doctor_name}医生享有著作权，请完善资料才能进行观看</div>
         <form id="complete-form">
             <ul>
-                <li><label for="real_name">姓名</label><input id="real_name" name="real_name" type="text" maxlength="30" /></li>
-                <li><label for="sex">性别</label><input id="sex" name="sex" type="text" /></li>
-                <li><label for="age">年龄</label><input id="age" name="age" type="number" /></li>
-                <li><label for="phone">手机</label><input id="phone" name="phone" type="tel" /></li>
+                <li><div class="left icon name">姓名</div><div class="right"><label for="real_name"></label><input id="real_name" name="real_name" type="text" maxlength="30" /></div></li>
+                <li>
+                    <div class="left icon sex">性别</div>
+                    <div class="right-radio">
+                        <span>女</span>
+                        <input id="sex-female" name="sex" class="regular-radio" value="0" type="radio" checked="checked" />
+                        <label for="sex-female"></label>
+                        <span>&nbsp;&nbsp;</span>
+                        <span>男</span>
+                        <input id="sex-male" name="sex" class="regular-radio" value="1" type="radio" />
+                        <label for="sex-male"></label>
+                    </div>
+                </li>
+                <li><div class="left icon age">年龄</div><div class="right"><label for="age"></label><input id="age" name="age" type="number" /></div></li>
+                <li><div class="left icon phone">手机</div><div class="right"><label for="phone"></label><input id="phone" name="phone" type="tel" /></div></li>
+                <li>
+                    <div class="left icon identity">身份</div>
+                    <div class="right-radio">
+                        <span>其他</span>
+                        <input id="identity-other" name="identity" class="regular-radio" value="3" type="radio" checked="checked" />
+                        <label for="identity-other"></label>
+                        <span>&nbsp;</span>
+                        <span>病患</span>
+                        <input id="identity-patient" name="identity" class="regular-radio" value="2" type="radio" />
+                        <label for="identity-patient"></label>
+                        <span>&nbsp;</span>
+                        <span>家属</span>
+                        <input id="identity-family" name="identity" class="regular-radio" value="1" type="radio" />
+                        <label for="identity-family"></label>
+                    </div>
+                </li>
             </ul>
-            <input type="checkbox" id="agreement" name="agreement" /><label for="agreement">我同意《<a href="/index.php?g=Video&m=Index&a=agreement">此款服务协议</a>》</label>
+            <div>
+                <input type="checkbox" id="agreement" name="agreement" /><label for="agreement"></label><label for="agreement">我同意《<a href="/index.php?g=Video&m=Index&a=agreement">此款服务协议</a>》</label>
+            </div>
         </form>
     </div>
     <script src="__PUBLIC__/js/video.min.js"></script>
