@@ -26,7 +26,7 @@ class WechatController extends Controller {
 
         $response = $this->getAPI($url);
 
-        //var_dump($response);
+        var_dump($response);exit;
 
         if($response !== false && !empty($response)){
             $arr = json_decode($response, true);
