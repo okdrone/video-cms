@@ -146,7 +146,7 @@ class IndexController extends WechatController {
                 // Is agent user or not
                 $cu = $this->isChannelUser($openId);
 
-                $url = 'http://' . $_SERVER['HTTP_HOST'] . '/video-cms' . U('Video/Index/video?id='.$video_id.'&source='.$source.'&cu='.($cu === true ? 1 : 0));
+                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id.'&source='.$source.'&cu='.($cu === true ? 1 : 0));
                 header('Location: '. $url);
             } else {
                 exit('error: 10003');
