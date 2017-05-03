@@ -21,9 +21,9 @@ class WechatController extends Controller {
     }
 
     function getWebAccessToken($code){
-
+var_dump(C('WE_SECRET'));
         $url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid='.C('WE_APPID').'&secret='.C('WE_SECRET') . '&code=' .$code. '&grant_type=authorization_code';
-
+var_dump($url);
         $response = $this->getAPI($url);
 
         var_dump($response);exit;
