@@ -115,7 +115,7 @@ class IndexController extends WechatController {
 
     public function receiveCode(){
         $code=  I("get.code", '');
-var_dump($_REQUEST);exit;
+
         if(!empty($code)){
             $wechat = A('Common/Wechat');
 
