@@ -48,7 +48,7 @@ $('#question_submit').click(function () {
     });
 
     var video_id = $('#video_id').val();
-    $.post('/index.php?g=Video&m=Index&a=answer&id=' + video_id, JSON.stringify(answers), function (data, status) {
+    $.post('/video-cms/index.php?g=Video&m=Index&a=answer&id=' + video_id, JSON.stringify(answers), function (data, status) {
         if(data !== null && data.code === 0){
             $('#question_process').hide();
             $('#question_result').show();
