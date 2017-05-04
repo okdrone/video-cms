@@ -47,7 +47,7 @@ $('#search_cancel').click(function () {
 });
 
 function search(keyword) {
-    window.location = '/index.php?g=Video&m=Index&a=search&keyword=' + encodeURI(keyword);
+    window.location = '/video-cms/index.php?g=Video&m=Index&a=search&keyword=' + encodeURI(keyword);
 }
 
 $('.search_word li a').click(function(){
