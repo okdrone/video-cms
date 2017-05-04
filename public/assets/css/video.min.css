@@ -360,7 +360,8 @@ nav .right {
 /* Question page */
 .question-item h2 {
   height: 1.01562rem;
-  line-height: 1.01562rem; }
+  line-height: 1.01562rem;
+  font-size: 0.46875rem; }
 
 .question-item .list-group-item {
   height: 0.98438rem;
@@ -399,8 +400,8 @@ nav .right {
 .question-status button {
   width: 3.4375rem;
   height: 1.0625rem;
+  background: transparent url("../images/question_btn.png") no-repeat;
   background-size: 3.4375rem 2.15625rem;
-  background: transparent url("../images/question_btn.png");
   background-position: 0rem 0rem;
   border: 0 none; }
 
