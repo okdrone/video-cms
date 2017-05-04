@@ -404,6 +404,7 @@ nav .right {
 .question-item h2{
     @include height(65);
     @include line-height(65);
+    @include font-size(30);
 }
 
 .question-item .list-group-item{
@@ -448,8 +449,8 @@ nav .right {
 .question-status button{
     @include width(220);
     @include height(68);
+    background: transparent url("../images/question_btn.png") no-repeat;
     @include background-size(220, 138);
-    background: transparent url("../images/question_btn.png");
     @include background-position(0, 0);
     border: 0 none;
 }
