@@ -82,7 +82,7 @@ function question_dialog() {
                 var video_id = $('#video_id').val();
                 console.log(video_id);
 
-                window.location = '/index.php?g=Video&m=Index&a=question&id=' + video_id;
+                window.location = '/video-cms/index.php?g=Video&m=Index&a=question&id=' + video_id;
                 $(this).dialog("close");
             }
         }, {
@@ -149,7 +149,7 @@ function complete_info() {
                     return false;
                 }
 
-                $.getJSON('/index.php?g=Video&m=Index&a=complete_info&' + $('#complete-form').serialize(),function (data, status) {
+                $.getJSON('/video-cms/index.php?g=Video&m=Index&a=complete_info&' + $('#complete-form').serialize(),function (data, status) {
                     if(data !== undefined && data.code === 0){
                         $('#cu').val('');
                     }
@@ -161,7 +161,7 @@ function complete_info() {
 }
 
 function collect(data){
-    $.get('/index.php?g=Video&m=Collect&a=video&' + $.param(data), function (data) {
+    $.get('/video-cms/index.php?g=Video&m=Collect&a=video&' + $.param(data), function (data) {
         console.log(data);
     })
 }
