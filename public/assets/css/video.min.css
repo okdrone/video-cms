@@ -443,13 +443,97 @@ nav .right {
   height: 0.78125rem;
   line-height: 0.75rem;
   border-bottom: 0.01562rem solid #ccc;
-  padding-left: 0.625rem; }
+  margin-top: 0.39062rem; }
+
+#complete_info li .left {
+  width: 1.71875rem;
+  text-align: right;
+  float: left; }
+
+#complete_info li .left.icon {
+  background: transparent url("../images/form_icons.png") no-repeat;
+  background-size: 0.625rem 6.25rem; }
+
+#complete_info li .left.name {
+  background-position: 0.15625rem 0.15625rem; }
+
+#complete_info li .left.sex {
+  background-position: 0.15625rem -0.53125rem; }
+
+#complete_info li .left.age {
+  background-position: 0.15625rem -1.15625rem; }
+
+#complete_info li .left.phone {
+  background-position: 0.21875rem -1.875rem; }
+
+#complete_info li .left.identity {
+  background-position: 0.21875rem -2.60938rem; }
+
+#complete_info li .right {
+  width: 5.46875rem;
+  float: left; }
+
+#complete_info li .right-radio {
+  width: 5.9375rem;
+  text-align: right;
+  float: right; }
+
+#complete_info li .right-radio span {
+  line-height: 0.5625rem;
+  padding: 0rem 0.14062rem;
+  float: right; }
+
+#complete_info li .regular-radio {
+  display: none; }
+
+#complete_info li .regular-radio + label {
+  width: 0.59375rem;
+  height: 0.59375rem;
+  background: transparent url("../images/form_icons.png");
+  background-size: 0.625rem 6.25rem;
+  background-position: 0rem -3.40625rem;
+  border: none;
+  display: inline-block;
+  position: relative;
+  float: right; }
+
+#complete_info li .regular-radio:checked + label:after {
+  content: ' ';
+  width: 0.59375rem;
+  height: 0.59375rem;
+  background: transparent url("../images/form_icons.png");
+  background-size: 0.625rem 6.25rem;
+  background-position: 0rem -4.125rem;
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 #complete_info label a {
   color: #1a99e2; }
 
 #agreement {
-  margin: 0.07812rem 0.21875rem; }
+  display: none; }
+
+#agreement + label {
+  width: 0.59375rem;
+  height: 0.59375rem;
+  background: transparent url("../images/form_icons.png");
+  background-size: 0.625rem 6.25rem;
+  background-position: 0rem -4.82812rem;
+  display: inline-block;
+  position: relative;
+  float: left; }
+
+#agreement:checked + label:after {
+  content: ' ';
+  width: 0.59375rem;
+  height: 0.59375rem;
+  background: transparent url("../images/form_icons.png");
+  background-size: 0.625rem 6.25rem;
+  background-position: 0rem -5.48438rem;
+  position: absolute;
+  top: 0;
+  left: 0; }
 
 /* JQuery UI */
 .ui-widget-header {
