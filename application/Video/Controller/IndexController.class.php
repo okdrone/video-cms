@@ -264,6 +264,8 @@ class IndexController extends WechatController {
 
             if($isCU)
                 $cu = 1;
+            else
+                $cu = 0;
         }
 
         $this->updateUserLoginTime($this->_openid);
