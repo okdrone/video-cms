@@ -96,7 +96,7 @@ function question_dialog() {
 }
 
 // Just for test
-$('#test_btn').click(question_dialog);
+//$('#test_btn').click(question_dialog);
 
 // ### Control title slide down
 $('#title_btn').on('click', function () {
