@@ -66,6 +66,12 @@ if(videoDom) {
         collectData.time = player.getCurrentTime();
         collect(collectData);
     });
+
+    // Collect open action
+    var collectData = {};
+    collectData.id = $('#video_id').val().trim();
+    collectData.action = 'open';
+    collect(collectData);
 }
 
 function question_dialog() {
