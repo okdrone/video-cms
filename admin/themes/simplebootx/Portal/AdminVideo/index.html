@@ -55,10 +55,10 @@
                         <eq name="vo.disease_name" value="">全部<else/>{$vo.disease_name}</eq>
                     </td>
                     <td>
-                        {$vo.view_count}
+                        {$vo.visits}
                     </td>
                     <td>
-                        {$vo.play_count}
+                        {$vo.play}
                     </td>
 					<td>{$vo.user_nicename|default=$vo.user_login}</td>
 					<td>{:date('Y-m-d H:i',$vo['add_time'])}</td>
