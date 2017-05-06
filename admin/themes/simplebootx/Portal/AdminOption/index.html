@@ -94,7 +94,7 @@
 
 			$('input[name="isanswer"]').on('click', function () {
                 if($(this).attr('checked')){
-                    $.get('/index.php?g=&m=AdminOption&a=update_answer&ques_id={$ques_id}&opt=' + $(this).val());
+                    $.get('/video-cms/index.php?g=&m=AdminOption&a=update_answer&ques_id={$ques_id}&opt=' + $(this).val());
                 }
             })
 		});

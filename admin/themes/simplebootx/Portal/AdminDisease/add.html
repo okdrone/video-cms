@@ -76,7 +76,7 @@
 				});
 			});
 			$('#departments').autocomplete({
-                source: "/index.php?g=&m=AdminDisease&a=get_departments",
+                source: "/video-cms/index.php?g=&m=AdminDisease&a=get_departments",
                 minLength: 2,
                 select: function( event, ui ) {
                     console.log( "Selected: " + ui.item.value + " aka " + ui.item.id );
