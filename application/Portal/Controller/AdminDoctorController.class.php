@@ -121,24 +121,22 @@ class AdminDoctorController extends AdminbaseController {
 	 */
 	private function _lists($where=array()){
 
-		$start_time=I('request.start_time');
-		if(!empty($start_time)){
-		    $where['add_time']=array(
-		        array('EGT',strtotime($start_time))
-		    );
-		}
-		
-		$end_time=I('request.end_time');
-		if(!empty($end_time)){
-		    if(empty($where['add_time'])){
-		        $where['add_time']=array();
-		    }
-		    array_push($where['add_time'], array('ELT',strtotime($end_time)));
+		$locate=I('request.locate');
+		if(!empty($locate)){
+		    $locateArr = explode('-', $locate);
+		    if(count($locateArr) == 2) {
+                $where['province'] = array(
+                    array('EQ', trim($locateArr[0]))
+                );
+                $where['city'] = array(
+                    array('EQ', trim($locateArr[1]))
+                );
+            }
 		}
 		
 		$keyword=I('request.keyword');
 		if(!empty($keyword)){
-		    $where['title']=array('like',"%$keyword%");
+		    $where['name']=array('like',"%$keyword%");
 		}
 			
 		$this->doctor_model

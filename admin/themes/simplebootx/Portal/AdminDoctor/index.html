@@ -1,4 +1,6 @@
 <admintpl file="header" />
+<link href="/video-cms/public/simpleboot/css/jquery-ui.min.css" rel="stylesheet">
+<link href="/video-cms/public/simpleboot/css/city.css" rel="stylesheet">
 </head>
 <body>
 	<div class="wrap js-check-wrap">
@@ -7,13 +9,8 @@
 			<li><a href="{:U('AdminDoctor/add',array('term'=>empty($term['term_id'])?'':$term['term_id']))}" target="_self">{:L('PORTAL_ADMINDOCTOR_ADD')}</a></li>
 		</ul>
 		<form class="well form-search" method="post" action="{:U('AdminDoctor/index')}">
-            科室：
-			<select name="departments">
-                <option value="">请选择...</option>
-                <foreach name="departments" item="vo">
-                    <option value="{$vo.departments}" >{$vo.departments}</option>
-                </foreach>
-			</select> &nbsp; &nbsp;
+			省份：
+			<input type="text" id="locate" name="locate" />&nbsp; &nbsp;
 			关键字： 
 			<input type="text" name="keyword" style="width: 200px;" value="{$formget.keyword|default=''}" placeholder="请输入关键字...">
 			<input type="submit" class="btn btn-primary" value="搜索" />
@@ -100,6 +97,7 @@
 		</form>
 	</div>
 	<script src="__PUBLIC__/js/common.js"></script>
+	<script type="text/javascript" src="__PUBLIC__/js/city.min.js"></script>
 	<script>
 		function refersh_window() {
 			var refersh_time = getCookie('refersh_time');
@@ -107,6 +105,9 @@
 				window.location = "{:U('AdminDoctor/index',$formget)}";
 			}
 		}
+        $("#locate").click(function (e) {
+            SelCity(this,e);
+        });
 		setInterval(function() {
 			refersh_window();
 		}, 2000);
