@@ -278,6 +278,38 @@ class AdminVideoController extends AdminbaseController {
         $this->video_model->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name,c.user_login,c.user_nicename');
 		$posts=$this->video_model->select();
 
+		$ids = array();
+		foreach($posts as $v){
+		    array_push($ids, $v['id']);
+        }
+
+        $userVideo = D("Portal/UserVideos");
+
+        $visitsData = $userVideo->visitsByIds($ids);
+//        dump($visitsData);
+//        dump($userVideo->getLastSql());
+
+        $playData = $userVideo->playByIds($ids);
+//        dump($playData);
+//        dump($userVideo->getLastSql());
+
+        foreach($posts as &$item){
+            $item['visits'] = 0;
+            $item['play'] = 0;
+            foreach($visitsData as $v){
+                if($item['id'] == $v['video_id']){
+                    $item['visits'] = $v['num'];
+                }
+            }
+
+            foreach($playData as $p){
+                if($item['id'] == $p['video_id']){
+                    $item['play'] = $p['num'];
+                }
+            }
+        }
+
+//        dump($posts);
 		//dump($this->video_model->getLastSql());
 		
 		$this->assign("page", $page->show('Admin'));
