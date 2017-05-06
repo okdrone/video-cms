@@ -53,7 +53,7 @@ class CollectController extends WechatController {
 
         try {
 
-            if ($id == 0 || !in_array($action, array('play', 'pause', 'end'))) {
+            if ($id == 0 || !in_array($action, array('open', 'play', 'pause', 'end'))) {
                 throw new Exception('The input data invalid!');
             }
 
