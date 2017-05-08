@@ -491,7 +491,7 @@ class IndexController extends WechatController {
             ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
             ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
             ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
-            ->where(' v.`status` <> 3 ' . $where)->select();
+            ->where(' v.`status` = 1 ' . $where)->select();
 
         if(!is_array($video_list)){
             $this->error("Video not found!");
@@ -506,6 +506,45 @@ class IndexController extends WechatController {
         $this->assign('video_list',  $video_list);
         $this->assign('keyword', $keyword);
         $this->display();
+    }
+
+    public function search_list(){
+
+        try {
+
+            $doctor = I("get.doctor", '', 'htmlspecialchars');
+            $disease = I("get.disease", '', 'htmlspecialchars');
+
+            $where = ' v.`status` = 1 ';
+            if (!empty($doctor)) {
+                $where .= 'and do.`name` like \'%' . $doctor . '%\' ';
+            }
+
+            if (!empty($disease)) {
+                $where .= 'and di.disease like \'%' . $disease . '%\' ';
+            }
+
+            $video_list = $this->video_model
+                ->alias("v")
+                ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+                ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+                ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
+                ->where($where)->select();
+
+            if (!is_array($video_list)) {
+                throw new Exception("Video not found!");
+            }
+
+            //dump($video_list);
+
+            foreach ($video_list as &$v) {
+                $v['smeta'] = json_decode($v['smeta'], true);
+            }
+
+            $this->ajaxReturn(array('code' => 0, 'data' => $video_list), 'JSON');
+        } catch (\Exception $e) {
+            $this->ajaxReturn(array('code' => 1, 'data' => array()), 'JSON');
+        }
     }
 
     public function getAllDoctor(){
