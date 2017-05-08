@@ -58,14 +58,14 @@
                         <div class="img">
                             <a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">
                                 <eq name="vo.smeta.thumb" value="">
-                                    <img src="/public/images/no-image-box.png" />
+                                    <img src="/video-cms/public/images/no-image-box.png" />
                                 <else />
-                                    <img src="/data/upload/{$vo.smeta.thumb}" />
+                                    <img src="/vidoe-cms/data/upload/{$vo.smeta.thumb}" />
                                 </eq>
                             </a>
                             <div class="tag">{$vo.video_time}</div>
                         </div>
-                        <div class="title"><a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">{$vo.title}</a></div>
+                        <div class="title"><a href="/vidoe-cms/index.php?g=Video&m=Index&a=video&id={$vo.id}">{$vo.title}</a></div>
                         <div class="info">{$vo.hospital}，{$vo.doctor_name}，{$vo.disease_name}</div>
                     </div>
                 </foreach>
