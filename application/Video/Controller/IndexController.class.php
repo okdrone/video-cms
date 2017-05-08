@@ -82,7 +82,7 @@ class IndexController extends WechatController {
     //首页
 	public function index() {
 
-        $videos = $this->video_model->where('`status` <> 3')->select();
+        $videos = $this->video_model->where('`status` = 1')->select();
 
         dump($videos);
 
