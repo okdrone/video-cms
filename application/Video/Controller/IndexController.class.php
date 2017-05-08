@@ -279,7 +279,7 @@ class IndexController extends WechatController {
             ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
             ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
             ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
-            ->where('v.id=' . $id . ' and v.`status` <> 3')->find();
+            ->where('v.id=' . $id . ' and v.`status` = 1')->find();
 
         if(!is_array($video)){
             $this->error("Video not found!");
@@ -450,7 +450,7 @@ class IndexController extends WechatController {
             ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
             ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
             ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
-            ->where(' v.`status` <> 3')->select();
+            ->where(' v.`status` = 1')->select();
 
         if(!is_array($video_list)){
             $this->error("Video not found!");
