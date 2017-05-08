@@ -30,12 +30,14 @@ $('.drop-menu').click(clean_drop_menu);
 $('#ddm1').find('li').click(function(){
     var val = $(this).find('span:eq(0)').html();
     $('#filter-box').find('li[toggle-menu="ddm1"]').html(val);
+    $('#filter-doctor').val(val)
     clean_drop_menu();
     refreshSearch();
 });
 $('#ddm2').find('li').click(function(){
     var val = $(this).find('span:eq(0)').html();
     $('#filter-box').find('li[toggle-menu="ddm2"]').html(val);
+    $('#filter-disease').val(val)
     clean_drop_menu();
     refreshSearch();
 });
@@ -53,8 +55,8 @@ function search(keyword) {
 }
 
 function refreshSearch(){
-    var doctor = $('#filter-box').find('li[toggle-menu="ddm1"]').html().trim();
-    var disease = $('#filter-box').find('li[toggle-menu="ddm2"]').html().trim();
+    var doctor = $('#filter-doctor').val().trim();
+    var disease = $('#filter-disease').val().trim();
 
     console.log(doctor);
     console.log(disease);
