@@ -31,11 +31,13 @@ $('#ddm1').find('li').click(function(){
     var val = $(this).find('span:eq(0)').html();
     $('#filter-box').find('li[toggle-menu="ddm1"]').html(val);
     clean_drop_menu();
+    refreshSearch();
 });
 $('#ddm2').find('li').click(function(){
     var val = $(this).find('span:eq(0)').html();
     $('#filter-box').find('li[toggle-menu="ddm2"]').html(val);
     clean_drop_menu();
+    refreshSearch();
 });
 
 // ### Search Box
@@ -48,6 +50,14 @@ $('#search_cancel').click(function () {
 
 function search(keyword) {
     window.location = '/video-cms/index.php?g=Video&m=Index&a=search&keyword=' + encodeURI(keyword);
+}
+
+function refreshSearch(){
+    var doctor = $('#filter-box').find('li[toggle-menu="ddm1"]').html().trim();
+    var disease = $('#filter-box').find('li[toggle-menu="ddm2"]').html().trim();
+
+    console.log(doctor);
+    console.log(disease);
 }
 
 $('.search_word li a').click(function(){
