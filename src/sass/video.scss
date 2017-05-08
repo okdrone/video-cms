@@ -122,6 +122,8 @@ nav .right {
     @include font-size(24);
     @include height(45);
     @include line-height(45);
+    text-align: center;
+    padding: 0;
 }
 
 .content .filter-box ul li.btn{
