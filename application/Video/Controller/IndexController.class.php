@@ -49,7 +49,7 @@ class IndexController extends WechatController {
         $this->_openid = cookie('openid');
 
         // Just for test
-        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
+        //$this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
     }
 
     public function api(){
