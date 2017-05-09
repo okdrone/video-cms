@@ -236,7 +236,7 @@
 
             $("#city").change(function () {
                 var term = $(this).val();
-                $.getJSON('/index.php?m=AdminVideo&a=api_get_hospital&c=' + encodeURIComponent(term), function (data) {
+                $.getJSON('/video-cms/index.php?m=AdminVideo&a=api_get_hospital&c=' + encodeURIComponent(term), function (data) {
                     $("#hospital option").each(function (i) {
                         if(i > 0) $(this).remove();
                     });
@@ -251,7 +251,7 @@
             $("#hospital").change(function () {
                 var city = $('#city').val();
                 var term = $(this).val();
-                $.getJSON('/index.php?m=AdminVideo&a=api_get_doctor&c=' + encodeURIComponent(city) + '&h=' + encodeURIComponent(term), function (data) {
+                $.getJSON('/video-cms/index.php?m=AdminVideo&a=api_get_doctor&c=' + encodeURIComponent(city) + '&h=' + encodeURIComponent(term), function (data) {
                     $("#doctor option").each(function (i) {
                         if(i > 0) $(this).remove();
                     });
@@ -262,7 +262,7 @@
             });
             $("#departments").change(function () {
                 var term = $(this).val();
-                $.getJSON('/index.php?m=AdminVideo&a=api_get_disease&d=' + encodeURIComponent(term), function (data) {
+                $.getJSON('/video-cms/index.php?m=AdminVideo&a=api_get_disease&d=' + encodeURIComponent(term), function (data) {
                     $("#disease option").each(function (i) {
                         if(i > 0) $(this).remove();
                     });
