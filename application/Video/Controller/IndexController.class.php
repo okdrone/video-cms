@@ -147,7 +147,15 @@ class IndexController extends WechatController {
                 // Is agent user or not
                 $cu = $this->isChannelUser($openId);
 
-                $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id.'&source='.$source.'&cu='.($cu === true ? 1 : 0));
+                if(!empty($video_id)){
+                    if($video_id == 'some'){
+                        $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/some');
+                    } else {
+                        $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id.'&source='.$source.'&cu='.($cu === true ? 1 : 0));
+                    }
+                } else {
+                    $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video_list');
+                }
                 header('Location: '. $url);
             } else {
                 exit('error: 10003');
@@ -321,11 +329,11 @@ class IndexController extends WechatController {
         $wechat = A('Common/Wechat');
 
         if(empty($this->_openid)){
-            $wechat->getWebCode('');
+            $wechat->getWebCode('some');
         } else {
             $exists = $this->wechat_user_exists($this->_openid);
             if(!$exists){
-                $wechat->getWebCode('');
+                $wechat->getWebCode('some');
             }
 
             $isCU = $this->isChannelUser($this->_openid);
