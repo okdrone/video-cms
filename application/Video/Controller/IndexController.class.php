@@ -341,7 +341,7 @@ class IndexController extends WechatController {
         $doc_data = $this->getAPI('http://manger.yuntehu.com/Interface/getUserDoctor/openId/' . $this->_openid);
 
         if($doc_data === false){
-            $this->redirect('Video/Index/video_list', array(), 100, '页面跳转中...');
+            $this->redirect('Video/Index/video_list', array(), 10, '页面跳转中...');
         }
 
         // Compatible with the not regular data return from third-part api
@@ -355,7 +355,7 @@ class IndexController extends WechatController {
         $doc_arr = json_decode($doc_data, true);
 
         if(!is_array($doc_arr) || $doc_arr['code'] !== 0){
-            $this->redirect('Video/Index/video_list', array(), 100, '页面跳转中...');
+            $this->redirect('Video/Index/video_list', array(), 10, '页面跳转中...');
         }
 
         //var_dump($doc_arr['data']);exit;
@@ -377,7 +377,7 @@ class IndexController extends WechatController {
 
         if(!is_array($video)){
             //$this->error("Video not found!");
-            $this->redirect('Video/Index/video_list', array(), 100, '页面跳转中...');
+            $this->redirect('Video/Index/video_list', array(), 10, '页面跳转中...');
         }
 
         //dump($video);
