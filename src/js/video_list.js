@@ -55,11 +55,31 @@ function search(keyword) {
 }
 
 function refreshSearch(){
-    var doctor = $('#filter-doctor').val().trim();
-    var disease = $('#filter-disease').val().trim();
+    var doctor = $('#filter-doctor').val();
+    var disease = $('#filter-disease').val();
 
     console.log(doctor);
     console.log(disease);
+
+    $.getJSON('/video-cms/index.php?g=Video&m=Index&a=search_list&doctor=' + doctor + '&disease=' + disease,function (data, status) {
+        cleanSearchList();
+        if(data !== undefined && data.code === 0){
+            var list_html = '';
+            $.each(data.data, function (i, d) {
+                list_html += '<div class="list-item">' +
+                    '<div class="img"><a href="/video-cms/index.php?g=Video&m=Index&a=video&id=' + d.id + '">' +
+                    (d.smeta.thumb === "" ? '<img src="/video-cms/public/images/no-image-box.png" />' : '<img src="/video-cms/data/upload/' + d.smeta.thumb + '" />') +
+                    '</a> <div class="tag">' + d.video_time + '</div></div>' +
+                '<div class="title"><a href="/video-cms/index.php?g=Video&m=Index&a=video&id=' + d.id + '">' + d.title + '</a></div>' +
+                '<div class="info">' + d.hospital + '，' + d.doctor_name + '，' + d.disease_name + '</div></div>';
+            });
+            $('#search-list').html(list_html);
+        }
+    });
+}
+
+function cleanSearchList(){
+    $('#search-list').html('');
 }
 
 $('.search_word li a').click(function(){
