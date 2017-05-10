@@ -49,7 +49,8 @@ class IndexController extends WechatController {
         $this->_openid = cookie('openid');
 
         // Just for test
-        //$this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
+//        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
+//        $this->_openid = 'ok0umxFCF_nS2OOcms24838ECEfA';
     }
 
     public function api(){
@@ -308,6 +309,100 @@ class IndexController extends WechatController {
         $this->assign('recommend',  $recommend);
         $this->assign('cu',  $cu);
         $this->display();
+    }
+
+    public function some(){
+
+        $source = I("get.source", '');
+        $cu = I("get.cu", '');
+
+        cookie('source', $source, 3600);
+
+        $wechat = A('Common/Wechat');
+
+        if(empty($this->_openid)){
+            $wechat->getWebCode('');
+        } else {
+            $exists = $this->wechat_user_exists($this->_openid);
+            if(!$exists){
+                $wechat->getWebCode('');
+            }
+
+            $isCU = $this->isChannelUser($this->_openid);
+
+            if($isCU)
+                $cu = 1;
+            else
+                $cu = 0;
+        }
+
+        $this->updateUserLoginTime($this->_openid);
+
+        $doc_data = $this->getAPI('http://manger.yuntehu.com/Interface/getUserDoctor/openId/' . $this->_openid);
+
+        if($doc_data === false){
+            $this->redirect('Video/Index/video_list', array(), 100, '页面跳转中...');
+        }
+
+        // Compatible with the not regular data return from third-part api
+        $doc_data = trim($doc_data);
+
+        $start = strpos($doc_data, '{');
+
+        if($start > 0)
+            $doc_data = substr($doc_data, $start);
+
+        $doc_arr = json_decode($doc_data, true);
+
+        if(!is_array($doc_arr) || $doc_arr['code'] !== 0){
+            $this->redirect('Video/Index/video_list', array(), 100, '页面跳转中...');
+        }
+
+        //var_dump($doc_arr['data']);exit;
+
+        $doc_name = $doc_arr['data']['doctor_name'];
+//        foreach($doc_data['data'] as $doc){
+//            $doc_name = $doc['doctor_name'];
+//        }
+
+        $video = $this->video_model
+            ->alias("v")
+            ->join("LEFT JOIN __DOCTORS__ do ON v.doctor = do.id")
+            ->join("LEFT JOIN __DISEASE__ di ON v.disease = di.id")
+            ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
+            ->where('do.code=\'' . $doc_name . '\' and v.`status` = 1')->order('v.last_modified desc')->find();
+
+//        var_dump($video);
+//        var_dump($this->video_model->getLastSql());exit;
+
+        if(!is_array($video)){
+            //$this->error("Video not found!");
+            $this->redirect('Video/Index/video_list', array(), 100, '页面跳转中...');
+        }
+
+        //dump($video);
+
+        $smeta = json_decode($video['smeta'], true);
+
+        $recommend = array();
+
+        if(!empty($video['recommend'])){
+            $recommend = $this->video_model->where('id in (' . $video['recommend'] . ')')->select();
+        }
+
+        //dump($recommend);
+
+        foreach ($recommend as &$v){
+            $v['smeta'] = json_decode($v['smeta'], true);
+        }
+
+        //dump($recommend);
+
+        $this->assign('smeta',  $smeta);
+        $this->assign('video',  $video);
+        $this->assign('recommend',  $recommend);
+        $this->assign('cu',  $cu);
+        $this->display('video');
     }
 
     public function question(){
