@@ -372,8 +372,8 @@ class IndexController extends WechatController {
             ->field('v.*,do.`name` doctor_name,do.province,do.city,do.hospital,di.disease disease_name')
             ->where('do.code=\'' . $doc_name . '\' and v.`status` = 1')->order('v.last_modified desc')->find();
 
-        var_dump($video);
-        var_dump($this->video_model->getLastSql());exit;
+//        var_dump($video);
+//        var_dump($this->video_model->getLastSql());exit;
 
         if(!is_array($video)){
             //$this->error("Video not found!");
