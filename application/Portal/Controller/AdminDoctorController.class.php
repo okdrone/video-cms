@@ -81,7 +81,7 @@ class AdminDoctorController extends AdminbaseController {
 	// 文章编辑提交
 	public function edit_post(){
 		if (IS_POST) {
-			$post_id=intval($_POST['ques']['id']);
+			$post_id=intval($_POST['doct']['id']);
 
             if(!empty($_POST['doct']['doctor'])){
                 $_POST['doct']['name'] = $_POST['doct']['doctor'];
@@ -106,7 +106,7 @@ class AdminDoctorController extends AdminbaseController {
 			$_POST['doct']['last_modified']=time();
 			$article=I("post.doct");
 
-			$result=$this->doctor_model->save($article);
+			$result=$this->doctor_model->where('id=' . $post_id)->save($article);
 			if ($result!==false) {
 				$this->success("保存成功！");
 			} else {
