@@ -73,7 +73,7 @@ class AdminDoctorController extends AdminbaseController {
 		$id=  I("get.id",0,'intval');
 
 		$doct=$this->doctor_model->where("id=$id")->find();
-		$doct['city'] = $doct['province'] . '-' . $doct['city'];
+		$doct['city'] = $doct['province'] . '-' . $doct['city'];var_dump($doct);
 		$this->assign("doct",$doct);
 		$this->display();
 	}
