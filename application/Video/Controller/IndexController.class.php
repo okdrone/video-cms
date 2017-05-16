@@ -278,12 +278,12 @@ class IndexController extends WechatController {
                 $wechat->getWebCode($id);
             }
 
-            $isCU = $this->isChannelUser($this->_openid);
+//            $isCU = $this->isChannelUser($this->_openid);
 
-            if($isCU)
-                $cu = 1;
-            else
-                $cu = 0;
+//            if($isCU)
+//                $cu = 1;
+//            else
+//                $cu = 0;
         }
 
         $this->updateUserLoginTime($this->_openid);
