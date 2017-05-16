@@ -50,7 +50,7 @@ class IndexController extends WechatController {
 
         // Just for test
 //        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
-//        $this->_openid = 'ok0umxFCF_nS2OOcms24838ECEfA';
+//        $this->_openid = 'ok0umxE337MOwahme84mXJ5AnXF4';
     }
 
     public function api(){
@@ -376,6 +376,7 @@ class IndexController extends WechatController {
         //var_dump($doc_arr['data']);exit;
 
         $doc_name = $doc_arr['data']['doctor_name'];
+        $doc_name = 'MFS';
 //        foreach($doc_data['data'] as $doc){
 //            $doc_name = $doc['doctor_name'];
 //        }
