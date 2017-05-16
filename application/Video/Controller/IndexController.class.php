@@ -324,7 +324,7 @@ class IndexController extends WechatController {
         $this->assign('smeta',  $smeta);
         $this->assign('video',  $video);
         $this->assign('recommend',  $recommend);
-        $this->assign('cu',  $cu);
+        //$this->assign('cu',  $cu);
         $this->display();
     }
 
