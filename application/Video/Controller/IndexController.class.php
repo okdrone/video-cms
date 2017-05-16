@@ -369,6 +369,9 @@ class IndexController extends WechatController {
 
         $doc_arr = json_decode($doc_data, true);
 
+        $doc_arr['code'] = 0;
+        $doc_arr['data']['doctor_name'] = 'MFS';
+
         if(!is_array($doc_arr) || $doc_arr['code'] !== 0){
             $this->redirect('Video/Index/video_list', array(), 0, '页面跳转中...');
         }
@@ -376,7 +379,6 @@ class IndexController extends WechatController {
         //var_dump($doc_arr['data']);exit;
 
         $doc_name = $doc_arr['data']['doctor_name'];
-        $doc_name = 'MFS';
 //        foreach($doc_data['data'] as $doc){
 //            $doc_name = $doc['doctor_name'];
 //        }
