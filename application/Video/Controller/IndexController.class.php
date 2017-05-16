@@ -139,7 +139,7 @@ class IndexController extends WechatController {
                     $user_info = $wechat->getWebUserInfo($token, $openId);
 
                     if(count($user_info) > 0){
-                        $user_info['source'] = $source;
+                        //$user_info['source'] = $source;
                         $this->wechat_user_add($user_info);
                     }
                 }
@@ -193,6 +193,13 @@ class IndexController extends WechatController {
         $wechatUser = D('Video/WechatUser');
         $wechatUser->last_login_time = date('Y-m-d H:i:s');
         $wechatUser->where(array('openid' => $openId))->save();
+    }
+
+    protected function setUserSource($openId, $source){
+        if(!empty($openId) && !empty($source)) {
+            $wechatUser = D('Video/WechatUser');
+            $wechatUser->setSource($openId, $source);
+        }
     }
 
     protected function wechat_user_add($userInfo){
@@ -349,7 +356,7 @@ class IndexController extends WechatController {
         $doc_data = $this->getAPI('http://manger.yuntehu.com/Interface/getUserDoctor/openId/' . $this->_openid);
 
         if($doc_data === false){
-            $this->redirect('Video/Index/video_list', array(), 10, '页面跳转中...');
+            $this->redirect('Video/Index/video_list', array(), 0, '页面跳转中...');
         }
 
         // Compatible with the not regular data return from third-part api
@@ -363,7 +370,7 @@ class IndexController extends WechatController {
         $doc_arr = json_decode($doc_data, true);
 
         if(!is_array($doc_arr) || $doc_arr['code'] !== 0){
-            $this->redirect('Video/Index/video_list', array(), 10, '页面跳转中...');
+            $this->redirect('Video/Index/video_list', array(), 0, '页面跳转中...');
         }
 
         //var_dump($doc_arr['data']);exit;
@@ -372,6 +379,8 @@ class IndexController extends WechatController {
 //        foreach($doc_data['data'] as $doc){
 //            $doc_name = $doc['doctor_name'];
 //        }
+
+        $this->setUserSource($this->_openid, $doc_name);
 
         $video = $this->video_model
             ->alias("v")
@@ -385,10 +394,12 @@ class IndexController extends WechatController {
 
         if(!is_array($video)){
             //$this->error("Video not found!");
-            $this->redirect('Video/Index/video_list', array(), 10, '页面跳转中...');
+            $this->redirect('Video/Index/video_list', array(), 0, '页面跳转中...');
         }
 
         //dump($video);
+
+
 
         $smeta = json_decode($video['smeta'], true);
 

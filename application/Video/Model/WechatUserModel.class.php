@@ -16,4 +16,11 @@ class WechatUserModel extends CommonModel {
     protected function _before_write(&$data) {
         parent::_before_write($data);
     }
+
+    public function setSource($openId, $source){
+        $num = $this->field('count(`source`) num')->where('openid=\''.$openId.'\' and `source` = \'\'')->find();
+        if($num != false && $num['num'] > 0){
+            $this->where('openid=\'' . $openId . '\'')->save(array('source' => $source));
+        }
+    }
 }
