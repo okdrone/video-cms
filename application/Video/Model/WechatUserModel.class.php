@@ -18,7 +18,7 @@ class WechatUserModel extends CommonModel {
     }
 
     public function setSource($openId, $source){
-        $num = $this->field('count(`source`) num')->where('openid=\''.$openId.'\' and `source` = \'\'')->find();
+        $num = $this->field('count(`source`) num')->where('openid=\''.$openId.'\' and `source` is not null')->find();
         if($num != false && $num['num'] > 0){
             $this->where('openid=\'' . $openId . '\'')->save(array('source' => $source));
         }
