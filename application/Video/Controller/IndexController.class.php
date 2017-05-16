@@ -212,7 +212,7 @@ class IndexController extends WechatController {
         $userData['province'] = $userInfo['province'];
         $userData['city'] = $userInfo['city'];
         $userData['country'] = $userInfo['country'];
-        $userData['source'] = $userInfo['source'];
+        //$userData['source'] = $userInfo['source'];
         $userData['create_time'] = date('Y-m-d H:i:s');
 
         $num = $wechatUser->add($userData);
@@ -261,12 +261,12 @@ class IndexController extends WechatController {
     public function video(){
         $id = I("get.id",0,'intval');
 
-        $source = I("get.source", '');
+//        $source = I("get.source", '');
         $cu = I("get.cu", '');
 
-        if(!empty($source)) {
-            cookie('source', $source, 3600);
-        }
+//        if(!empty($source)) {
+//            cookie('source', $source, 3600);
+//        }
 
         $wechat = A('Common/Wechat');
 
