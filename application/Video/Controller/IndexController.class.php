@@ -130,7 +130,7 @@ class IndexController extends WechatController {
                 $openId = $tokenArr[1];
                 cookie('openid', $openId, 3600);
 
-                $source = cookie('source');
+                //$source = cookie('source');
 
                 $exists = $this->wechat_user_exists($openId);
 
@@ -151,7 +151,7 @@ class IndexController extends WechatController {
                     if($video_id == 'some'){
                         $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/some');
                     } else {
-                        $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id.'&source='.$source.'&cu='.($cu === true ? 1 : 0));
+                        $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video?id='.$video_id.'&cu='.($cu === true ? 1 : 0));
                     }
                 } else {
                     $url = 'http://' . $_SERVER['HTTP_HOST'] . U('Video/Index/video_list');
