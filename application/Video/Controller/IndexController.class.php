@@ -264,7 +264,9 @@ class IndexController extends WechatController {
         $source = I("get.source", '');
         $cu = I("get.cu", '');
 
-        cookie('source', $source, 3600);
+        if(!empty($source)) {
+            cookie('source', $source, 3600);
+        }
 
         $wechat = A('Common/Wechat');
 
@@ -328,10 +330,7 @@ class IndexController extends WechatController {
 
     public function some(){
 
-        $source = I("get.source", '');
         $cu = I("get.cu", '');
-
-        cookie('source', $source, 3600);
 
         $wechat = A('Common/Wechat');
 
