@@ -353,7 +353,7 @@ class IndexController extends WechatController {
         $this->updateUserLoginTime($this->_openid);
 
         $doc_data = $this->getAPI('http://manger.yuntehu.com/Interface/getUserDoctor/openId/' . $this->_openid);
-var_dump($doc_data);exit;
+//var_dump($doc_data);exit;
         if($doc_data === false){
             $this->redirect('Video/Index/video_list', array(), 0, '页面跳转中...');
         }
