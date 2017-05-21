@@ -115,6 +115,7 @@ class IndexController extends WechatController {
     }
 
     public function receiveCode(){
+        Log::write("Receive code");
         $code=  I("get.code", '');
 
         if(!empty($code)){
