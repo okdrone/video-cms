@@ -1,6 +1,7 @@
 <?php
 namespace Common\Controller;
 use Think\Controller;
+use Think\Log;
 
 class WechatController extends Controller {
 

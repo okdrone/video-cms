@@ -26,6 +26,7 @@
 namespace Video\Controller;
 use Common\Controller\WechatController;
 use Think\Exception;
+use Think\Log;
 
 /**
  * 首页
@@ -47,6 +48,8 @@ class IndexController extends WechatController {
         $this->disease_model = D("Portal/Disease");
 
         $this->_openid = cookie('openid');
+
+        Log::write("Init openid:" . $this->_openid);
 
         // Just for test
 //        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
