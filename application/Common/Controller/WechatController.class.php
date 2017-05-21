@@ -19,6 +19,7 @@ class WechatController extends Controller {
         $url = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid='.C('WE_APPID').'&redirect_uri=' . urlencode($redirect) . '&response_type=code&scope=snsapi_userinfo&state='.$retData.'#wechat_redirect';
 
         header('Location: '. $url);
+        Log::write("Redirect url:" . $url);
     }
 
     function getWebAccessToken($code){
