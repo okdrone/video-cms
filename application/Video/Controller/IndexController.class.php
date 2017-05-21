@@ -26,6 +26,7 @@
 namespace Video\Controller;
 use Common\Controller\WechatController;
 use Think\Exception;
+use Think\Log;
 
 /**
  * 首页
