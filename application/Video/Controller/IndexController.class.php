@@ -409,8 +409,10 @@ class IndexController extends WechatController {
 
         $smeta = json_decode($video['smeta'], true);
 
-        if(strpos($smeta['thumb'], 'http') !== 0){
+        if(strpos($smeta['thumb'], 'http') !== 0){echo 'a';
             $smeta['thumb'] = '/data/upload/' . $smeta['thumb'];
+        } else {
+            echo 'b';
         }
 
         $recommend = array();
