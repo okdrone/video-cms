@@ -312,10 +312,7 @@ class IndexController extends WechatController {
         $smeta = json_decode($video['smeta'], true);
 
         if(strpos($smeta['thumb'], 'http') !== 0){
-            dump('a');
-            $smeta['thumb'] = '/data/upload/' . $smeta['thumb'];
-        } else {
-            dump('b');
+            $smeta['thumb'] = '/video-cms/data/upload/' . $smeta['thumb'];
         }
 
         $recommend = array();
@@ -417,10 +414,7 @@ class IndexController extends WechatController {
         $smeta = json_decode($video['smeta'], true);
 
         if(strpos($smeta['thumb'], 'http') !== 0){
-            dump('a');
-            $smeta['thumb'] = '/data/upload/' . $smeta['thumb'];
-        } else {
-            dump('b');
+            $smeta['thumb'] = '/video-cms/data/upload/' . $smeta['thumb'];
         }
 
         $recommend = array();
