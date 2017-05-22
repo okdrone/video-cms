@@ -126,7 +126,7 @@
                         <tr>
                             <td>
                                 <div style="text-align: center;">
-                                    <input type="hidden" name="smeta[thumb]" id="thumb" value="">
+                                    <input type="hidden" name="smeta[thumb]" id="thumb" value="{$smeta.thumb|default=''}">
                                     <a href="javascript:upload_one_image('图片上传','#thumb');">
                                         <if condition="empty($smeta['thumb'])">
                                             <img src="__TMPL__Public/assets/images/default-thumbnail.png" id="thumb-preview" width="135" style="cursor: hand"/>
