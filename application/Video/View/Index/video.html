@@ -57,7 +57,7 @@
                     <div class="slide-item <eq name='video.id' value='vo.id'>active</eq>">
                         <div class="img">
                             <!--<a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">-->
-                            <a href="{:U('Video/Index/video', array('id'=>$vo.id), '')}">
+                            <a href="{:U('Video/Index/video', array('id'=>$vo.id))}">
                                 <eq name="vo.smeta.thumb" value="">
                                     <img src="/video-cms/public/images/no-image-box.png" />
                                     <else />
