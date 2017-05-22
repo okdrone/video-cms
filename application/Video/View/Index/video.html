@@ -56,7 +56,6 @@
                 <foreach name="recommend" item="vo">
                     <div class="slide-item <eq name='video.id' value='vo.id'>active</eq>">
                         <div class="img">
-                            <!--<a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">-->
                             <a href="{:U('Video/Index/video', 'id=')}{$vo.id}">
                                 <eq name="vo.smeta.thumb" value="">
                                     <img src="/video-cms/public/images/no-image-box.png" />
@@ -66,7 +65,7 @@
                             </a>
                             <eq name='video.id' value='vo.id'>播放中<else /><div class="tag">{$vo.video_time}</div></eq>
                         </div>
-                        <div class="title"><a href="/index.php?g=Video&m=Index&a=video&id={$vo.id}">{$vo.title}</a></div>
+                        <div class="title"><a href="{:U('Video/Index/video', 'id=')}{$vo.id}">{$vo.title}</a></div>
                     </div>
                 </foreach>
             </div>
