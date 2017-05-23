@@ -16,6 +16,7 @@ if(videoDom) {
         cover: $('#video_thumb').val(),// 视频地址
         autoplay: false,    //自动播放：否
         trackLog: false,
+        playsinline: true,
         width: "100%",       // 播放器宽度
         height: v_height      // 播放器高度
     });
