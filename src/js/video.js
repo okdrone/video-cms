@@ -3,11 +3,8 @@ var videoDom = document.getElementById("J_prismPlayer");
 if(videoDom) {
 
     var dpr = $('html').attr('data-dpr');
-    var v_height = '350px';
 
-    if (dpr !== undefined && dpr > 2) {
-        v_height = '525px';
-    }
+    var v_height = Math.round(document.documentElement.clientWidth * 9 / 16) + 'px';
 
     // 初始化播放器
     var player = new prismplayer({
