@@ -37,6 +37,24 @@ nav .right {
     border: 0;
 }
 
+.header {
+    @include height(90);
+    @include margin-top(0);
+    @include padding(27, 0);
+}
+
+.header .logo{
+    @include width(130);
+    @include height(36);
+    float: left;
+}
+
+.header .menu{
+    @include width(30);
+    @include height(36);
+    float: right;
+}
+
 .video {
     width: 100%;
 }

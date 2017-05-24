@@ -30,6 +30,21 @@ nav .right {
   background-size: 0.125rem 0.5625rem;
   border: 0; }
 
+.header {
+  height: 1.40625rem;
+  margin-top: 0rem;
+  padding: 0.42188rem 0rem; }
+
+.header .logo {
+  width: 2.03125rem;
+  height: 0.5625rem;
+  float: left; }
+
+.header .menu {
+  width: 0.46875rem;
+  height: 0.5625rem;
+  float: right; }
+
 .video {
   width: 100%; }
 

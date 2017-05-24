@@ -52,7 +52,7 @@ class IndexController extends WechatController {
         Log::write("Init openid:" . $this->_openid);
 
         // Just for test
-//        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
+        $this->_openid = 'otyIXt8PtLekJxF3eskU0GyNDTYI';
 //        $this->_openid = 'ok0umxE337MOwahme84mXJ5AnXF4';
     }
 
