@@ -283,30 +283,33 @@ class AdminVideoController extends AdminbaseController {
 		    array_push($ids, $v['id']);
         }
 
-        $userVideo = D("Portal/UserVideos");
+        if(count($ids) > 0) {
+            $userVideo = D("Portal/UserVideos");
 
-        $visitsData = $userVideo->visitsByIds($ids);
+            $visitsData = $userVideo->visitsByIds($ids);
 //        dump($visitsData);
 //        dump($userVideo->getLastSql());
 
-        $playData = $userVideo->playByIds($ids);
+            $playData = $userVideo->playByIds($ids);
 //        dump($playData);
 //        dump($userVideo->getLastSql());
 
-        foreach($posts as &$item){
-            $item['visits'] = 0;
-            $item['play'] = 0;
-            foreach($visitsData as $v){
-                if($item['id'] == $v['video_id']){
-                    $item['visits'] = $v['num'];
+            foreach ($posts as &$item) {
+                $item['visits'] = 0;
+                $item['play'] = 0;
+                foreach ($visitsData as $v) {
+                    if ($item['id'] == $v['video_id']) {
+                        $item['visits'] = $v['num'];
+                    }
+                }
+
+                foreach ($playData as $p) {
+                    if ($item['id'] == $p['video_id']) {
+                        $item['play'] = $p['num'];
+                    }
                 }
             }
 
-            foreach($playData as $p){
-                if($item['id'] == $p['video_id']){
-                    $item['play'] = $p['num'];
-                }
-            }
         }
 
 //        dump($posts);
@@ -337,7 +340,7 @@ class AdminVideoController extends AdminbaseController {
 	public function delete(){
 		if(isset($_GET['id'])){
 			$id = I("get.id",0,'intval');
-			if ($this->video_model->where(array('id'=>$id))->save(array('post_status'=>3)) !==false) {
+			if ($this->video_model->where(array('id'=>$id))->save(array('status'=>3)) !==false) {
 				$this->success("删除成功！");
 			} else {
 				$this->error("删除失败！");
@@ -347,7 +350,7 @@ class AdminVideoController extends AdminbaseController {
 		if(isset($_POST['ids'])){
 			$ids = I('post.ids/a');
 			
-			if ($this->video_model->where(array('id'=>array('in',$ids)))->save(array('post_status'=>3))!==false) {
+			if ($this->video_model->where(array('id'=>array('in',$ids)))->save(array('status'=>3))!==false) {
 				$this->success("删除成功！");
 			} else {
 				$this->error("删除失败！");
