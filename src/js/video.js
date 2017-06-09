@@ -115,7 +115,7 @@ $('#title_btn').on('click', function () {
     }
 });
 
-
+//complete_info();
 // ### Complete user info
 //if($('#cu').val() === '1'){
 function complete_info() {
@@ -150,6 +150,10 @@ function complete_info() {
                 }
                 if(phone === ''){
                     alert('请输入手机号码');
+                    return false;
+                }
+                if(!(/^1[3|4|5|8][0-9]{9}$/.test(phone))){
+                    alert('请输入正确手机号码');
                     return false;
                 }
 
