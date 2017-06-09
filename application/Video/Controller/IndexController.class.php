@@ -216,6 +216,7 @@ class IndexController extends WechatController {
         $userData['province'] = $userInfo['province'];
         $userData['city'] = $userInfo['city'];
         $userData['country'] = $userInfo['country'];
+        $userData['headimgurl'] = $userInfo['headimgurl'];
         //$userData['source'] = $userInfo['source'];
         $userData['create_time'] = date('Y-m-d H:i:s');
 
